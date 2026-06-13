@@ -77,74 +77,44 @@ This runs the full pipeline:
 
 A browser window opens during cloning (`headless: false`) so JavaScript and animations can finish loading.
 
-### Manual pipeline
-
-If you want to run steps individually:
-
-```bash
-# 1. Clone a page (URL + output file)
-node clone.js https://www.radnaabazar.com/en index.html
-node clone.js https://www.radnaabazar.com/en/personal personal.html 
-node clone.js https://www.radnaabazar.com/en/contact contact.html
-
-# 2. Download CSS, images, and icons referenced in HTML
-node fetch_assets.js index.html
-node fetch_assets.js personal.html
-node fetch_assets.js contact.html
-
-# 3. Download fonts and other assets referenced inside CSS files
-node fetch_css_assets.js
-
-# 4. Fix relative paths, navigation links, and remove scripts
-node fix_all.js
-
-# 5. Resolve Next.js image optimizer URLs to local files
-node fix_next_images.js
-
-# 6. Re-enable CSS animations that were hidden before hydration
-node fix_animations.js
-```
-
----
-
 ## Script reference
 
 ### Core scraping
 
-| Script | Purpose |
-|--------|---------|
-| `clone.js` | Uses Playwright to save fully rendered HTML from a URL |
-| `fetch_assets.js` | Downloads linked CSS, images, and icons from HTML |
-| `fetch_css_assets.js` | Downloads fonts and assets referenced in CSS |
-| `fix_all.js` | Converts absolute paths to relative, fixes nav links, removes scripts |
-| `fix_next_images.js` | Downloads images behind Next.js `/_next/image` URLs |
-| `fix_animations.js` | Adds fade-in and hero spin animations for static viewing |
-| `reprocess.js` | Runs clone + fix steps for all three pages |
+| Script                | Purpose                                                               |
+| --------------------- | --------------------------------------------------------------------- |
+| `clone.js`            | Uses Playwright to save fully rendered HTML from a URL                |
+| `fetch_assets.js`     | Downloads linked CSS, images, and icons from HTML                     |
+| `fetch_css_assets.js` | Downloads fonts and assets referenced in CSS                          |
+| `fix_all.js`          | Converts absolute paths to relative, fixes nav links, removes scripts |
+| `fix_next_images.js`  | Downloads images behind Next.js `/_next/image` URLs                   |
+| `fix_animations.js`   | Adds fade-in and hero spin animations for static viewing              |
+| `reprocess.js`        | Runs clone + fix steps for all three pages                            |
 
 ### Content and layout tweaks
 
-| Script | Purpose |
-|--------|---------|
-| `update_texts.js` / `update_texts_2.js` | Replace text content in HTML |
-| `update_edu.js` / `extract_edu.js` / `extract_edu_grid.js` | Education section updates |
-| `align.js` / `fix_align.js` / `fix_align_parent.js` / `fix_overlap.js` | Hero and layout alignment fixes |
-| `scale_hero.js` / `refine_hero.js` | Hero section sizing and styling |
-| `add_glow.js` / `update_glow.js` | Glow and hover effects on cards |
-| `add_themes.js` / `add_white.js` / `add_text_shadow.js` | Theme and typography tweaks |
-| `add_cyberpunk.js` / `enhance_cyberpunk.js` | Cyberpunk-style visual effects |
-| `add_animation.js` | Additional animation helpers |
-| `update_favicon.js` / `replace_favicon.js` | Favicon updates |
-| `remove_overlays.js` | Remove overlay elements from HTML |
+| Script                                                                 | Purpose                           |
+| ---------------------------------------------------------------------- | --------------------------------- |
+| `update_texts.js` / `update_texts_2.js`                                | Replace text content in HTML      |
+| `update_edu.js` / `extract_edu.js` / `extract_edu_grid.js`             | Education section updates         |
+| `align.js` / `fix_align.js` / `fix_align_parent.js` / `fix_overlap.js` | Hero and layout alignment fixes   |
+| `scale_hero.js` / `refine_hero.js`                                     | Hero section sizing and styling   |
+| `add_glow.js` / `update_glow.js`                                       | Glow and hover effects on cards   |
+| `add_themes.js` / `add_white.js` / `add_text_shadow.js`                | Theme and typography tweaks       |
+| `add_cyberpunk.js` / `enhance_cyberpunk.js`                            | Cyberpunk-style visual effects    |
+| `add_animation.js`                                                     | Additional animation helpers      |
+| `update_favicon.js` / `replace_favicon.js`                             | Favicon updates                   |
+| `remove_overlays.js`                                                   | Remove overlay elements from HTML |
 
 ### Utilities
 
-| Script | Purpose |
-|--------|---------|
-| `strip_scripts.js` | Remove script tags from `index.html` only |
-| `fix_paths.js` | Fix absolute paths in `index.html` only |
-| `inspect.js` | Print CSS classes and hex colors found in HTML |
-| `find_sections.js` | Inspect page section structure |
-| `debug_html.js` | Dump a snippet of HTML for debugging |
+| Script             | Purpose                                        |
+| ------------------ | ---------------------------------------------- |
+| `strip_scripts.js` | Remove script tags from `index.html` only      |
+| `fix_paths.js`     | Fix absolute paths in `index.html` only        |
+| `inspect.js`       | Print CSS classes and hex colors found in HTML |
+| `find_sections.js` | Inspect page section structure                 |
+| `debug_html.js`    | Dump a snippet of HTML for debugging           |
 
 ---
 

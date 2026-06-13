@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Mode | Bhavani Krupakara S</title>
+    
+    <!-- Google Fonts: Rajdhani & Share Tech Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            yellow: '#fcee0a',
+                            black: '#0a0a0a',
+                            red: '#ff003c',
+                            cyan: '#00ff99',
+                            dark: '#111111'
+                        }
+                    },
+                    fontFamily: {
+                        cyber: ['Rajdhani', 'sans-serif'],
+                        mono: ['"Share Tech Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Cyberpunk Glitch Effect */
+        .glitch-wrapper {
+            position: relative;
+        }
+        .glitch {
+            position: relative;
+            color: #0a0a0a;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fcee0a;
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff003c;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00ff99;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(22px, 9999px, 86px, 0); }
+            20% { clip: rect(61px, 9999px, 13px, 0); }
+            40% { clip: rect(18px, 9999px, 34px, 0); }
+            60% { clip: rect(76px, 9999px, 84px, 0); }
+            80% { clip: rect(43px, 9999px, 11px, 0); }
+            100% { clip: rect(98px, 9999px, 66px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(12px, 9999px, 96px, 0); }
+            20% { clip: rect(81px, 9999px, 33px, 0); }
+            40% { clip: rect(38px, 9999px, 14px, 0); }
+            60% { clip: rect(56px, 9999px, 44px, 0); }
+            80% { clip: rect(13px, 9999px, 71px, 0); }
+            100% { clip: rect(88px, 9999px, 26px, 0); }
+        }
+
+        /* Diagonal clipped button */
+        .cyber-button {
+            position: relative;
+            background: #fcee0a;
+            color: #0a0a0a;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 1rem 3rem;
+            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.1em;
+            border: none;
+            cursor: pointer;
+        }
+        .cyber-button:hover {
+            background: #ff003c;
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.5);
+        }
+        
+        .cyber-button-cyan {
+            background: transparent;
+            color: #00ff99;
+            border: 2px solid #00ff99;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+        }
+        .cyber-button-cyan:hover {
+            background: #00ff99;
+            color: #0a0a0a;
+        }
+
+        /* Decorative accents */
+        .accent-bar {
+            background: #00ff99;
+            height: 4px;
+            width: 100%;
+            position: relative;
+        }
+        .accent-bar::after {
+            content: '/// .MODULE_HIGHLIGHT';
+            position: absolute;
+            right: 10px;
+            bottom: 6px;
+            color: #00ff99;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Grid background */
+        .bg-grid {
+            background-image: 
+                linear-gradient(rgba(0, 255, 153, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 153, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center;
+        }
+
+        /* Hero Image overlay */
+        .hero-overlay {
+            background: linear-gradient(0deg, #0a0a0a 0%, rgba(10,10,10,0.4) 50%, #fcee0a 100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Top Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-cyber-black/80 backdrop-blur-md border-b border-cyber-cyan/30">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-cyber-yellow font-bold text-2xl tracking-widest font-mono">
+                KRUPAKARA<span class="text-cyber-red">_</span>
+            </div>
+            <div class="hidden md:flex gap-8 font-semibold uppercase tracking-wider">
+                <a href="#about" class="text-white hover:text-cyber-yellow transition-colors">About</a>
+                <a href="#experience" class="text-white hover:text-cyber-yellow transition-colors">Experience</a>
+                <a href="#projects" class="text-white hover:text-cyber-yellow transition-colors">Projects</a>
+                <a href="./index.html" class="text-cyber-cyan hover:text-white transition-colors">Exit Mode</a>
+            </div>
+        </div>
+        <div class="h-[2px] w-full bg-cyber-red/50"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen bg-cyber-yellow flex items-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <!-- Simulated background texture -->
+            <div class="w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="pt-10">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-cyber-black font-mono font-bold tracking-widest border border-cyber-black px-2 py-1 text-sm">v2.0.77</span>
+                    <span class="text-cyber-red font-mono font-bold tracking-widest">/// UPLINK ESTABLISHED</span>
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl font-black text-cyber-black leading-none mb-4 uppercase glitch-wrapper">
+                    <span class="glitch" data-text="BHAVANI KRUPAKARA">BHAVANI KRUPAKARA</span>
+                </h1>
+                
+                <h2 class="text-2xl md:text-4xl font-bold text-cyber-black uppercase mb-8 tracking-wide">
+                    IT Specialist & Full-Stack Developer
+                </h2>
+                
+                <p class="text-lg md:text-xl text-cyber-black/80 font-mono mb-10 max-w-xl">
+                    Pragmatic, delivery-oriented developer based in India. Specializing in Fintech, Cloud platforms, and high-performance backend systems.
+                </p>
+                
+                <div class="flex flex-wrap gap-6">
+                    <a href="#contact" class="cyber-button text-lg">
+                        INITIATE CONTACT
+                    </a>
+                    <a href="#projects" class="cyber-button cyber-button-cyan text-lg !text-cyber-black !border-cyber-black hover:!text-cyber-cyan hover:!bg-cyber-black">
+                        VIEW PROJECTS
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hidden lg:block relative h-[600px]">
+                <!-- Abstract visual element since we don't have a direct character image -->
+                <div class="absolute inset-0 bg-cyber-black clip-path-polygon" style="clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 25%);">
+                    <div class="absolute inset-1 bg-cyber-yellow clip-path-polygon flex items-center justify-center p-8 text-center" style="clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 25%);">
+                        <div class="font-mono text-cyber-black text-4xl font-black opacity-30 leading-tight">
+                            SYSTEM_OVERRIDE <br>
+                            ACCESS_GRANTED <br>
+                            CODE_EXECUTION <br>
+                            0xFF4A90
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-cyber-cyan/50 blur-[100px] rounded-full pointer-events-none"></div>
+                <div class="absolute -top-10 -left-10 w-64 h-64 bg-cyber-red/50 blur-[100px] rounded-full pointer-events-none"></div>
+            </div>
+        </div>
+        
+        <!-- Bottom Transition -->
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-cyber-black to-transparent"></div>
+    </section>
+
+    <div class="accent-bar"></div>
+
+    <!-- Experience & About Section -->
+    <section id="experience" class="py-24 bg-cyber-black bg-grid relative z-10 border-b border-cyber-cyan/20">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <h3 class="text-4xl font-bold text-cyber-yellow mb-2 uppercase">/// EXPERIENCE_LOG</h3>
+            <div class="w-24 h-1 bg-cyber-red mb-12"></div>
+            
+            <div class="space-y-12">
+                <!-- Experience Item 1 -->
+                <div class="relative pl-8 border-l-2 border-cyber-cyan/30">
+                    <div class="absolute w-4 h-4 bg-cyber-cyan left-[-9px] top-2 rounded-sm shadow-[0_0_10px_#00ff99]"></div>
+                    <h4 class="text-3xl font-bold text-white uppercase">Software Developer</h4>
+                    <p class="text-cyber-cyan font-mono text-lg mb-4">Tech Cloud | India</p>
+                    <p class="text-gray-400 font-mono">
+                        Worked with live balances (National Stock Exchange). Highly motivated backend developer utilizing Go, Node.js, Next.js, and PostgreSQL to deliver robust and scalable software solutions. Proven track record of improving overall efficiency.
+                    </p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-cyber-dark border border-cyber-cyan/50 text-cyber-cyan text-xs font-mono">GO</span>
+                        <span class="px-2 py-1 bg-cyber-dark border border-cyber-cyan/50 text-cyber-cyan text-xs font-mono">NODE.JS</span>
+                        <span class="px-2 py-1 bg-cyber-dark border border-cyber-cyan/50 text-cyber-cyan text-xs font-mono">POSTGRESQL</span>
+                        <span class="px-2 py-1 bg-cyber-dark border border-cyber-cyan/50 text-cyber-cyan text-xs font-mono">MICROSERVICES</span>
+                    </div>
+                </div>
+
+                <!-- Experience Item 2 -->
+                <div class="relative pl-8 border-l-2 border-cyber-cyan/30">
+                    <div class="absolute w-4 h-4 bg-cyber-cyan left-[-9px] top-2 rounded-sm"></div>
+                    <h4 class="text-3xl font-bold text-white uppercase">BSc Student & Developer</h4>
+                    <p class="text-cyber-cyan font-mono text-lg mb-4">National University & Global Securities Company</p>
+                    <p class="text-gray-400 font-mono">
+                        Joined Global Securities Company, a financial institution with over 1 million clients, as an IT professional. Dedicated to academic excellence and practical application.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-cyber-dark relative z-10 border-b border-cyber-cyan/20">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h3 class="text-4xl font-bold text-cyber-yellow mb-2 uppercase">/// DATA_ARCHIVES</h3>
+            <div class="w-24 h-1 bg-cyber-cyan mb-12"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card -->
+                <div class="bg-cyber-black border border-cyber-red/30 p-6 hover:border-cyber-red transition-colors group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-2xl font-bold text-white group-hover:text-cyber-red transition-colors">Cloud Platform</h4>
+                        <span class="text-cyber-red font-mono">01</span>
+                    </div>
+                    <p class="text-gray-400 font-mono text-sm mb-6">
+                        Scalable cloud infrastructure developed with microservices architecture to handle large volume transactions.
+                    </p>
+                    <a href="#" class="text-cyber-yellow font-mono text-sm hover:underline uppercase flex items-center gap-2">
+                        ACCESS_FILE 
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+
+                <!-- Project Card -->
+                <div class="bg-cyber-black border border-cyber-cyan/30 p-6 hover:border-cyber-cyan transition-colors group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-2xl font-bold text-white group-hover:text-cyber-cyan transition-colors">National Stock Exchange</h4>
+                        <span class="text-cyber-cyan font-mono">02</span>
+                    </div>
+                    <p class="text-gray-400 font-mono text-sm mb-6">
+                        Live balance tracking and high-frequency trading backend integration.
+                    </p>
+                    <a href="#" class="text-cyber-cyan font-mono text-sm hover:underline uppercase flex items-center gap-2">
+                        ACCESS_FILE 
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+
+                <!-- Project Card -->
+                <div class="bg-cyber-black border border-cyber-yellow/30 p-6 hover:border-cyber-yellow transition-colors group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-2xl font-bold text-white group-hover:text-cyber-yellow transition-colors">AI Agents Microservices</h4>
+                        <span class="text-cyber-yellow font-mono">03</span>
+                    </div>
+                    <p class="text-gray-400 font-mono text-sm mb-6">
+                        Research thesis on multi-agent architectures utilizing Go and generative models.
+                    </p>
+                    <a href="https://github.com/bks717/ai-agents-microservices-thesis" target="_blank" class="text-cyber-yellow font-mono text-sm hover:underline uppercase flex items-center gap-2">
+                        GITHUB_LINK 
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="accent-bar" style="background: #ff003c;"></div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-cyber-black relative z-10">
+        <div class="container mx-auto px-6 max-w-4xl text-center">
+            <h3 class="text-5xl font-bold text-white mb-6 uppercase glitch-wrapper">
+                <span class="glitch text-white before:bg-cyber-black after:bg-cyber-black" data-text="TRANSMIT_SIGNAL">TRANSMIT_SIGNAL</span>
+            </h3>
+            <p class="text-gray-400 font-mono text-lg mb-10">
+                Ready to collaborate? Ping my subnets and I'll decrypt your message.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-6 mb-12">
+                <a href="mailto:bhavanikrupakara@gmail.com" class="cyber-button !bg-transparent border-2 border-cyber-yellow !text-cyber-yellow hover:!bg-cyber-yellow hover:!text-cyber-black">
+                    EMAIL_PROTOCOL
+                </a>
+                <a href="https://github.com/bks717" target="_blank" class="cyber-button-cyan !px-8 !py-4 uppercase font-bold tracking-widest text-lg flex items-center gap-2">
+                    GITHUB_REPO
+                </a>
+            </div>
+            
+            <div class="flex justify-center gap-8 mt-16 font-mono text-sm text-cyber-cyan">
+                <a href="https://www.linkedin.com/in/bhavanikrupa/" class="hover:text-white hover:underline transition-colors">LINKEDIN</a>
+                <span>//</span>
+                <a href="https://www.youtube.com/@krupaintros3719" class="hover:text-white hover:underline transition-colors">YOUTUBE</a>
+                <span>//</span>
+                <a href="https://www.instagram.com/krupakarabhavani/" class="hover:text-white hover:underline transition-colors">INSTAGRAM</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 bg-cyber-dark border-t border-cyber-red/20 text-center">
+        <p class="font-mono text-cyber-red/60 text-sm">
+            © 2026 BHAVANI KRUPAKARA S. /// ALL SYSTEMS NOMINAL.
+        </p>
+    </footer>
+
+</body>
+</html>

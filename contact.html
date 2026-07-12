@@ -14,8 +14,249 @@
     animation: fadeInUp 0.8s ease-out forwards;
 }
 </style>
-<style> html { font-size: 125%; } </style></head><body class="__variable_c5dbd7"><style>#nprogress{pointer-events:none}#nprogress .bar{background:#00ff99;position:fixed;z-index:1600;top: 0;left:0;width:100%;height:3px}#nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;box-shadow:0 0 10px #00ff99,0 0 5px #00ff99;opacity:1;-webkit-transform:rotate(3deg) translate(0px,-4px);-ms-transform:rotate(3deg) translate(0px,-4px);transform:rotate(3deg) translate(0px,-4px)}#nprogress .spinner{display:block;position:fixed;z-index:1600;top: 15px;right:15px}#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:2px solid transparent;border-top-color:#00ff99;border-left-color:#00ff99;border-radius:50%;-webkit-animation:nprogress-spinner 400ms linear infinite;animation:nprogress-spinner 400ms linear infinite}.nprogress-custom-parent{overflow:hidden;position:relative}.nprogress-custom-parent #nprogress .bar,.nprogress-custom-parent #nprogress .spinner{position:absolute}@-webkit-keyframes nprogress-spinner{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes nprogress-spinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style><div hidden=""></div><style>#nprogress{pointer-events:none}#nprogress .bar{background:#00ff99;position:fixed;z-index:1600;top: 0;left:0;width:100%;height:3px}#nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;box-shadow:0 0 10px #00ff99,0 0 5px #00ff99;opacity:1;-webkit-transform:rotate(3deg) translate(0px,-4px);-ms-transform:rotate(3deg) translate(0px,-4px);transform:rotate(3deg) translate(0px,-4px)}#nprogress .spinner{display:block;position:fixed;z-index:1600;top: 15px;right:15px}#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:2px solid transparent;border-top-color:#00ff99;border-left-color:#00ff99;border-radius:50%;-webkit-animation:nprogress-spinner 400ms linear infinite;animation:nprogress-spinner 400ms linear infinite}.nprogress-custom-parent{overflow:hidden;position:relative}.nprogress-custom-parent #nprogress .bar,.nprogress-custom-parent #nprogress .spinner{position:absolute}@-webkit-keyframes nprogress-spinner{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes nprogress-spinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style><div class=""><header class="py-8 xl:py-12 text-white">
-    <div class="container mx-auto px-4 md:px-0">
+<style>
+  /* Themes Accent overrides */
+  body[data-theme="cyan"] {
+      --theme-accent: #00e5ff;
+      --theme-accent-rgb: 0, 229, 255;
+  }
+  body[data-theme="cyan"] .text-accent { color: var(--theme-accent) !important; }
+  body[data-theme="cyan"] .bg-accent { background-color: var(--theme-accent) !important; }
+  body[data-theme="cyan"] .border-accent { border-color: var(--theme-accent) !important; }
+  body[data-theme="cyan"] .shadow-accent { box-shadow: 0 0 10px var(--theme-accent) !important; }
+  body[data-theme="cyan"] svg circle[stroke="#00ff99"] { stroke: var(--theme-accent) !important; }
+  body[data-theme="cyan"] .bg-\[\#00ff99\] { background-color: var(--theme-accent) !important; }
+  body[data-theme="cyan"] .shadow-\[0_0_10px_\#00ff99\] { box-shadow: 0 0 10px var(--theme-accent) !important; }
+
+  body[data-theme="pink"] {
+      --theme-accent: #ff00e5;
+      --theme-accent-rgb: 255, 0, 229;
+  }
+  body[data-theme="pink"] .text-accent { color: var(--theme-accent) !important; }
+  body[data-theme="pink"] .bg-accent { background-color: var(--theme-accent) !important; }
+  body[data-theme="pink"] .border-accent { border-color: var(--theme-accent) !important; }
+  body[data-theme="pink"] .shadow-accent { box-shadow: 0 0 10px var(--theme-accent) !important; }
+  body[data-theme="pink"] svg circle[stroke="#00ff99"] { stroke: var(--theme-accent) !important; }
+  body[data-theme="pink"] .bg-\[\#00ff99\] { background-color: var(--theme-accent) !important; }
+  body[data-theme="pink"] .shadow-\[0_0_10px_\#00ff99\] { box-shadow: 0 0 10px var(--theme-accent) !important; }
+
+  body[data-theme="white"] {
+      --theme-accent: #ffffff;
+      --theme-accent-rgb: 255, 255, 255;
+  }
+  body[data-theme="white"] .text-accent { color: var(--theme-accent) !important; }
+  body[data-theme="white"] .bg-accent { background-color: var(--theme-accent) !important; }
+  body[data-theme="white"] .border-accent { border-color: var(--theme-accent) !important; }
+  body[data-theme="white"] .shadow-accent { box-shadow: 0 0 10px var(--theme-accent) !important; }
+  body[data-theme="white"] svg circle[stroke="#00ff99"] { stroke: var(--theme-accent) !important; }
+  body[data-theme="white"] .bg-\[\#00ff99\] { background-color: var(--theme-accent) !important; }
+  body[data-theme="white"] .shadow-\[0_0_10px_\#00ff99\] { box-shadow: 0 0 10px var(--theme-accent) !important; }
+</style>
+<script>
+  // Load saved theme on startup
+  const savedTheme = localStorage.getItem('preferred-theme') || 'default';
+  if (savedTheme !== 'default' && savedTheme !== 'gray' && savedTheme !== 'darkgray' && savedTheme !== 'black') {
+      document.body.setAttribute('data-theme', savedTheme);
+  }
+</script>
+<style> html { font-size: 125%; } </style>
+
+<style id="loading-screen-css">
+/* HTML Loading Screen styles */
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  background: #030014;
+  z-index: 9999999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s ease;
+  opacity: 1;
+  visibility: visible;
+  font-family: system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+#loading-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Background Glowing Aura */
+#loading-screen::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(var(--theme-accent-rgb, 0, 255, 153), 0.15) 0%, transparent 70%);
+  filter: blur(50px);
+  animation: aura-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes aura-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1.2; }
+}
+
+/* Logo container */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Futuristic Logo Text */
+.loader-logo {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  animation: logo-glow 3s ease-in-out infinite alternate;
+  display: flex;
+  align-items: baseline;
+}
+
+.loader-logo .dot {
+  color: var(--theme-accent, #00ff99);
+  text-shadow: 0 0 15px var(--theme-accent, #00ff99);
+  animation: dot-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes logo-glow {
+  from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
+  to { text-shadow: 0 0 35px rgba(255, 255, 255, 0.25), 0 0 10px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.1); }
+}
+
+@keyframes dot-pulse {
+  from { opacity: 0.4; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.2); }
+}
+
+/* Sleek Progress Bar */
+.progress-bar-wrapper {
+  width: min(280px, 80vw);
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, transparent, var(--theme-accent, #00ff99));
+  box-shadow: 0 0 12px var(--theme-accent, #00ff99);
+  border-radius: 10px;
+  animation: fill-progress 4.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes fill-progress {
+  0% { width: 0%; }
+  10% { width: 12%; }
+  30% { width: 38%; }
+  60% { width: 68%; }
+  85% { width: 88%; }
+  100% { width: 100%; }
+}
+
+/* Loading indicators on bottom left */
+.loader-info-wrapper {
+  position: absolute;
+  left: 5vw;
+  bottom: 5vh;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 10000000;
+  font-family: system-ui, sans-serif;
+}
+
+.loader-subtitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.loader-status-text {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--theme-accent, #00ff99);
+  animation: text-blink 1.5s infinite ease-in-out;
+}
+
+@keyframes text-blink {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+</style>
+</head><body class="__variable_c5dbd7">
+
+<!-- Loading Screen overlay -->
+<div id="loading-screen" style="z-index: 9999999;">
+  <!-- Logo and Progress bar in the center -->
+  <div class="loader-container">
+    <div class="loader-logo">
+      Krupakara<span class="dot">.</span>
+    </div>
+    <div class="progress-bar-wrapper">
+      <div class="progress-bar-fill"></div>
+    </div>
+  </div>
+  
+  <!-- Subtitle and loading label on the far left bottom -->
+  <div class="loader-info-wrapper">
+    <div class="loader-subtitle">Loading Portfolio</div>
+    <div class="loader-status-text">Initializing...</div>
+  </div>
+</div>
+<script>
+  (function() {
+    const startTime = Date.now();
+    const hideLoader = () => {
+      const loader = document.getElementById('loading-screen');
+      if (loader) {
+        // Keep the loader active for at least 4.5 seconds
+        const elapsed = Date.now() - startTime;
+        const delay = Math.max(0, 4500 - elapsed);
+        setTimeout(() => {
+          loader.classList.add('fade-out');
+          setTimeout(() => {
+            loader.remove();
+          }, 800);
+        }, delay);
+      }
+    };
+    if (document.readyState === 'complete') {
+      hideLoader();
+    } else {
+      window.addEventListener('load', hideLoader);
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+<style>#nprogress{pointer-events:none}#nprogress .bar{background:#00ff99;position:fixed;z-index:1600;top: 0;left:0;width:100%;height:3px}#nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;box-shadow:0 0 10px #00ff99,0 0 5px #00ff99;opacity:1;-webkit-transform:rotate(3deg) translate(0px,-4px);-ms-transform:rotate(3deg) translate(0px,-4px);transform:rotate(3deg) translate(0px,-4px)}#nprogress .spinner{display:block;position:fixed;z-index:1600;top: 15px;right:15px}#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:2px solid transparent;border-top-color:#00ff99;border-left-color:#00ff99;border-radius:50%;-webkit-animation:nprogress-spinner 400ms linear infinite;animation:nprogress-spinner 400ms linear infinite}.nprogress-custom-parent{overflow:hidden;position:relative}.nprogress-custom-parent #nprogress .bar,.nprogress-custom-parent #nprogress .spinner{position:absolute}@-webkit-keyframes nprogress-spinner{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes nprogress-spinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style><div hidden=""></div><style>#nprogress{pointer-events:none}#nprogress .bar{background:#00ff99;position:fixed;z-index:1600;top: 0;left:0;width:100%;height:3px}#nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;box-shadow:0 0 10px #00ff99,0 0 5px #00ff99;opacity:1;-webkit-transform:rotate(3deg) translate(0px,-4px);-ms-transform:rotate(3deg) translate(0px,-4px);transform:rotate(3deg) translate(0px,-4px)}#nprogress .spinner{display:block;position:fixed;z-index:1600;top: 15px;right:15px}#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:2px solid transparent;border-top-color:#00ff99;border-left-color:#00ff99;border-radius:50%;-webkit-animation:nprogress-spinner 400ms linear infinite;animation:nprogress-spinner 400ms linear infinite}.nprogress-custom-parent{overflow:hidden;position:relative}.nprogress-custom-parent #nprogress .bar,.nprogress-custom-parent #nprogress .spinner{position:absolute}@-webkit-keyframes nprogress-spinner{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes nprogress-spinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style><div class=""><header class="py-8 xl:py-12 text-white">
+    <div class="max-w-6xl mx-auto px-6 md:px-12 xl:px-16">
         <a href="./index.html" class="inline-block">
             <h1 class="text-4xl font-semibold ">Krupakara <span class="text-accent">.</span></h1>
         </a>
@@ -35,7 +276,7 @@
     </a>
         
         </div>
-</div>iv></div><div></div><div class="overflow-hidden"><div class="  max-w-full overflow-hidden pointer-events-none absolute inset-0 h-full w-full" style="opacity: 1;"><div class="absolute top-0 left-0 w-screen h-screen z-40 pointer-events-none" style="transform: translateX(0.232055px);"><div class="absolute top-0 left-0" style="transform: translateY(-350px) rotate(-45deg); background: radial-gradient(68.54% 68.72% at 55.02% 31.46%, rgba(179, 217, 255, 0.08) 0px, rgba(26, 140, 255, 0.02) 50%, rgba(0, 115, 230, 0) 80%); width: 560px; height: 1380px;"></div><div class="absolute top-0 left-0 origin-top-left" style="transform: rotate(-45deg) translate(5%, -50%); background: radial-gradient(50% 50%, rgba(179, 217, 255, 0.06) 0px, rgba(26, 140, 255, 0.02) 80%, transparent 100%); width: 240px; height: 1380px;"></div><div class="absolute top-0 left-0 origin-top-left" style="transform: rotate(-45deg) translate(-180%, -70%); background: radial-gradient(50% 50%, rgba(179, 217, 255, 0.04) 0px, rgba(0, 115, 230, 0.02) 80%, transparent 100%); width: 240px; height: 1380px;"></div></div><div class="absolute top-0 right-0 w-screen h-screen z-40 pointer-events-none" style="transform: translateX(-0.232055px);"><div class="absolute top-0 right-0" style="transform: translateY(-350px) rotate(45deg); background: radial-gradient(68.54% 68.72% at 55.02% 31.46%, rgba(179, 217, 255, 0.08) 0px, rgba(26, 140, 255, 0.02) 50%, rgba(0, 115, 230, 0) 80%); width: 560px; height: 1380px;"></div><div class="absolute top-0 right-0 origin-top-right" style="transform: rotate(45deg) translate(-5%, -50%); background: radial-gradient(50% 50%, rgba(179, 217, 255, 0.06) 0px, rgba(26, 140, 255, 0.02) 80%, transparent 100%); width: 240px; height: 1380px;"></div><div class="absolute top-0 right-0 origin-top-right" style="transform: rotate(45deg) translate(180%, -70%); background: radial-gradient(50% 50%, rgba(179, 217, 255, 0.04) 0px, rgba(0, 115, 230, 0.02) 80%, transparent 100%); width: 240px; height: 1380px;"></div></div></div><div class="bg-black-100 flex justify-center items-center flex-col w-full"><div class="w-full max-w-7xl mx-auto"><div class="max-w-3xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-primary "><h2 class="font-bold text-xl text-neutral-200">Get in Touch</h2><form class="my-8"><div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4"><div class="flex flex-col space-y-2 w-full"><label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white/90" for="firstname">Name</label><div class="p-[2px] rounded-lg transition duration-300 group/input" style="background: radial-gradient(
+</div></div><div></div><div class="overflow-hidden"><div class="  max-w-full overflow-hidden pointer-events-none absolute inset-0 h-full w-full" style="opacity: 1;"><div class="absolute top-0 left-0 w-screen h-screen z-40 pointer-events-none" style="transform: translateX(0.232055px);"><div class="absolute top-0 left-0" style="transform: translateY(-350px) rotate(-45deg); background: radial-gradient(68.54% 68.72% at 55.02% 31.46%, rgba(179, 217, 255, 0.08) 0px, rgba(26, 140, 255, 0.02) 50%, rgba(0, 115, 230, 0) 80%); width: 560px; height: 1380px;"></div><div class="absolute top-0 left-0 origin-top-left" style="transform: rotate(-45deg) translate(5%, -50%); background: radial-gradient(50% 50%, rgba(179, 217, 255, 0.06) 0px, rgba(26, 140, 255, 0.02) 80%, transparent 100%); width: 240px; height: 1380px;"></div><div class="absolute top-0 left-0 origin-top-left" style="transform: rotate(-45deg) translate(-180%, -70%); background: radial-gradient(50% 50%, rgba(179, 217, 255, 0.04) 0px, rgba(0, 115, 230, 0.02) 80%, transparent 100%); width: 240px; height: 1380px;"></div></div><div class="absolute top-0 right-0 w-screen h-screen z-40 pointer-events-none" style="transform: translateX(-0.232055px);"><div class="absolute top-0 right-0" style="transform: translateY(-350px) rotate(45deg); background: radial-gradient(68.54% 68.72% at 55.02% 31.46%, rgba(179, 217, 255, 0.08) 0px, rgba(26, 140, 255, 0.02) 50%, rgba(0, 115, 230, 0) 80%); width: 560px; height: 1380px;"></div><div class="absolute top-0 right-0 origin-top-right" style="transform: rotate(45deg) translate(-5%, -50%); background: radial-gradient(50% 50%, rgba(179, 217, 255, 0.06) 0px, rgba(26, 140, 255, 0.02) 80%, transparent 100%); width: 240px; height: 1380px;"></div><div class="absolute top-0 right-0 origin-top-right" style="transform: rotate(45deg) translate(180%, -70%); background: radial-gradient(50% 50%, rgba(179, 217, 255, 0.04) 0px, rgba(0, 115, 230, 0.02) 80%, transparent 100%); width: 240px; height: 1380px;"></div></div></div><div class="bg-black-100 flex justify-center items-center flex-col w-full"><div class="w-full max-w-7xl mx-auto"><div class="max-w-3xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-primary "><h2 class="font-bold text-xl text-neutral-200">Get in Touch</h2><form class="my-8"><div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4"><div class="flex flex-col space-y-2 w-full"><label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white/90" for="firstname">Name</label><div class="p-[2px] rounded-lg transition duration-300 group/input" style="background: radial-gradient(
           0px circle at 0px 0px,
           var(--blue-500),
           transparent 80%

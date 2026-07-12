@@ -65,6 +65,29 @@
         .stagger-animate {
             animation: fadeInUp 0.8s ease-out forwards;
         }
+
+        .hero-img-box {
+            width: 378px !important;
+            height: 378px !important;
+        }
+        .hero-svg-box {
+            width: 386px !important;
+            height: 386px !important;
+        }
+        @media (min-width: 1280px) {
+            .hero-img-box {
+                width: 488px !important;
+                height: 488px !important;
+            }
+            .hero-svg-box {
+                width: 496px !important;
+                height: 496px !important;
+            }
+            .hero-image-wrapper {
+                margin-right: 91px !important;
+                transform: translateY(-50px) !important;
+            }
+        }
     
     /* White Theme Overrides */
     body[data-theme="white"] {
@@ -254,10 +277,206 @@
     body[data-theme="pink"] meta[name="theme-color"] { content: "#ff00e5"; }
 </style>
 
+
+
+<style id="loading-screen-css">
+/* HTML Loading Screen styles */
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  background: #030014;
+  z-index: 9999999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s ease;
+  opacity: 1;
+  visibility: visible;
+  font-family: system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+#loading-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Background Glowing Aura */
+#loading-screen::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(var(--theme-accent-rgb, 0, 255, 153), 0.15) 0%, transparent 70%);
+  filter: blur(50px);
+  animation: aura-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes aura-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1.2; }
+}
+
+/* Logo container */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Futuristic Logo Text */
+.loader-logo {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  animation: logo-glow 3s ease-in-out infinite alternate;
+  display: flex;
+  align-items: baseline;
+}
+
+.loader-logo .dot {
+  color: var(--theme-accent, #00ff99);
+  text-shadow: 0 0 15px var(--theme-accent, #00ff99);
+  animation: dot-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes logo-glow {
+  from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
+  to { text-shadow: 0 0 35px rgba(255, 255, 255, 0.25), 0 0 10px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.1); }
+}
+
+@keyframes dot-pulse {
+  from { opacity: 0.4; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.2); }
+}
+
+/* Sleek Progress Bar */
+.progress-bar-wrapper {
+  width: min(280px, 80vw);
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, transparent, var(--theme-accent, #00ff99));
+  box-shadow: 0 0 12px var(--theme-accent, #00ff99);
+  border-radius: 10px;
+  animation: fill-progress 4.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes fill-progress {
+  0% { width: 0%; }
+  10% { width: 12%; }
+  30% { width: 38%; }
+  60% { width: 68%; }
+  85% { width: 88%; }
+  100% { width: 100%; }
+}
+
+/* Loading indicators on bottom left */
+.loader-info-wrapper {
+  position: absolute;
+  left: 5vw;
+  bottom: 5vh;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 10000000;
+  font-family: system-ui, sans-serif;
+}
+
+.loader-subtitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.loader-status-text {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--theme-accent, #00ff99);
+  animation: text-blink 1.5s infinite ease-in-out;
+}
+
+@keyframes text-blink {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+</style>
 </head>
 
 <body class="__variable_c5dbd7"
     style="--gradient-background-start: rgb(108, 0, 162); --gradient-background-end: rgb(0, 17, 82); --first-color: 18, 113, 255; --second-color: 221, 74, 255; --third-color: 100, 220, 255; --fourth-color: 200, 50, 50; --fifth-color: 180, 180, 50; --pointer-color: 140, 100, 255; --size: 80%; --blending-value: hard-light;">
+
+<!-- Loading Screen overlay -->
+<div id="loading-screen" style="z-index: 9999999;">
+  <!-- Logo and Progress bar in the center -->
+  <div class="loader-container">
+    <div class="loader-logo">
+      Krupakara<span class="dot">.</span>
+    </div>
+    <div class="progress-bar-wrapper">
+      <div class="progress-bar-fill"></div>
+    </div>
+  </div>
+  
+  <!-- Subtitle and loading label on the far left bottom -->
+  <div class="loader-info-wrapper">
+    <div class="loader-subtitle">Loading Portfolio</div>
+    <div class="loader-status-text">Initializing...</div>
+  </div>
+</div>
+<script>
+  (function() {
+    const startTime = Date.now();
+    const hideLoader = () => {
+      const loader = document.getElementById('loading-screen');
+      if (loader) {
+        // Keep the loader active for at least 4.5 seconds
+        const elapsed = Date.now() - startTime;
+        const delay = Math.max(0, 4500 - elapsed);
+        setTimeout(() => {
+          loader.classList.add('fade-out');
+          setTimeout(() => {
+            loader.remove();
+          }, 800);
+        }, delay);
+      }
+    };
+    if (document.readyState === 'complete') {
+      hideLoader();
+    } else {
+      window.addEventListener('load', hideLoader);
+    }
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
     <div hidden=""></div>
     <style>
         #nprogress {
@@ -339,7 +558,7 @@
     </style>
     <div class="">
         <header class="py-8 xl:py-12 text-white">
-    <div class="container mx-auto px-4 md:px-0">
+    <div class="max-w-6xl mx-auto px-6 md:px-12 xl:px-16">
         <a href="./index.html" class="inline-block">
             <h1 class="text-4xl font-semibold ">Krupakara <span class="text-accent">.</span></h1>
         </a>
@@ -364,7 +583,7 @@
         <section>
             <main
                 class="relative bg-black-100 flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
-                <div class="max-w-7xl w-full">
+                <div class="max-w-6xl w-full px-6 md:px-12 xl:px-16">
                     <div class="lg:pb-20 ">
                         <div
                             class="h-screen w-full bg-primary bg-grid-white/[0.03] bg-grid-black-100/[0.2] absolute top-0 left-0 flex items-center justify-center">
@@ -377,8 +596,8 @@
                                 <div class="flex flex-col xl:flex-row items-center justify-between xl:pt-8 xl:pb-24">
                                     <div class="text-center xl:text-left order-2 xl:order-none">
                                         <div style="opacity: 1;"><span class="text-xl" style="font-size: 1rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.5); font-weight: 600; margin-bottom: 1rem; display: block;">Software Engineer</span>
-                                            <h1 class="h1 mb-6" style="line-height: 0.95; display: flex; flex-direction: column; gap: 0.5rem;"><span style="font-size: 2.75rem; font-weight: 500; color: rgba(255,255,255,0.9);">Hello I'm</span> <span title="Me" class="text-accent relative inline-block group cursor-pointer overflow-hidden" style="font-size: clamp(5rem, 9vw, 8rem); font-weight: 800; letter-spacing: -0.03em; margin-top: -0.5rem; text-shadow: 0 10px 30px rgba(0,0,0,0.5);"><span class="relative z-10 inline-block transition-colors duration-500 group-hover:text-primary">Bhavani<br>Krupakara</span><span class="absolute inset-0 bg-accent z-0 transition-transform duration-500 ease-out scale-x-0 group-hover:scale-x-100" style="transform-origin: left center;"></span></span></h1>
-                                            <div class="max-w-[500px] mb-9 text-white/80" style="font-size: 1.1rem; max-width: 500px; line-height: 1.8; color: rgba(255,255,255,0.7); font-weight: 300;">IT Specialist &amp; Full-Stack
+                                            <h1 class="h1 mb-6" style="line-height: 0.95; display: flex; flex-direction: column; gap: 0.5rem;"><span style="font-size: 2.5rem; font-weight: 500; color: rgba(255,255,255,0.9);">Hello I'm</span> <span title="Me" class="text-accent relative inline-block group cursor-pointer overflow-hidden" style="font-size: clamp(4.25rem, 6vw, 6.25rem); font-weight: 800; letter-spacing: -0.03em; margin-top: -0.5rem; text-shadow: 0 10px 30px rgba(0,0,0,0.5);"><span class="relative z-10 inline-block transition-colors duration-500 group-hover:text-primary">Bhavani<br>Krupakara</span><span class="absolute inset-0 bg-accent z-0 transition-transform duration-500 ease-out scale-x-0 group-hover:scale-x-100" style="transform-origin: left center;"></span></span></h1>
+                                            <div class="max-w-[500px] mb-9 text-white/80" style="font-size: 1.05rem; max-width: 460px; line-height: 1.7; color: rgba(255,255,255,0.7); font-weight: 300;">IT Specialist &amp; Full-Stack
                                                 Developer | Pragmatic, delivery-oriented | Fintech &amp; Cloud |
                                                 India</div>
                                             <div class="flex flex-col xl:flex-row items-center gap-8"><a
@@ -391,56 +610,14 @@
                                                         class="lucide lucide-chevron-right h-4 w-4 transition-transform duration-200 group-hover:translate-x-1">
                                                         <path d="m9 18 6-6-6-6"></path>
                                                     </svg></a>
-                                                <div class="mb-8 xl:mb-0">
-                                                    <div class="flex gap-6"><a target="_blank" rel="noopener noreferrer"
-                                                            class="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500"
-                                                            data-state="closed"
-                                                            href="https://www.instagram.com/krupakarabhavani/"><svg
-                                                                stroke="currentColor" fill="currentColor"
-                                                                stroke-width="0" viewBox="0 0 448 512" height="1em"
-                                                                width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
-                                                                </path>
-                                                            </svg></a><a target="_blank" rel="noopener noreferrer"
-                                                            class="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500"
-                                                            data-state="closed"
-                                                            href="https://www.youtube.com/@krupaintros3719"><svg
-                                                                stroke="currentColor" fill="currentColor"
-                                                                stroke-width="0" viewBox="0 0 576 512" height="1em"
-                                                                width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z">
-                                                                </path>
-                                                            </svg></a><a target="_blank" rel="noopener noreferrer"
-                                                            class="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500"
-                                                            data-state="closed"
-                                                            href="https://www.linkedin.com/in/bhavanikrupa/"><svg
-                                                                stroke="currentColor" fill="currentColor"
-                                                                stroke-width="0" viewBox="0 0 448 512" height="1em"
-                                                                width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z">
-                                                                </path>
-                                                            </svg></a><a target="_blank" rel="noopener noreferrer"
-                                                            class="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500"
-                                                            data-state="closed"
-                                                            href="https://github.com/bks717"><svg
-                                                                stroke="currentColor" fill="currentColor"
-                                                                stroke-width="0" viewBox="0 0 496 512" height="1em"
-                                                                width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
-                                                                </path>
-                                                            </svg></a></div>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="order-1 xl:order-none mb-8 xl:mb-0">
+                                    <div class="hero-image-wrapper order-1 xl:order-none mb-8 xl:mb-0">       
                                         <div class="w-full h-full relative">
-                                            <div style="opacity: 1; transform: translateX(50px) scale(1.15); transform-origin: center; position: relative; display: flex; align-items: center; justify-content: center; width: max-content; height: max-content;">
-                                                <div class=" w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] absolute" style="opacity: 1; top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0;">
+                                            <div style="opacity: 1; transform: none; transform-origin: center; position: relative; display: flex; align-items: center; justify-content: center; width: max-content; height: max-content;">
+                                                <div class="hero-img-box absolute" style="opacity: 1; top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0;">
                                                     <div class="w-full h-full rounded-full p-3 shadow-md shadow-accent">
                                                         <div
                                                             class="w-full h-full relative rounded-full overflow-hidden">
@@ -456,7 +633,7 @@
                                                 </div><button type="button"
                                                     class="group relative cursor-pointer rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
                                                     aria-label="Switch photo mood. Current mood: calm" tabindex="0"><svg
-                                                        class="w-[300px] xl:w-[506px] h-[300px] xl:h-[506px] circle-spin-animation" style=""
+                                                        class="hero-svg-box circle-spin-animation" style=""
                                                         fill="transparent" viewBox="0 0 506 506"
                                                         xmlns="https://www.w3.org/2000/svg">
                                                         <circle cx="253" cy="253" r="250" stroke="#00ff99"
@@ -475,9 +652,9 @@
                             </div>
                         </div>
                         <section class="pt-4 pb-12 xl:pt-0 xl:pb-0">
-                            <div class="container mx-auto">
-                                <div class="flex flex-wrap gap-6 max-w-[100vw] md:max-w-[80vw] mx-auto xl:max-w-none">
-                                    <div class="flex-1 flex gap-4 items-center justify-center xl:justify-start">
+                            <div class="container mx-auto ">
+                                <div class="flex flex-wrap gap-6 max-w-[100vw] md:max-w-[80vw] mx-auto xl:max-w-none xl:pl-24">
+                                    <div class="flex-1 flex gap-4 items-center justify-center xl:justify-center">
                                         <div class="flex items-center gap-4" style="opacity: 1;">
                                             <div class="flex items-center gap-4" style="filter: blur(0px); opacity: 1;">
                                                 <span class="text-4xl xl:text-6xl font-extrabold">20</span>
@@ -485,7 +662,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex-1 flex gap-4 items-center justify-center xl:justify-start">
+                                    <div class="flex-1 flex gap-4 items-center justify-center xl:justify-center">
                                         <div class="flex items-center gap-4" style="opacity: 1;">
                                             <div class="flex items-center gap-4" style="filter: blur(0px); opacity: 1;">
                                                 <span class="text-4xl xl:text-6xl font-extrabold">3</span>
@@ -494,7 +671,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex-1 flex gap-4 items-center justify-center xl:justify-start">
+                                    <div class="flex-1 flex gap-4 items-center justify-center xl:justify-center">
                                         <div class="flex items-center gap-4" style="opacity: 1;">
                                             <div class="flex items-center gap-4" style="filter: blur(0px); opacity: 1;">
                                                 <span class="text-4xl xl:text-6xl font-extrabold">20</span>
@@ -503,7 +680,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex-1 flex gap-4 items-center justify-center xl:justify-start">
+                                    <div class="flex-1 flex gap-4 items-center justify-center xl:justify-center">
                                         <div class="flex items-center gap-4" style="opacity: 1;">
                                             <div class="flex items-center gap-4" style="filter: blur(0px); opacity: 1;">
                                                 <span class="text-4xl xl:text-6xl font-extrabold">3</span>
@@ -1937,90 +2114,610 @@
     </div><next-route-announcer style="position: absolute;"></next-route-announcer>
 
 <style>
-  #theme-switcher-dock {
-    position: fixed !important;
-    bottom: 1.5rem !important;
-    right: 1.5rem !important;
-    z-index: 99999 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.75rem !important;
-    padding: 0.75rem !important;
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    backdrop-filter: blur(24px) !important;
-    border-radius: 9999px !important;
-    border: 1px solid rgba(255, 255, 255, 0.25) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  /* Gray, Dark Gray, and Black Theme overrides */
+  body[data-theme="gray"] {
+      --theme-accent: #9ca3af;
+      --theme-accent-rgb: 156, 163, 175;
   }
-  #theme-switcher-dock:hover {
-    background-color: rgba(20, 20, 30, 0.8) !important;
-    border-color: rgba(255, 255, 255, 0.3) !important;
-    transform: translateY(-2px) !important;
+  body[data-theme="gray"] .text-accent { color: var(--theme-accent) !important; }
+  body[data-theme="gray"] .bg-accent { background-color: var(--theme-accent) !important; }
+  body[data-theme="gray"] .border-accent { border-color: var(--theme-accent) !important; }
+  body[data-theme="gray"] .shadow-accent { box-shadow: 0 0 10px var(--theme-accent) !important; }
+  body[data-theme="gray"] .hover\:text-accent:hover { color: var(--theme-accent) !important; }
+  body[data-theme="gray"] .hover\:bg-accent:hover { background-color: var(--theme-accent) !important; }
+  body[data-theme="gray"] .hover\:border-accent\/60:hover { border-color: rgba(var(--theme-accent-rgb), 0.6) !important; }
+  body[data-theme="gray"] .hover\:bg-accent\/20:hover { background-color: rgba(var(--theme-accent-rgb), 0.2) !important; }
+  body[data-theme="gray"] .hover\:shadow-\[0_0_40px_rgba\(0\,255\,153\,0\.6\)\]:hover { box-shadow: 0 0 40px rgba(var(--theme-accent-rgb), 0.6) !important; }
+  body[data-theme="gray"] .group\/pin:hover .group-hover\/pin\:shadow-\[0_0_40px_rgba\(0\,255\,153\,0\.6\)\] { box-shadow: 0 0 40px rgba(var(--theme-accent-rgb), 0.6) !important; }
+  body[data-theme="gray"] svg circle[stroke="#00ff99"] { stroke: var(--theme-accent) !important; }
+  body[data-theme="gray"] .bg-\[radial-gradient\(\#00ff99_40\%\,transparent_60\%\)\] { background-image: radial-gradient(var(--theme-accent) 40%,transparent 60%) !important; }
+  body[data-theme="gray"] #nprogress .bar { background: var(--theme-accent) !important; }
+  body[data-theme="gray"] #nprogress .peg { box-shadow: 0 0 10px var(--theme-accent), 0 0 5px var(--theme-accent) !important; }
+  body[data-theme="gray"] #nprogress .spinner-icon { border-top-color: var(--theme-accent) !important; border-left-color: var(--theme-accent) !important; }
+  body[data-theme="gray"] .bg-\[\#00ff99\] { background-color: var(--theme-accent) !important; }
+  body[data-theme="gray"] .shadow-\[0_0_10px_\#00ff99\] { box-shadow: 0 0 10px var(--theme-accent) !important; }
+  body[data-theme="gray"] meta[name="theme-color"] { content: "#9ca3af"; }
+
+  body[data-theme="darkgray"] {
+      --theme-accent: #4b5563;
+      --theme-accent-rgb: 75, 85, 99;
   }
-  .theme-btn {
-    width: 1.25rem !important;
-    height: 1.25rem !important;
-    border-radius: 9999px !important;
-    border: 1px solid rgba(255,255,255,0.2) !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    cursor: pointer !important;
-    opacity: 0.7 !important;
+  body[data-theme="darkgray"] .text-accent { color: var(--theme-accent) !important; }
+  body[data-theme="darkgray"] .bg-accent { background-color: var(--theme-accent) !important; }
+  body[data-theme="darkgray"] .border-accent { border-color: var(--theme-accent) !important; }
+  body[data-theme="darkgray"] .shadow-accent { box-shadow: 0 0 10px var(--theme-accent) !important; }
+  body[data-theme="darkgray"] .hover\:text-accent:hover { color: var(--theme-accent) !important; }
+  body[data-theme="darkgray"] .hover\:bg-accent:hover { background-color: var(--theme-accent) !important; }
+  body[data-theme="darkgray"] .hover\:border-accent\/60:hover { border-color: rgba(var(--theme-accent-rgb), 0.6) !important; }
+  body[data-theme="darkgray"] .hover\:bg-accent\/20:hover { background-color: rgba(var(--theme-accent-rgb), 0.2) !important; }
+  body[data-theme="darkgray"] .hover\:shadow-\[0_0_40px_rgba\(0\,255\,153\,0\.6\)\]:hover { box-shadow: 0 0 40px rgba(var(--theme-accent-rgb), 0.6) !important; }
+  body[data-theme="darkgray"] .group\/pin:hover .group-hover\/pin\:shadow-\[0_0_40px_rgba\(0\,255\,153\,0\.6\)\] { box-shadow: 0 0 40px rgba(var(--theme-accent-rgb), 0.6) !important; }
+  body[data-theme="darkgray"] svg circle[stroke="#00ff99"] { stroke: var(--theme-accent) !important; }
+  body[data-theme="darkgray"] .bg-\[radial-gradient\(\#00ff99_40\%\,transparent_60\%\)\] { background-image: radial-gradient(var(--theme-accent) 40%,transparent 60%) !important; }
+  body[data-theme="darkgray"] #nprogress .bar { background: var(--theme-accent) !important; }
+  body[data-theme="darkgray"] #nprogress .peg { box-shadow: 0 0 10px var(--theme-accent), 0 0 5px var(--theme-accent) !important; }
+  body[data-theme="darkgray"] #nprogress .spinner-icon { border-top-color: var(--theme-accent) !important; border-left-color: var(--theme-accent) !important; }
+  body[data-theme="darkgray"] .bg-\[\#00ff99\] { background-color: var(--theme-accent) !important; }
+  body[data-theme="darkgray"] .shadow-\[0_0_10px_\#00ff99\] { box-shadow: 0 0 10px var(--theme-accent) !important; }
+  body[data-theme="darkgray"] meta[name="theme-color"] { content: "#4b5563"; }
+
+  body[data-theme="black"] {
+      --theme-accent: #374151;
+      --theme-accent-rgb: 55, 65, 81;
   }
-  .theme-btn:hover, .theme-btn:focus {
-    transform: scale(1.4) !important;
-    opacity: 1 !important;
-    border-color: rgba(255,255,255,0.9) !important;
+  body[data-theme="black"] .text-accent { color: var(--theme-accent) !important; }
+  body[data-theme="black"] .bg-accent { background-color: var(--theme-accent) !important; }
+  body[data-theme="black"] .border-accent { border-color: var(--theme-accent) !important; }
+  body[data-theme="black"] .shadow-accent { box-shadow: 0 0 10px var(--theme-accent) !important; }
+  body[data-theme="black"] .hover\:text-accent:hover { color: var(--theme-accent) !important; }
+  body[data-theme="black"] .hover\:bg-accent:hover { background-color: var(--theme-accent) !important; }
+  body[data-theme="black"] .hover\:border-accent\/60:hover { border-color: rgba(var(--theme-accent-rgb), 0.6) !important; }
+  body[data-theme="black"] .hover\:bg-accent\/20:hover { background-color: rgba(var(--theme-accent-rgb), 0.2) !important; }
+  body[data-theme="black"] .hover\:shadow-\[0_0_40px_rgba\(0\,255\,153\,0\.6\)\]:hover { box-shadow: 0 0 40px rgba(var(--theme-accent-rgb), 0.6) !important; }
+  body[data-theme="black"] .group\/pin:hover .group-hover\/pin\:shadow-\[0_0_40px_rgba\(0\,255\,153\,0\.6\)\] { box-shadow: 0 0 40px rgba(var(--theme-accent-rgb), 0.6) !important; }
+  body[data-theme="black"] svg circle[stroke="#00ff99"] { stroke: var(--theme-accent) !important; }
+  body[data-theme="black"] .bg-\[radial-gradient\(\#00ff99_40\%\,transparent_60\%\)\] { background-image: radial-gradient(var(--theme-accent) 40%,transparent 60%) !important; }
+  body[data-theme="black"] #nprogress .bar { background: var(--theme-accent) !important; }
+  body[data-theme="black"] #nprogress .peg { box-shadow: 0 0 10px var(--theme-accent), 0 0 5px var(--theme-accent) !important; }
+  body[data-theme="black"] #nprogress .spinner-icon { border-top-color: var(--theme-accent) !important; border-left-color: var(--theme-accent) !important; }
+  body[data-theme="black"] .bg-\[\#00ff99\] { background-color: var(--theme-accent) !important; }
+  body[data-theme="black"] .shadow-\[0_0_10px_\#00ff99\] { box-shadow: 0 0 10px var(--theme-accent) !important; }
+  body[data-theme="black"] meta[name="theme-color"] { content: "#374151"; }
+
+  /* Light Mode styling overrides */
+  body.light-mode {
+      background-color: #f8fafc !important;
+      background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px) !important;
+      color: #0f172a !important;
+  }
+  body.light-mode main,
+  body.light-mode footer,
+  body.light-mode section {
+      background-color: transparent !important;
+  }
+  body.light-mode .bg-primary,
+  body.light-mode .bg-black-100 {
+      background-color: #f1f5f9 !important;
+  }
+  body.light-mode h1,
+  body.light-mode h2,
+  body.light-mode h3,
+  body.light-mode h4,
+  body.light-mode h5,
+  body.light-mode .text-white,
+  body.light-mode span.font-extrabold {
+      color: #0f172a !important;
+  }
+  body.light-mode p,
+  body.light-mode span,
+  body.light-mode div {
+      color: #334155;
+  }
+  body.light-mode .text-accent {
+      color: #0f172a !important;
+      background: linear-gradient(120deg, var(--theme-accent, #00ff99) 0%, rgba(var(--theme-accent-rgb, "0,255,153"), 0.4) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: initial;
+  }
+  body.light-mode .border-white\/\[0\.1\], 
+  body.light-mode .border-white\/10 {
+      border-color: rgba(15, 23, 42, 0.08) !important;
+  }
+  body.light-mode .bg-black\/50,
+  body.light-mode .bg-black\/30 {
+      background-color: rgba(255, 255, 255, 0.7) !important;
+  }
+  body.light-mode .group\/bento {
+      background-color: rgba(255, 255, 255, 0.8) !important;
+      border-color: rgba(15, 23, 42, 0.08) !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  }
+  body.light-mode .group\/bento:hover {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  }
+  body.light-mode .text-\[\#C1C2D3\] {
+      color: #475569 !important;
+  }
+  body.light-mode .bg-grid-white\/\[0\.03\] {
+      background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px) !important;
+  }
+  body.light-mode .bg-grid-black-100\/\[0\.2\] {
+      background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px) !important;
+  }
+  body.light-mode [mask-image\:radial-gradient\(ellipse_at_center\,transparent_20\%\,black\)] {
+      background-color: #f8fafc !important;
+  }
+
+  /* Custom Sidebar Widget Styles */
+  #custom-theme-sidebar {
+      position: fixed !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      right: 0 !important;
+      z-index: 999999 !important;
+      height: auto !important;
+      max-height: 90vh !important;
+      background: rgba(10, 10, 15, 0.75) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-right: none !important;
+      border-radius: 24px 0 0 24px !important;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5) !important;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s !important;
+      display: flex !important;
+      overflow: visible !important;
+  }
+
+  body.light-mode #custom-theme-sidebar {
+      background: rgba(255, 255, 255, 0.8) !important;
+      border-color: rgba(15, 23, 42, 0.08) !important;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  #custom-theme-sidebar.closed {
+      width: 68px !important;
+  }
+
+  #custom-theme-sidebar.open {
+      width: 320px !important;
+      background: rgba(15, 15, 25, 0.95) !important;
+  }
+
+  body.light-mode #custom-theme-sidebar.open {
+      background: rgba(248, 250, 252, 0.98) !important;
+  }
+
+  /* Toggle Tab */
+  #sidebar-toggle {
+      position: absolute !important;
+      left: -28px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: 28px !important;
+      height: 70px !important;
+      background: rgba(10, 10, 15, 0.75) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-right: none !important;
+      border-radius: 20px 0 0 20px !important;
+      color: var(--theme-accent, #00ff99) !important;
+      cursor: pointer !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      outline: none !important;
+      transition: all 0.3s !important;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  body.light-mode #sidebar-toggle {
+      background: rgba(255, 255, 255, 0.8) !important;
+      border-color: rgba(15, 23, 42, 0.08) !important;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  #sidebar-toggle:hover {
+      color: #ffffff !important;
+      background: rgba(15, 15, 25, 0.9) !important;
+  }
+
+  body.light-mode #sidebar-toggle:hover {
+      color: #000000 !important;
+      background: rgba(241, 245, 249, 0.9) !important;
+  }
+
+  #toggle-arrow {
+      font-size: 1.1rem !important;
+      transition: transform 0.4s !important;
+      display: inline-block !important;
+      font-weight: 800 !important;
+  }
+
+  #custom-theme-sidebar.open #toggle-arrow {
+      transform: rotate(180deg) !important;
+  }
+
+  /* Sidebar Columns layout */
+  .sidebar-content {
+      display: flex !important;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden !important;
+  }
+
+  /* Social Column (Always Visible) */
+  .sidebar-socials {
+      width: 68px !important;
+      min-width: 68px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 1.5rem 0 !important;
+      gap: 1.25rem !important;
+      border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+      position: relative !important;
+  }
+
+  body.light-mode .sidebar-socials {
+      border-right-color: rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .sidebar-label {
+      writing-mode: vertical-rl !important;
+      text-orientation: mixed !important;
+      font-size: 0.65rem !important;
+      letter-spacing: 0.3em !important;
+      color: rgba(255, 255, 255, 0.4) !important;
+      text-transform: uppercase !important;
+      font-weight: 700 !important;
+      margin-bottom: 0.5rem !important;
+  }
+
+  body.light-mode .sidebar-label {
+      color: rgba(15, 23, 42, 0.5) !important;
+  }
+
+  .sidebar-icon-btn {
+      width: 2.25rem !important;
+      height: 2.25rem !important;
+      border-radius: 9999px !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: rgba(255, 255, 255, 0.6) !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      background: rgba(255, 255, 255, 0.02) !important;
+  }
+
+  body.light-mode .sidebar-icon-btn {
+      border-color: rgba(15, 23, 42, 0.1) !important;
+      color: rgba(15, 23, 42, 0.6) !important;
+      background: rgba(0, 0, 0, 0.01) !important;
+  }
+
+  .sidebar-icon-btn:hover {
+      color: var(--theme-accent, #00ff99) !important;
+      border-color: var(--theme-accent, #00ff99) !important;
+      transform: scale(1.1) !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      box-shadow: 0 0 10px rgba(var(--theme-accent-rgb, "0,255,153"), 0.2) !important;
+  }
+
+  body.light-mode .sidebar-icon-btn:hover {
+      background: rgba(15, 23, 42, 0.05) !important;
+  }
+
+  .sidebar-arrow-btn {
+      background: none !important;
+      border: none !important;
+      color: rgba(255, 255, 255, 0.4) !important;
+      cursor: pointer !important;
+      transition: all 0.3s !important;
+      margin-top: 0.25rem !important;
+  }
+
+  body.light-mode .sidebar-arrow-btn {
+      color: rgba(15, 23, 42, 0.4) !important;
+  }
+
+  .sidebar-arrow-btn:hover {
+      color: var(--theme-accent, #00ff99) !important;
+      transform: scale(1.2) !important;
+  }
+
+  /* Settings Column (Hidden when closed) */
+  .sidebar-settings {
+      flex-grow: 1 !important;
+      width: 252px !important;
+      padding: 1.5rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      gap: 1.5rem !important;
+      opacity: 0 !important;
+      transform: translateX(20px) !important;
+      transition: opacity 0.3s ease, transform 0.3s ease !important;
+      pointer-events: none !important;
+  }
+
+  #custom-theme-sidebar.open .sidebar-settings {
+      opacity: 1 !important;
+      transform: translateX(0) !important;
+      pointer-events: auto !important;
+      transition-delay: 0.1s !important;
+  }
+
+  /* Settings Header */
+  .settings-header {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+      padding-bottom: 0.5rem !important;
+  }
+
+  body.light-mode .settings-header {
+      border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .settings-header span {
+      font-size: 0.75rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.15em !important;
+      color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  body.light-mode .settings-header span {
+      color: rgba(15, 23, 42, 0.8) !important;
+  }
+
+  .settings-close-btn {
+      background: none !important;
+      border: none !important;
+      color: rgba(255, 255, 255, 0.4) !important;
+      cursor: pointer !important;
+      font-size: 1rem !important;
+      transition: all 0.3s !important;
+  }
+
+  body.light-mode .settings-close-btn {
+      color: rgba(15, 23, 42, 0.4) !important;
+  }
+
+  .settings-close-btn:hover {
+      color: var(--theme-accent, #00ff99) !important;
+      transform: scale(1.2) !important;
+  }
+
+  /* Themes colors grid */
+  .theme-colors-grid {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 0.75rem !important;
+  }
+
+  .color-dot {
+      width: 2rem !important;
+      height: 2rem !important;
+      border-radius: 9999px !important;
+      border: 2px solid transparent !important;
+      cursor: pointer !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      outline: none !important;
+  }
+
+  .color-dot:hover, .color-dot:focus {
+      transform: scale(1.2) !important;
+      border-color: #ffffff !important;
+  }
+
+  body.light-mode .color-dot:hover, body.light-mode .color-dot:focus {
+      border-color: #0f172a !important;
+  }
+
+  .color-dot.active {
+      border-color: #ffffff !important;
+      box-shadow: 0 0 12px currentColor !important;
+  }
+
+  body.light-mode .color-dot.active {
+      border-color: #0f172a !important;
+  }
+
+  /* Toggle switch pill for Light/Dark */
+  .toggle-mode-container {
+      display: flex !important;
+      justify-content: center !important;
+  }
+
+  .toggle-switch-pill {
+      display: flex !important;
+      background: rgba(0, 0, 0, 0.4) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 9999px !important;
+      padding: 2px !important;
+      width: 100% !important;
+  }
+
+  body.light-mode .toggle-switch-pill {
+      background: rgba(0, 0, 0, 0.05) !important;
+      border-color: rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .mode-toggle-btn {
+      flex: 1 !important;
+      background: none !important;
+      border: none !important;
+      color: rgba(255, 255, 255, 0.5) !important;
+      font-size: 0.7rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.15em !important;
+      padding: 0.5rem 0 !important;
+      border-radius: 9999px !important;
+      cursor: pointer !important;
+      transition: all 0.3s !important;
+      outline: none !important;
+  }
+
+  body.light-mode .mode-toggle-btn {
+      color: rgba(15, 23, 42, 0.5) !important;
+  }
+
+  .mode-toggle-btn.active {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: #ffffff !important;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  body.light-mode .mode-toggle-btn.active {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  /* Cyberpunk Button style */
+  .cyberpunk-btn-container {
+      display: flex !important;
+  }
+
+  .sidebar-cyber-btn {
+      width: 100% !important;
+      display: block !important;
+      text-align: center !important;
+      padding: 0.65rem !important;
+      border: 1.5px solid #fcee0a !important;
+      color: #fcee0a !important;
+      font-size: 0.75rem !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.15em !important;
+      transition: all 0.3s !important;
+      text-decoration: none !important;
+      box-shadow: 0 0 10px rgba(252, 238, 10, 0.2) !important;
+      background: transparent !important;
+  }
+
+  .sidebar-cyber-btn:hover {
+      background: #fcee0a !important;
+      color: #000000 !important;
+      box-shadow: 0 0 20px rgba(252, 238, 10, 0.6) !important;
+      transform: translateY(-2px) !important;
   }
 </style>
-<div id="theme-switcher-dock">
-    <button onclick="setTheme('default')" aria-label="Green Theme" class="theme-btn" style="background-color: #00ff99 !important; box-shadow: 0 0 10px rgba(0,255,153,0.5) !important;"></button>
-    <button onclick="setTheme('cyan')" aria-label="Cyan Theme" class="theme-btn" style="background-color: #00e5ff !important; box-shadow: 0 0 10px rgba(0,229,255,0.5) !important;"></button>
-    <button onclick="setTheme('pink')" aria-label="Pink Theme" class="theme-btn" style="background-color: #ff00e5 !important; box-shadow: 0 0 10px rgba(255,0,229,0.5) !important;"></button>
-    <button onclick="setTheme('white')" aria-label="White Theme" class="theme-btn" style="background-color: #ffffff !important; box-shadow: 0 0 10px rgba(255,255,255,0.5) !important;"></button>
+
+<!-- Custom Sidebar Settings Widget -->
+<div id="custom-theme-sidebar" class="closed">
+    <!-- Trigger tab -->
+    <button id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle theme and mode settings">
+        <span id="toggle-arrow">&lt;</span>
+    </button>
+
+    <!-- Sidebar content wrapper -->
+    <div class="sidebar-content">
+        <!-- Left Column: Social Icons -->
+        <div class="sidebar-socials">
+            <span class="sidebar-label">THEME & MODE</span>
+            <!-- Twitter -->
+            <a href="https://twitter.com" target="_blank" class="sidebar-icon-btn" aria-label="Twitter">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.1em" width="1.1em">
+                    <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.48.75 2.78 1.9 3.55-.7-.02-1.35-.2-1.93-.53v.05c0 2.05 1.46 3.76 3.4 4.15-.36.1-.73.15-1.12.15-.27 0-.54-.03-.8-.08.54 1.68 2.1 2.9 3.95 2.94-1.44 1.13-3.26 1.8-5.23 1.8-.34 0-.67-.02-1-.06C2.62 19.67 4.77 20 7.07 20 14.57 20 18.68 13.8 18.68 8.4v-.53c.8-.57 1.49-1.3 2.03-2.13z"/>
+                </svg>
+            </a>
+            <!-- GitHub -->
+            <a href="https://github.com/bks717" target="_blank" class="sidebar-icon-btn" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1.1em" width="1.1em">
+                    <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/>
+                </svg>
+            </a>
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/krupakarabhavani/" target="_blank" class="sidebar-icon-btn" aria-label="Instagram">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1.1em" width="1.1em">
+                    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                </svg>
+            </a>
+            <!-- YouTube -->
+            <a href="https://www.youtube.com/@krupaintros3719" target="_blank" class="sidebar-icon-btn" aria-label="YouTube">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" height="1.1em" width="1.1em">
+                    <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/>
+                </svg>
+            </a>
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/bhavanikrupa/" target="_blank" class="sidebar-icon-btn" aria-label="LinkedIn">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1.1em" width="1.1em">
+                    <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
+                </svg>
+            </a>
+            <!-- Down arrow -->
+            <button onclick="toggleSidebar()" class="sidebar-arrow-btn" aria-label="Toggle settings panel">
+                <svg stroke="currentColor" fill="none" stroke-width="3" viewBox="0 0 24 24" height="1.1em" width="1.1em">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Right Column: Settings (Themes & Modes) -->
+        <div class="sidebar-settings">
+            <div class="settings-header">
+                <span>THEME & MODE</span>
+                <button onclick="toggleSidebar()" class="settings-close-btn" aria-label="Close settings panel">&gt;</button>
+            </div>
+
+            <!-- Colors -->
+            <div class="theme-colors-grid">
+                <button onclick="setTheme('default')" aria-label="Green Theme" class="color-dot active" style="background-color: #00ff99; color: #00ff99;"></button>
+                <button onclick="setTheme('cyan')" aria-label="Cyan Theme" class="color-dot" style="background-color: #00e5ff; color: #00e5ff;"></button>
+                <button onclick="setTheme('pink')" aria-label="Pink Theme" class="color-dot" style="background-color: #ff00e5; color: #ff00e5;"></button>
+                <button onclick="setTheme('white')" aria-label="White Theme" class="color-dot" style="background-color: #ffffff; color: #ffffff;"></button>
+                <button onclick="setTheme('gray')" aria-label="Gray Theme" class="color-dot" style="background-color: #9ca3af; color: #9ca3af;"></button>
+                <button onclick="setTheme('darkgray')" aria-label="Dark Gray Theme" class="color-dot" style="background-color: #4b5563; color: #4b5563;"></button>
+                <button onclick="setTheme('black')" aria-label="Black Theme" class="color-dot" style="background-color: #111827; color: #111827;"></button>
+            </div>
+
+            <!-- Light/Dark -->
+            <div class="toggle-mode-container">
+                <div class="toggle-switch-pill">
+                    <button id="light-mode-btn" onclick="setLightDarkMode(true)" class="mode-toggle-btn">LIGHT</button>
+                    <button id="dark-mode-btn" onclick="setLightDarkMode(false)" class="mode-toggle-btn active">DARK</button>
+                </div>
+            </div>
+
+            <!-- WIP Message Element -->
+            <div id="wip-message" style="color: #ef4444 !important; font-size: 0.75rem !important; font-weight: 700 !important; text-align: center !important; display: none; margin-top: -0.25rem !important; letter-spacing: 0.05em !important; text-transform: uppercase !important; text-shadow: 0 0 5px rgba(239, 68, 68, 0.3) !important;">Work in progress</div>
+
+            <!-- Cyberpunk Button -->
+            <div class="cyberpunk-btn-container">
+                <a href="./cyberpunk.html" class="sidebar-cyber-btn">CYBERPUNK</a>
+            </div>
+        </div>
+    </div>
 </div>
 
-<style>
-  #cyberpunk-mode-dock {
-    position: fixed !important;
-    bottom: 1.5rem !important;
-    left: 1.5rem !important;
-    z-index: 99999 !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.75rem !important;
-    padding: 0.5rem 1rem !important;
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    backdrop-filter: blur(24px) !important;
-    border-radius: 9999px !important;
-    border: 1px solid rgba(255, 255, 255, 0.25) !important;
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.3) !important;
-    cursor: pointer !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  }
-  #cyberpunk-mode-dock:hover {
-    background-color: rgba(20, 20, 30, 0.8) !important;
-    border-color: rgba(252, 238, 10, 0.5) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 32px 0 rgba(252, 238, 10, 0.2) !important;
-  }
-  #cyberpunk-mode-dock .cyber-text {
-    color: #fcee0a;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    text-shadow: 0 0 5px rgba(252, 238, 10, 0.5);
-  }
-</style>
-<a href="./cyberpunk.html" id="cyberpunk-mode-dock">
-    <div class="theme-btn" style="background-color: #fcee0a !important; box-shadow: 0 0 10px rgba(252,238,10,0.5) !important; pointer-events: none; margin: 0 !important;"></div>
-    <span class="cyber-text">Cyberpunk Mode</span></a>
-
 <script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('custom-theme-sidebar');
+        if (sidebar) {
+            sidebar.classList.toggle('closed');
+            sidebar.classList.toggle('open');
+        }
+    }
+
     function setTheme(theme) {
+        const wipMsg = document.getElementById('wip-message');
+        if (theme === 'gray' || theme === 'darkgray' || theme === 'black') {
+            if (wipMsg) {
+                wipMsg.style.display = 'block';
+            }
+            return;
+        }
+        
+        if (wipMsg) {
+            wipMsg.style.display = 'none';
+        }
+
         if (theme === 'default') {
             document.body.removeAttribute('data-theme');
             localStorage.removeItem('preferred-theme');
@@ -2028,13 +2725,63 @@
             document.body.setAttribute('data-theme', theme);
             localStorage.setItem('preferred-theme', theme);
         }
+        
+        // Highlight active theme color dot
+        const dots = document.querySelectorAll('.color-dot');
+        dots.forEach(dot => {
+            const clickAttr = dot.getAttribute('onclick');
+            if (clickAttr && clickAttr.includes(`'${theme}'`)) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
     }
-    
-    // Load saved theme on startup
-    const savedTheme = localStorage.getItem('preferred-theme');
-    if (savedTheme) {
+
+    function setLightDarkMode(isLight) {
+        const wipMsg = document.getElementById('wip-message');
+        if (isLight) {
+            if (wipMsg) {
+                wipMsg.style.display = 'block';
+            }
+            return;
+        }
+        
+        if (wipMsg) {
+            wipMsg.style.display = 'none';
+        }
+
+        const lightBtn = document.getElementById('light-mode-btn');
+        const darkBtn = document.getElementById('dark-mode-btn');
+        
+        document.body.classList.remove('light-mode');
+        localStorage.setItem('preferred-darklight', 'dark');
+        if (lightBtn) lightBtn.classList.remove('active');
+        if (darkBtn) darkBtn.classList.add('active');
+    }
+
+    // Load saved settings on startup
+    const savedTheme = localStorage.getItem('preferred-theme') || 'default';
+    if (savedTheme === 'gray' || savedTheme === 'darkgray' || savedTheme === 'black') {
+        setTheme('default');
+    } else {
         setTheme(savedTheme);
     }
+
+    // Always start in Dark Mode as Light Mode is WIP
+    setLightDarkMode(false);
+
+    // Close sidebar on click outside
+    document.addEventListener('click', function(event) {
+        const sidebar = document.getElementById('custom-theme-sidebar');
+        const toggleBtn = document.getElementById('sidebar-toggle');
+        if (sidebar && sidebar.classList.contains('open') && toggleBtn) {
+            if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
+                sidebar.classList.remove('open');
+                sidebar.classList.add('closed');
+            }
+        }
+    });
 </script>
 
 </body>

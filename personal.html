@@ -274,6 +274,9 @@
 
 
 <style id="loading-screen-css">
+.fast-load #loading-screen {
+  display: none !important;
+}
 /* HTML Loading Screen styles */
 #loading-screen {
   position: fixed;
@@ -414,6 +417,11 @@
   50% { opacity: 1; }
 }
 </style>
+<script>
+  if (sessionStorage.getItem('hasLoadedBefore') === 'true') {
+    document.documentElement.classList.add('fast-load');
+  }
+</script>
 </head><body class="__variable_c5dbd7" style="overflow: auto;">
 
 <!-- Loading Screen overlay -->
@@ -437,8 +445,19 @@
 <script>
   (function() {
     const startTime = Date.now();
+    const loader = document.getElementById('loading-screen');
+    
+    if (sessionStorage.getItem('hasLoadedBefore') === 'true') {
+      if (loader) {
+        loader.remove();
+      }
+      return;
+    }
+
+    // Mark as loaded immediately so subsequent fast-loads can trigger on refresh/navigation
+    sessionStorage.setItem('hasLoadedBefore', 'true');
+
     const hideLoader = () => {
-      const loader = document.getElementById('loading-screen');
       if (loader) {
         // Keep the loader active for at least 4.5 seconds
         const elapsed = Date.now() - startTime;

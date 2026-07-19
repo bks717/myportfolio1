@@ -280,6 +280,9 @@
 
 
 <style id="loading-screen-css">
+.fast-load #loading-screen {
+  display: none !important;
+}
 /* HTML Loading Screen styles */
 #loading-screen {
   position: fixed;
@@ -420,6 +423,11 @@
   50% { opacity: 1; }
 }
 </style>
+<script>
+  if (sessionStorage.getItem('hasLoadedBefore') === 'true') {
+    document.documentElement.classList.add('fast-load');
+  }
+</script>
 </head>
 
 <body class="__variable_c5dbd7"
@@ -446,8 +454,19 @@
 <script>
   (function() {
     const startTime = Date.now();
+    const loader = document.getElementById('loading-screen');
+    
+    if (sessionStorage.getItem('hasLoadedBefore') === 'true') {
+      if (loader) {
+        loader.remove();
+      }
+      return;
+    }
+
+    // Mark as loaded immediately so subsequent fast-loads can trigger on refresh/navigation
+    sessionStorage.setItem('hasLoadedBefore', 'true');
+
     const hideLoader = () => {
-      const loader = document.getElementById('loading-screen');
       if (loader) {
         // Keep the loader active for at least 4.5 seconds
         const elapsed = Date.now() - startTime;
@@ -644,7 +663,7 @@
                                                         </circle>
                                                     </svg><span
                                                         class="pointer-events-none absolute left-1/2 top-[84%] -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-[10px] uppercase tracking-[0.15em] text-white/85 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 stagger-animate"
-                                                        style="">click me 👀</span></button>
+                                                        style="">click me ðŸ‘€</span></button>
                                             </div>
                                         </div>
                                     </div>
@@ -802,7 +821,7 @@
                                 <!-- Details -->
                                 <div>
                                     <p class="text-white/80 text-sm">
-                                        2023 – Present
+                                        2023 â€“ Present
                                     </p>
                                 </div>
 
@@ -856,19 +875,35 @@
                                             <div
                                                 class="font-sans font-extralight md:max-w-32 md:text-xs lg:text-base text-sm text-[#C1C2D3] z-10">
                                             </div>
-                                            <div class="font-sans text-lg lg:text-3xl max-w-md font-bold z-10">
-                                                    Languages I Speak
+                                            <div class="font-sans text-lg lg:text-3xl max-w-md font-bold z-10 mb-6">
+                                                    Languages I Code In
                                                 </div>
 
-                                                <div class="mt-3 flex flex-wrap gap-3">
-                                                    <span class="px-4 py-2 rounded-full border border-white/10 bg-white/5">
-                                                        🇬🇧 English
+                                                <div style="display: flex; flex-wrap: wrap; gap: 12px 10px; margin-top: 16px; position: relative; z-index: 10;">
+                                                    <span style="padding: 6px 16px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.875rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                          onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                        C++
                                                     </span>
-                                                    <span class="px-4 py-2 rounded-full border border-white/10 bg-white/5">
-                                                        🇮🇳 Kannada
+                                                    <span style="padding: 6px 16px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.875rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                          onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                        Java
                                                     </span>
-                                                    <span class="px-4 py-2 rounded-full border border-white/10 bg-white/5">
-                                                        🇮🇳 Hindi
+                                                    <span style="padding: 6px 16px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.875rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                          onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                        C
+                                                    </span>
+                                                    <span style="padding: 6px 16px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.875rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                          onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                        Python
+                                                    </span>
+                                                    <span style="padding: 6px 16px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.875rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                          onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                          onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                        JavaScript
                                                     </span>
                                                 </div>
                                         </div>
@@ -883,21 +918,20 @@
                                             class="justify-center group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col p-5 lg:p-10">
                                             <div
                                                 class="font-sans font-extralight md:max-w-32 md:text-xs lg:text-base text-sm text-[#C1C2D3] z-10">
-                                                My primary tech stack</div>
-                                            <div class="font-sans text-lg lg:text-3xl max-w-96 font-bold z-10">NEXT,
-                                                Golang</div>
+                                            </div>
+                                            <div class="font-sans text-lg lg:text-3xl max-w-96 font-bold z-10">My Primary Tech Stack</div>
                                             <div class="flex gap-1 lg:gap-5 w-fit absolute -right-3 lg:-right-2">
-                                                <div class="flex flex-col gap-3 md:gap-3 lg:gap-8"><span
-                                                        class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50  lg:opacity-100 rounded-lg text-center bg-[#3a3a44]">ReactJS</span><span
-                                                        class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50  lg:opacity-100 rounded-lg text-center bg-[#3a3a44]">Express</span><span
-                                                        class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50  lg:opacity-100 rounded-lg text-center bg-[#3a3a44]">Typescript</span><span
-                                                        class="lg:py-4 lg:px-3 py-4 px-3  rounded-lg text-center bg-[#3a3a44]"></span>
+                                                <div class="flex flex-col gap-3 md:gap-3 lg:gap-8">
+                                                    <span class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#3a3a44] text-white font-medium">React</span>
+                                                    <span class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#3a3a44] text-white font-medium">Node.js</span>
+                                                    <span class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#3a3a44] text-white font-medium">Express</span>
+                                                    <span class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#3a3a44] text-white font-medium">HTML / CSS</span>
                                                 </div>
-                                                <div class="flex flex-col gap-3 md:gap-3 lg:gap-8"><span
-                                                        class="lg:py-4 lg:px-3 py-4 px-3  rounded-lg text-center bg-[#3a3a44]"></span><span
-                                                        class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50  lg:opacity-100 rounded-lg text-center bg-[#3a3a44]">.NET</span><span
-                                                        class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50  lg:opacity-100 rounded-lg text-center bg-[#3a3a44]">GO</span><span
-                                                        class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50  lg:opacity-100 rounded-lg text-center bg-[#3a3a44]">NextJS</span>
+                                                <div class="flex flex-col gap-3 md:gap-3 lg:gap-8">
+                                                    <span class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#3a3a44] text-white font-medium">TypeScript</span>
+                                                    <span class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#3a3a44] text-white font-medium">MongoDB</span>
+                                                    <span class="lg:py-4 lg:px-3 py-2 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#3a3a44] text-white font-medium">MySQL</span>
+                                                    <span class="lg:py-4 lg:px-3 py-4 px-3 rounded-lg text-center bg-[#3a3a44]"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -911,12 +945,33 @@
                                         <div class="absolute right-0 -bottom-5 false "><img alt="/b4.svg"
                                                 class="object-cover object-center w-full h-full" src="./b4.svg"></div>
                                         <div
-                                            class="justify-start group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col p-5 lg:p-10">
+                                            class="justify-start group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col p-5 lg:p-10 z-10">
                                             <div
                                                 class="font-sans font-extralight md:max-w-32 md:text-xs lg:text-base text-sm text-[#C1C2D3] z-10">
                                             </div>
-                                            <div class="font-sans text-lg lg:text-3xl max-w-96 font-bold z-10">Software
-                                                Architect designer</div>
+                                            <div class="font-sans text-lg lg:text-3xl max-w-96 font-bold z-10 mb-6">Cloud & Automation</div>
+                                            <div style="display: flex; flex-wrap: wrap; gap: 10px 8px; margin-top: 8px; position: relative; z-index: 10;">
+                                                <span style="padding: 4px 12px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.75rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                      onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                      onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                    AWS
+                                                </span>
+                                                <span style="padding: 4px 12px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.75rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                      onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                      onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                    Docker
+                                                </span>
+                                                <span style="padding: 4px 12px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.75rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                      onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                      onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                    Zapier
+                                                </span>
+                                                <span style="padding: 4px 12px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.75rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                      onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                      onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                    n8n
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -929,12 +984,39 @@
                                         <div class="absolute right-0 -bottom-5 w-full opacity-80 "><img alt="/grid.svg"
                                                 class="object-cover object-center w-full h-full" src="./grid.svg"></div>
                                         <div
-                                            class="justify-center md:justify-start lg:justify-center group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col p-5 lg:p-10">
+                                            class="justify-start group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col p-5 lg:p-10 z-10">
                                             <div
                                                 class="font-sans font-extralight md:max-w-32 md:text-xs lg:text-base text-sm text-[#C1C2D3] z-10">
-                                                The Inside Scoop</div>
-                                            <div class="font-sans text-lg lg:text-3xl max-w-96 font-bold z-10">
-                                                Graduating soon, exploring what’s next</div>
+                                            </div>
+                                            <div class="font-sans text-lg lg:text-3xl max-w-96 font-bold z-10 mb-6">
+                                                Tools & Creative Suite</div>
+                                            <div style="display: flex; flex-wrap: wrap; gap: 12px 10px; margin-top: 16px; position: relative; z-index: 10; max-w: md;">
+                                                <span style="padding: 6px 16px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.875rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                      onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                      onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                    Git & GitHub
+                                                </span>
+                                                <span style="padding: 6px 16px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.875rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                      onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                      onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                    VS Code
+                                                </span>
+                                                <span style="padding: 6px 16px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.875rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                      onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                      onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                    Adobe After Effects
+                                                </span>
+                                                <span style="padding: 6px 16px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.875rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                      onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                      onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                    Premiere Pro
+                                                </span>
+                                                <span style="padding: 6px 16px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15); font-size: 0.875rem; font-weight: 500; color: rgba(255, 255, 255, 0.95); transition: all 0.2s ease-in-out; cursor: default;"
+                                                      onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 14px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 153, 0.35)'; this.style.borderColor='rgba(0, 255, 153, 0.3)';"
+                                                      onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 153, 0.15)'; this.style.borderColor='rgba(255, 255, 255, 0.08)';">
+                                                    DaVinci Resolve
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1332,7 +1414,7 @@
                                                                 const text = button.querySelector(".copy-text");
                                                                 const originalText = text.textContent;
 
-                                                                text.textContent = "✓ Email Copied!";
+                                                                text.textContent = "âœ“ Email Copied!";
 
                                                                 setTimeout(() => {
                                                                     text.textContent = originalText;
@@ -1351,11 +1433,11 @@
                         </div>
                     </section>
                     <div class="py-20">
-                        <h1 class="heading">A small selection of <span class="text-accent">of recent projects</span>
+                        <h1 class="heading">A small selection <span class="text-accent">of recent projects</span>
                         </h1>
                         <div class="flex flex-wrap items-center justify-center p-4 gap-16 mt-10">
-                            <div class="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]">
-                                <div class="relative group/pin z-50 cursor-pointer hover:-translate-y-4 transition-all duration-150">
+                            <div class="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw] project-card-3d" style="transition: transform 0.4s cubic-bezier(0.03, 0.98, 0.52, 0.99), box-shadow 0.4s ease;">
+                                <div class="relative group/pin z-50 cursor-pointer">
                                     <div class="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2"
                                         style="perspective: 1000px;">
                                         <div class="absolute left-1/2 p-4 top-1/2  flex justify-start items-start  rounded-2xl  shadow-[0_8px_16px_rgb(0_0_0/0.4)] border border-white/[0.1] group-hover/pin:border-white/[0.2] group-hover/pin:shadow-[0_0_40px_rgba(0,255,153,0.6)] transition duration-200 overflow-hidden"
@@ -1368,85 +1450,50 @@
                                                             loading="lazy" decoding="async" data-nimg="fill"
                                                             sizes="100vw" src="./images/bg.png"
                                                             style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
-                                                    </div><img alt="cover" class="z-10 absolute bottom-0"
-                                                        src="./comex.png">
+                                                    </div><img alt="cover" class="z-10 absolute inset-0 w-full h-full" style="object-fit: cover; object-position: center top;" src="./images/puddy.png">
                                                 </div>
                                                 <h1 class="font-bold lg:text-2xl md:text-xl text-base line-clamp-1">
-                                                    Mining Auction System</h1>
+                                                    Placement Buddy</h1>
                                                 <p class="lg:text-xl lg:font-normal font-light text-sm line-clamp-2"
-                                                    style="color: rgb(190, 193, 221); margin: 1vh 0px;">Real-time
-                                                    auction system handling $140M+ deals</p>
+                                                    style="color: rgb(190, 193, 221); margin: 1vh 0px;">Production-grade RAG placement assistant.</p>
                                                 <div class="flex items-center justify-between mt-7 mb-3">
                                                     <div class="flex items-center">
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-2px);"><img alt="icon5"
-                                                                class="p-2" src="./next.svg"></div>
+                                                            style="transform: translateX(-2px);" title="React"><img alt="React"
+                                                                class="p-2" src="./react.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-7px);"><img alt="icon5"
-                                                                class="p-2" src="./express.png"></div>
+                                                            style="transform: translateX(-7px);" title="FastAPI"><img alt="FastAPI"
+                                                                class="p-2" src="./fastapi.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-12px);"><img alt="icon5"
-                                                                class="p-2" src="./ts.svg"></div>
+                                                            style="transform: translateX(-12px);" title="Python"><img alt="Python"
+                                                                class="p-2" src="./python.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-17px);"><img alt="icon5"
-                                                                class="p-2" src="./tail.svg"></div>
+                                                            style="transform: translateX(-17px);" title="Google Gemini"><img alt="Gemini"
+                                                                class="p-2" src="./gemini.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-22px);"><img alt="icon5"
-                                                                class="p-2" src="./daisyui.png"></div>
+                                                            style="transform: translateX(-22px);" title="ChromaDB"><img alt="ChromaDB"
+                                                                class="p-2" src="./chromadb.svg"></div>
                                                     </div>
                                                     <div class="flex justify-center items-center gap-3">
-                                                        <p
-                                                            class="flex lg:text-xl md:text-xs text-sm cursor-alias text-accent hover:text-green-200 transition-all duration-200">
-                                                            Check Site</p><svg stroke="currentColor" fill="currentColor"
-                                                            stroke-width="0" viewBox="0 0 448 512" class="ms-3 "
+                                                        <a href="https://puddy.krupakara.space/" target="_blank" rel="noopener noreferrer"
+                                                            class="flex items-center lg:text-xl md:text-xs text-sm cursor-pointer text-accent hover:text-green-200 transition-all duration-200">
+                                                            Check Site<svg stroke="currentColor" fill="currentColor"
+                                                            stroke-width="0" viewBox="0 0 448 512" class="ms-3"
                                                             color="#" height="1em" width="1em"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
                                                                 d="M429.6 92.1c4.9-11.9 2.1-25.6-7-34.7s-22.8-11.9-34.7-7l-352 144c-14.2 5.8-22.2 20.8-19.3 35.8s16.1 25.8 31.4 25.8l176 0 0 176c0 15.3 10.8 28.4 25.8 31.4s30-5.1 35.8-19.3l144-352z">
                                                             </path>
-                                                        </svg>
+                                                        </svg></a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="pointer-events-none w-full h-80 flex items-center justify-center group-hover/pin:opacity-100 z-[60] transition duration-500 stagger-animate"
-                                        style="">
-                                        <div class=" w-full h-full -mt-7 flex-none  inset-0">
-                                            <div class="absolute top-0 inset-x-0  flex justify-center"><a
-                                                    href="https://comexchange.mn" target="_blank"
-                                                    class="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-0.5 px-4 ring-1 ring-white/10 "><span
-                                                        class="relative z-20 text-white text-xs font-bold inline-block py-0.5">https://comexchange.mn</span><span
-                                                        class="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover/btn:opacity-40"></span></a>
-                                            </div>
-                                            <div class="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2"
-                                                style="perspective: 1000px; transform: rotateX(70deg) translateZ(0px);">
-                                                <div class="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] stagger-animate"
-                                                    style=" "></div>
-                                                <div class="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] stagger-animate"
-                                                    style=" "></div>
-                                                <div class="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] stagger-animate"
-                                                    style=" "></div>
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 bottom-1/2 bg-gradient-to-b from-transparent to-cyan-500 translate-y-[14px] w-px h-20 group-hover/pin:h-40 blur-[2px]">
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 bottom-1/2 bg-gradient-to-b from-transparent to-cyan-500 translate-y-[14px] w-px h-20 group-hover/pin:h-40  ">
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 translate-x-[1.5px] bottom-1/2 bg-cyan-600 translate-y-[14px] w-[4px] h-[4px] rounded-full z-40 blur-[3px]">
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 translate-x-[0.5px] bottom-1/2 bg-cyan-300 translate-y-[14px] w-[2px] h-[2px] rounded-full z-40 ">
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                                <div></div>
                             </div>
-                            <div class="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]">
-                                <div class="relative group/pin z-50 cursor-pointer hover:-translate-y-4 transition-all duration-150">
+                            <div class="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw] project-card-3d" style="transition: transform 0.4s cubic-bezier(0.03, 0.98, 0.52, 0.99), box-shadow 0.4s ease;">
+                                <div class="relative group/pin z-50 cursor-pointer">
                                     <div class="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2"
                                         style="perspective: 1000px;">
                                         <div class="absolute left-1/2 p-4 top-1/2  flex justify-start items-start  rounded-2xl  shadow-[0_8px_16px_rgb(0_0_0/0.4)] border border-white/[0.1] group-hover/pin:border-white/[0.2] group-hover/pin:shadow-[0_0_40px_rgba(0,255,153,0.6)] transition duration-200 overflow-hidden"
@@ -1459,85 +1506,50 @@
                                                             loading="lazy" decoding="async" data-nimg="fill"
                                                             sizes="100vw" src="./images/bg.png"
                                                             style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
-                                                    </div><img alt="cover" class="z-10 absolute bottom-0"
-                                                        src="./Cloud Platform.png">
+                                                    </div><img alt="cover" class="z-10 absolute inset-0 w-full h-full" style="object-fit: cover; object-position: center top;" src="./images/axios.png">
                                                 </div>
                                                 <h1 class="font-bold lg:text-2xl md:text-xl text-base line-clamp-1">
-                                                    Cloud Platform (Cloud Platform)</h1>
+                                                    Axios: Land Registry on Blockchain</h1>
                                                 <p class="lg:text-xl lg:font-normal font-light text-sm line-clamp-2"
-                                                    style="color: rgb(190, 193, 221); margin: 1vh 0px;">Cloud
-                                                    infrastructure for Central Asia (Similar to AWS)</p>
+                                                    style="color: rgb(190, 193, 221); margin: 1vh 0px;">A Land Registry System Based on Blockchain Principles.</p>
                                                 <div class="flex items-center justify-between mt-7 mb-3">
                                                     <div class="flex items-center">
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-2px);"><img alt="icon5"
-                                                                class="p-2" src="./next.svg"></div>
+                                                            style="transform: translateX(-2px);"><img alt="React"
+                                                                class="p-2" src="./react.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-7px);"><img alt="icon5"
-                                                                class="p-2" src="./golang.svg"></div>
+                                                            style="transform: translateX(-7px);" title="Node.js"><img alt="Node.js"
+                                                                class="p-2" src="./nodejs.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-12px);"><img alt="icon5"
-                                                                class="p-2" src="./aws.svg"></div>
+                                                            style="transform: translateX(-12px);" title="Express.js"><img alt="Express.js"
+                                                                class="p-2" src="./express.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-17px);"><img alt="icon5"
-                                                                class="p-2" src="./tail.svg"></div>
+                                                            style="transform: translateX(-17px);" title="MongoDB"><img alt="MongoDB"
+                                                                class="p-2" src="./mongodb.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-22px);"><img alt="icon5"
-                                                                class="p-2" src="./ant-design.svg"></div>
+                                                            style="transform: translateX(-22px);" title="JavaScript"><img alt="JavaScript"
+                                                                class="p-2" src="./javascript.svg"></div>
                                                     </div>
                                                     <div class="flex justify-center items-center gap-3">
-                                                        <p
-                                                            class="flex lg:text-xl md:text-xs text-sm cursor-alias text-accent hover:text-green-200 transition-all duration-200">
-                                                            Check Site</p><svg stroke="currentColor" fill="currentColor"
-                                                            stroke-width="0" viewBox="0 0 448 512" class="ms-3 "
+                                                        <a href="https://axios.bhuvans.in/" target="_blank" rel="noopener noreferrer"
+                                                            class="flex items-center lg:text-xl md:text-xs text-sm cursor-pointer text-accent hover:text-green-200 transition-all duration-200">
+                                                            Check Site<svg stroke="currentColor" fill="currentColor"
+                                                            stroke-width="0" viewBox="0 0 448 512" class="ms-3"
                                                             color="#" height="1em" width="1em"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
                                                                 d="M429.6 92.1c4.9-11.9 2.1-25.6-7-34.7s-22.8-11.9-34.7-7l-352 144c-14.2 5.8-22.2 20.8-19.3 35.8s16.1 25.8 31.4 25.8l176 0 0 176c0 15.3 10.8 28.4 25.8 31.4s30-5.1 35.8-19.3l144-352z">
                                                             </path>
-                                                        </svg>
+                                                        </svg></a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="pointer-events-none w-full h-80 flex items-center justify-center group-hover/pin:opacity-100 z-[60] transition duration-500 stagger-animate"
-                                        style="">
-                                        <div class=" w-full h-full -mt-7 flex-none  inset-0">
-                                            <div class="absolute top-0 inset-x-0  flex justify-center"><a
-                                                    href="https://cloud.uztelecom.uz" target="_blank"
-                                                    class="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-0.5 px-4 ring-1 ring-white/10 "><span
-                                                        class="relative z-20 text-white text-xs font-bold inline-block py-0.5">https://cloud.uztelecom.uz</span><span
-                                                        class="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover/btn:opacity-40"></span></a>
-                                            </div>
-                                            <div class="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2"
-                                                style="perspective: 1000px; transform: rotateX(70deg) translateZ(0px);">
-                                                <div class="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] stagger-animate"
-                                                    style=" "></div>
-                                                <div class="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] stagger-animate"
-                                                    style=" "></div>
-                                                <div class="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] stagger-animate"
-                                                    style=" "></div>
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 bottom-1/2 bg-gradient-to-b from-transparent to-cyan-500 translate-y-[14px] w-px h-20 group-hover/pin:h-40 blur-[2px]">
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 bottom-1/2 bg-gradient-to-b from-transparent to-cyan-500 translate-y-[14px] w-px h-20 group-hover/pin:h-40  ">
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 translate-x-[1.5px] bottom-1/2 bg-cyan-600 translate-y-[14px] w-[4px] h-[4px] rounded-full z-40 blur-[3px]">
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 translate-x-[0.5px] bottom-1/2 bg-cyan-300 translate-y-[14px] w-[2px] h-[2px] rounded-full z-40 ">
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                                <div></div>
                             </div>
-                            <div class="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]">
-                                <div class="relative group/pin z-50 cursor-pointer hover:-translate-y-4 transition-all duration-150">
+                            <div class="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw] project-card-3d" style="transition: transform 0.4s cubic-bezier(0.03, 0.98, 0.52, 0.99), box-shadow 0.4s ease;">
+                                <div class="relative group/pin z-50 cursor-pointer">
                                     <div class="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2"
                                         style="perspective: 1000px;">
                                         <div class="absolute left-1/2 p-4 top-1/2  flex justify-start items-start  rounded-2xl  shadow-[0_8px_16px_rgb(0_0_0/0.4)] border border-white/[0.1] group-hover/pin:border-white/[0.2] group-hover/pin:shadow-[0_0_40px_rgba(0,255,153,0.6)] transition duration-200 overflow-hidden"
@@ -1550,75 +1562,39 @@
                                                             loading="lazy" decoding="async" data-nimg="fill"
                                                             sizes="100vw" src="./images/bg.png"
                                                             style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
-                                                    </div><img alt="cover" class="z-10 absolute bottom-0"
-                                                        src="./miniapp.png">
+                                                    </div><img alt="cover" class="z-10 absolute inset-0 w-full h-full" style="object-fit: cover; object-position: center top;" src="./images/origblockseat.png">
                                                 </div>
                                                 <h1 class="font-bold lg:text-2xl md:text-xl text-base line-clamp-1">
-                                                    Brokerage Mini App</h1>
+                                                    BlockSeat</h1>
                                                 <p class="lg:text-xl lg:font-normal font-light text-sm line-clamp-2"
-                                                    style="color: rgb(190, 193, 221); margin: 1vh 0px;">Stock trading
-                                                    with live balances (National Stock Exchange)</p>
+                                                    style="color: rgb(190, 193, 221); margin: 1vh 0px;">Anti-fraud ticket booking system for <span style="color:#00ff99;">RCB</span> fans.</p>
                                                 <div class="flex items-center justify-between mt-7 mb-3">
                                                     <div class="flex items-center">
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-2px);"><img alt="icon5"
-                                                                class="p-2" src="./next.svg"></div>
+                                                            style="transform: translateX(-2px);"><img alt="React"
+                                                                class="p-2" src="./react.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-7px);"><img alt="icon5"
-                                                                class="p-2" src="./express.png"></div>
+                                                            style="transform: translateX(-7px);" title="Node.js"><img alt="Node.js"
+                                                                class="p-2" src="./nodejs.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-12px);"><img alt="icon5"
-                                                                class="p-2" src="./ts.svg"></div>
+                                                            style="transform: translateX(-12px);" title="Express.js"><img alt="Express.js"
+                                                                class="p-2" src="./express.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-17px);"><img alt="icon5"
-                                                                class="p-2" src="./tail.svg"></div>
+                                                            style="transform: translateX(-17px);" title="MongoDB"><img alt="MongoDB"
+                                                                class="p-2" src="./mongodb.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-22px);"><img alt="icon5"
-                                                                class="p-2" src="./shadcn.png"></div>
+                                                            style="transform: translateX(-22px);" title="Python"><img alt="Python"
+                                                                class="p-2" src="./python.svg"></div>
                                                     </div>
-                                                    <div class="flex justify-center items-center gap-3"></div>
+                                                    <div class="flex justify-center items-center gap-3"><a href="https://www.blockseat.app/" target="_blank" rel="noopener noreferrer" class="flex items-center lg:text-xl md:text-xs text-sm cursor-pointer text-accent hover:text-green-200 transition-all duration-200">Check Site<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" class="ms-3" color="#" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M429.6 92.1c4.9-11.9 2.1-25.6-7-34.7s-22.8-11.9-34.7-7l-352 144c-14.2 5.8-22.2 20.8-19.3 35.8s16.1 25.8 31.4 25.8l176 0 0 176c0 15.3 10.8 28.4 25.8 31.4s30-5.1 35.8-19.3l144-352z"></path></svg></a></div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pointer-events-none w-full h-80 flex items-center justify-center group-hover/pin:opacity-100 z-[60] transition duration-500 stagger-animate"
-                                        style="">
-                                        <div class=" w-full h-full -mt-7 flex-none  inset-0">
-                                            <div class="absolute top-0 inset-x-0  flex justify-center"><a
-                                                    target="_blank"
-                                                    class="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-0.5 px-4 ring-1 ring-white/10 "><span
-                                                        class="relative z-20 text-white text-xs font-bold inline-block py-0.5">Brokerage
-                                                        Mini App</span><span
-                                                        class="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover/btn:opacity-40"></span></a>
-                                            </div>
-                                            <div class="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2"
-                                                style="perspective: 1000px; transform: rotateX(70deg) translateZ(0px);">
-                                                <div class="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] stagger-animate"
-                                                    style=" "></div>
-                                                <div class="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] stagger-animate"
-                                                    style=" "></div>
-                                                <div class="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] stagger-animate"
-                                                    style=" "></div>
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 bottom-1/2 bg-gradient-to-b from-transparent to-cyan-500 translate-y-[14px] w-px h-20 group-hover/pin:h-40 blur-[2px]">
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 bottom-1/2 bg-gradient-to-b from-transparent to-cyan-500 translate-y-[14px] w-px h-20 group-hover/pin:h-40  ">
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 translate-x-[1.5px] bottom-1/2 bg-cyan-600 translate-y-[14px] w-[4px] h-[4px] rounded-full z-40 blur-[3px]">
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 translate-x-[0.5px] bottom-1/2 bg-cyan-300 translate-y-[14px] w-[2px] h-[2px] rounded-full z-40 ">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div></div>
                             </div>
-                            <div class="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]">
-                                <div class="relative group/pin z-50 cursor-pointer hover:-translate-y-4 transition-all duration-150">
+                            <div class="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw] project-card-3d" style="transition: transform 0.4s cubic-bezier(0.03, 0.98, 0.52, 0.99), box-shadow 0.4s ease;">
+                                <div class="relative group/pin z-50 cursor-pointer">
                                     <div class="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2"
                                         style="perspective: 1000px;">
                                         <div class="absolute left-1/2 p-4 top-1/2  flex justify-start items-start  rounded-2xl  shadow-[0_8px_16px_rgb(0_0_0/0.4)] border border-white/[0.1] group-hover/pin:border-white/[0.2] group-hover/pin:shadow-[0_0_40px_rgba(0,255,153,0.6)] transition duration-200 overflow-hidden"
@@ -1631,96 +1607,122 @@
                                                             loading="lazy" decoding="async" data-nimg="fill"
                                                             sizes="100vw" src="./images/bg.png"
                                                             style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
-                                                    </div><img alt="cover" class="z-10 absolute bottom-0"
-                                                        src="./thesis.png">
+                                                    </div><img alt="cover" class="z-10 absolute inset-0 w-full h-full" style="object-fit: cover; object-position: center top;" src="./images/flood.jpeg">
                                                 </div>
                                                 <h1 class="font-bold lg:text-2xl md:text-xl text-base line-clamp-1">
-                                                    Multi-Agent Microservice</h1>
+                                                    Flood Prediction System</h1>
                                                 <p class="lg:text-xl lg:font-normal font-light text-sm line-clamp-2"
-                                                    style="color: rgb(190, 193, 221); margin: 1vh 0px;">AI agents
-                                                    collaborating through microservices (BSc Thesis)</p>
+                                                    style="color: rgb(190, 193, 221); margin: 1vh 0px;">Deep learning-based flood prediction system that forecasts flood risk with high accuracy.</p>
                                                 <div class="flex items-center justify-between mt-7 mb-3">
                                                     <div class="flex items-center">
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-2px);"><img alt="icon5"
-                                                                class="p-2" src="./next.svg"></div>
+                                                            style="transform: translateX(-2px);" title="Python"><img alt="Python"
+                                                                class="p-2" src="./python.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-7px);"><img alt="icon5"
-                                                                class="p-2" src="./express.png"></div>
+                                                            style="transform: translateX(-7px);" title="TensorFlow"><img alt="TensorFlow"
+                                                                class="p-2" src="./tensorflow.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-12px);"><img alt="icon5"
-                                                                class="p-2" src="./ts.svg"></div>
+                                                            style="transform: translateX(-12px);" title="Flask"><img alt="Flask"
+                                                                class="p-2" src="./flask.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-17px);"><img alt="icon5"
-                                                                class="p-2" src="./tail.svg"></div>
+                                                            style="transform: translateX(-17px);" title="Pandas"><img alt="Pandas"
+                                                                class="p-2" src="./pandas.svg"></div>
                                                         <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                                                            style="transform: translateX(-22px);"><img alt="icon5"
-                                                                class="p-2" src="./shadcn.png"></div>
+                                                            style="transform: translateX(-22px);" title="NumPy"><img alt="NumPy"
+                                                                class="p-2" src="./numpy.svg"></div>
                                                     </div>
                                                     <div class="flex justify-center items-center gap-3">
-                                                        <p
-                                                            class="flex lg:text-xl md:text-xs text-sm cursor-alias text-accent hover:text-green-200 transition-all duration-200">
-                                                            Github</p><svg stroke="currentColor" fill="currentColor"
-                                                            stroke-width="0" viewBox="0 0 448 512" class="ms-3 "
-                                                            color="#" height="1em" width="1em"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M429.6 92.1c4.9-11.9 2.1-25.6-7-34.7s-22.8-11.9-34.7-7l-352 144c-14.2 5.8-22.2 20.8-19.3 35.8s16.1 25.8 31.4 25.8l176 0 0 176c0 15.3 10.8 28.4 25.8 31.4s30-5.1 35.8-19.3l144-352z">
-                                                            </path>
-                                                        </svg><button
-                                                            class="flex items-center justify-center lg:w-10 lg:h-10 w-8 h-8 border border-white/[.2] rounded-full bg-black hover:bg-accent/20 transition-all duration-200"
-                                                            title="Read"><svg stroke="currentColor" fill="currentColor"
-                                                                stroke-width="0" viewBox="0 0 384 512"
-                                                                class="text-accent hover:text-green-200 transition-all duration-200"
-                                                                height="16" width="16"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z">
-                                                                </path>
-                                                            </svg></button>
+                                                        <a href="https://github.com/bks717/mp-latest" target="_blank" rel="noopener noreferrer" class="flex items-center lg:text-xl md:text-xs text-sm cursor-pointer text-accent hover:text-green-200 transition-all duration-200">Github<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" class="ms-3" color="#" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M429.6 92.1c4.9-11.9 2.1-25.6-7-34.7s-22.8-11.9-34.7-7l-352 144c-14.2 5.8-22.2 20.8-19.3 35.8s16.1 25.8 31.4 25.8l176 0 0 176c0 15.3 10.8 28.4 25.8 31.4s30-5.1 35.8-19.3l144-352z"></path></svg></a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="pointer-events-none w-full h-80 flex items-center justify-center group-hover/pin:opacity-100 z-[60] transition duration-500 stagger-animate"
-                                        style="">
-                                        <div class=" w-full h-full -mt-7 flex-none  inset-0">
-                                            <div class="absolute top-0 inset-x-0  flex justify-center"><a
-                                                    href="https://github.com/bks717/ai-agents-microservices-thesis"
-                                                    target="_blank"
-                                                    class="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-0.5 px-4 ring-1 ring-white/10 "><span
-                                                        class="relative z-20 text-white text-xs font-bold inline-block py-0.5">https://github.com/bks717/ai-agents-microservices-thesis</span><span
-                                                        class="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover/btn:opacity-40"></span></a>
-                                            </div>
-                                            <div class="absolute left-1/2 top-1/2 ml-[0.09375rem] mt-4 -translate-x-1/2 -translate-y-1/2"
-                                                style="perspective: 1000px; transform: rotateX(70deg) translateZ(0px);">
-                                                <div class="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] stagger-animate"
-                                                    style=" "></div>
-                                                <div class="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] stagger-animate"
-                                                    style=" "></div>
-                                                <div class="absolute left-1/2 top-1/2  h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] stagger-animate"
-                                                    style=" "></div>
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 bottom-1/2 bg-gradient-to-b from-transparent to-cyan-500 translate-y-[14px] w-px h-20 group-hover/pin:h-40 blur-[2px]">
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 bottom-1/2 bg-gradient-to-b from-transparent to-cyan-500 translate-y-[14px] w-px h-20 group-hover/pin:h-40  ">
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 translate-x-[1.5px] bottom-1/2 bg-cyan-600 translate-y-[14px] w-[4px] h-[4px] rounded-full z-40 blur-[3px]">
-                                            </div>
-                                            <div
-                                                class="absolute right-1/2 translate-x-[0.5px] bottom-1/2 bg-cyan-300 translate-y-[14px] w-[2px] h-[2px] rounded-full z-40 ">
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                                <div></div>
                             </div>
                         </div>
+
+                        <script>
+                        (function() {
+                            const cards = document.querySelectorAll('.project-card-3d');
+                            cards.forEach(card => {
+                                card.style.transformStyle = 'preserve-3d';
+                                card.style.willChange = 'transform';
+
+                                let currentRotX = 0, currentRotY = 0, currentTY = 0, currentScale = 1;
+                                let targetRotX = 0, targetRotY = 0, targetTY = 0, targetScale = 1;
+                                let rafId = null;
+                                let isHovered = false;
+
+                                function lerp(a, b, t) { return a + (b - a) * t; }
+
+                                function animate() {
+                                    const lerpFactor = 0.10; // lower = smoother/slower follow
+                                    currentRotX = lerp(currentRotX, targetRotX, lerpFactor);
+                                    currentRotY = lerp(currentRotY, targetRotY, lerpFactor);
+                                    currentTY   = lerp(currentTY,   targetTY,   lerpFactor);
+                                    currentScale= lerp(currentScale, targetScale, lerpFactor);
+
+                                    card.style.transform =
+                                        'perspective(900px) ' +
+                                        'rotateX(' + currentRotX.toFixed(3) + 'deg) ' +
+                                        'rotateY(' + currentRotY.toFixed(3) + 'deg) ' +
+                                        'translateY(' + currentTY.toFixed(3) + 'px) ' +
+                                        'scale3d(' + currentScale.toFixed(4) + ',' + currentScale.toFixed(4) + ',1)';
+
+                                    const dx = Math.abs(currentRotX - targetRotX);
+                                    const dy = Math.abs(currentRotY - targetRotY);
+                                    const dty = Math.abs(currentTY - targetTY);
+                                    const ds = Math.abs(currentScale - targetScale);
+
+                                    if (dx > 0.01 || dy > 0.01 || dty > 0.05 || ds > 0.001) {
+                                        rafId = requestAnimationFrame(animate);
+                                    } else {
+                                        // snap to final target
+                                        currentRotX = targetRotX;
+                                        currentRotY = targetRotY;
+                                        currentTY = targetTY;
+                                        currentScale = targetScale;
+                                        rafId = null;
+                                    }
+                                }
+
+                                function startLoop() {
+                                    if (!rafId) rafId = requestAnimationFrame(animate);
+                                }
+
+                                card.addEventListener('mouseenter', function() {
+                                    isHovered = true;
+                                    targetTY = -16;
+                                    targetScale = 1.04;
+                                    startLoop();
+                                });
+
+                                card.addEventListener('mousemove', function(e) {
+                                    const rect = card.getBoundingClientRect();
+                                    const x = e.clientX - rect.left;
+                                    const y = e.clientY - rect.top;
+                                    const normX = (x / rect.width  - 0.5) * 2; // -1 to 1
+                                    const normY = (y / rect.height - 0.5) * 2; // -1 to 1
+
+                                    targetRotX = normY * -11;
+                                    targetRotY = normX *  11;
+                                    startLoop();
+                                });
+
+                                card.addEventListener('mouseleave', function() {
+                                    isHovered = false;
+                                    targetRotX = 0;
+                                    targetRotY = 0;
+                                    targetTY   = 0;
+                                    targetScale = 1;
+                                    startLoop();
+                                });
+                            });
+                        })();
+                        </script>
                         <div class="flex justify-center items-center mt-10 2xl:mt-20 3xl:mt-30"><button
+                                onclick="alert('umm will be updated soon.')"
                                 class="group bg-primary relative w-auto cursor-pointer overflow-hidden rounded-full border border-white/[.2] p-2 px-6 text-center font-semibold">
                                 <div class="flex items-center justify-center gap-2">
                                     <div
@@ -1740,136 +1742,68 @@
                     </div>
                     <div class="py-20 w-full">
                         <h1 class="heading">My <span class="text-accent"> Experience</span></h1>
-                        <div class="w-full mt-12 grid lg:grid-cols-4 grid-cols-1 gap-10"><button
-                                class="bg-transparent relative text-xl p-[1px] overflow-hidden md:col-span-2 md:row-span-1 hover:-translate-y-4 hover:shadow-[0_0_40px_rgba(0,255,153,0.6)] transition-all duration-150 rounded-[1.68rem]"
+                        <div class="w-full mt-12 grid lg:grid-cols-4 grid-cols-1 gap-10">
+                            <div class="bg-transparent relative text-xl p-[1px] overflow-hidden col-span-1 lg:col-span-4 md:col-span-4 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(0,255,153,0.5)] transition-all duration-300 rounded-[1.68rem]"
                                 style="background: rgb(20, 20, 32); border-radius: calc(1.68rem);">
-                                <div class="absolute inset-0 rounde-[1.75rem]" style="border-radius: calc(1.68rem);">
+                                <div class="absolute inset-0" style="border-radius: calc(1.68rem);">
                                     <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
                                         class="absolute h-full w-full" width="100%" height="100%">
-                                        <rect fill="none" width="100%" height="100%" rx="30%" ry="30%"></rect>
+                                        <rect fill="none" width="100%" height="100%" rx="30" ry="30"></rect>
                                     </svg>
                                     <div
-                                        style="position: absolute; top: 0px; left: 0px; display: inline-block; transform: translateX(75.8857px) translateY(196.921px) translateX(-50%) translateY(-50%);">
+                                        style="position: absolute; top: 0px; left: 0px; display: inline-block; transform: translateX(10%) translateY(50%) translateX(-50%) translateY(-50%);">
                                         <div
-                                            class="h-20 w-20 opacity-[0.8] bg-[radial-gradient(#00ff99_40%,transparent_60%)]">
+                                            class="h-40 w-40 opacity-[0.6] bg-[radial-gradient(#00ff99_40%,transparent_60%)]">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="relative bg-slate-900/[0.] border backdrop-blur-xl flex items-center justify-center w-full h-full text-sm antialiased flex-1 text-white border-slate-800"
+                                <div class="relative bg-slate-900/[0.8] border backdrop-blur-xl flex items-center justify-center w-full h-full text-sm antialiased flex-1 text-white border-slate-800"
                                     style="border-radius: calc(1.68rem);">
                                     <div
-                                        class="flex lg:flex-row flex-col lg:items-center p-3 py-6 md:p-5 lg:p-10 gap-2">
+                                        class="flex lg:flex-row flex-col lg:items-center p-6 py-8 md:p-8 lg:p-12 gap-6 w-full">
                                         <img alt="/exp1.svg" loading="lazy" width="128" height="128" decoding="async"
-                                            data-nimg="1" class="lg:w-32 md:w-20 w-16" src="./exp1.svg"
+                                            class="lg:w-32 md:w-24 w-20 self-center lg:self-auto" src="./exp1.svg"
                                             style="color: transparent;">
-                                        <div class="lg:ms-5">
-                                            <h1 class="text-start text-xl md:text-2xl font-bold">Frontend Engineer</h1>
-                                            <p class="text-start text-white-100 mt-3 font-semibold">Deployed three
-                                                projects as a team leader, and built a real-time auction interface.
-                                                Continuously improving UX, now exploring Framer Motion for animations.
+                                        <div class="lg:ms-5 flex-1 flex flex-col gap-4">
+                                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                                                <h1 class="text-start text-2xl md:text-3xl font-bold">ERP Developer Intern</h1>
+                                                <span class="text-accent text-sm md:text-base font-semibold bg-accent/10 px-3 py-1 rounded-full border border-accent/20 w-fit">Hitech Polymers · 3 Months</span>
+                                            </div>
+                                            <p class="text-start text-white/80 text-base md:text-lg leading-relaxed font-light">
+                                                Completed a 3-month internship at Hitech Polymers, building a modular ERP by implementing complex factory workflows, inventory management, and business logic.
                                             </p>
+                                            <div class="flex items-center gap-3 mt-4">
+                                                <div class="flex items-center mr-4">
+                                                    <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                                                        style="transform: translateX(-2px);" title="Next.js"><img alt="Next.js"
+                                                            class="p-2" src="./next.svg"></div>
+                                                    <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                                                        style="transform: translateX(-7px);" title="TypeScript"><img alt="TypeScript"
+                                                            class="p-2" src="./ts.svg"></div>
+                                                    <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                                                        style="transform: translateX(-12px);" title="NestJS"><img alt="NestJS"
+                                                            class="p-2" src="./nestjs.svg"></div>
+                                                    <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                                                        style="transform: translateX(-17px);" title="PostgreSQL"><img alt="PostgreSQL"
+                                                            class="p-2" src="./postgresql.svg"></div>
+                                                    <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                                                        style="transform: translateX(-22px);" title="Prisma"><img alt="Prisma"
+                                                            class="p-2" src="./prisma.svg"></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </button><button
-                                class="bg-transparent relative text-xl p-[1px] overflow-hidden md:col-span-2 md:row-span-1 hover:-translate-y-4 hover:shadow-[0_0_40px_rgba(0,255,153,0.6)] transition-all duration-150 rounded-[1.68rem]"
-                                style="background: rgb(20, 20, 32); border-radius: calc(1.68rem);">
-                                <div class="absolute inset-0 rounde-[1.75rem]" style="border-radius: calc(1.68rem);">
-                                    <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
-                                        class="absolute h-full w-full" width="100%" height="100%">
-                                        <rect fill="none" width="100%" height="100%" rx="30%" ry="30%"></rect>
-                                    </svg>
-                                    <div
-                                        style="position: absolute; top: 0px; left: 0px; display: inline-block; transform: translateX(116.92px) translateY(204.284px) translateX(-50%) translateY(-50%);">
-                                        <div
-                                            class="h-20 w-20 opacity-[0.8] bg-[radial-gradient(#00ff99_40%,transparent_60%)]">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="relative bg-slate-900/[0.] border backdrop-blur-xl flex items-center justify-center w-full h-full text-sm antialiased flex-1 text-white border-slate-800"
-                                    style="border-radius: calc(1.68rem);">
-                                    <div
-                                        class="flex lg:flex-row flex-col lg:items-center p-3 py-6 md:p-5 lg:p-10 gap-2">
-                                        <img alt="/exp2.svg" loading="lazy" width="128" height="128" decoding="async"
-                                            data-nimg="1" class="lg:w-32 md:w-20 w-16" src="./exp2.svg"
-                                            style="color: transparent;">
-                                        <div class="lg:ms-5">
-                                            <h1 class="text-start text-xl md:text-2xl font-bold">Backend Engineer</h1>
-                                            <p class="text-start text-white-100 mt-3 font-semibold">Designed and built
-                                                ISO-secure monolith and microservices systems where over 100 million USD
-                                                worth of trades have been executed.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button><button
-                                class="bg-transparent relative text-xl p-[1px] overflow-hidden md:col-span-2 md:row-span-1 hover:-translate-y-4 hover:shadow-[0_0_40px_rgba(0,255,153,0.6)] transition-all duration-150 rounded-[1.68rem]"
-                                style="background: rgb(20, 20, 32); border-radius: calc(1.68rem);">
-                                <div class="absolute inset-0 rounde-[1.75rem]" style="border-radius: calc(1.68rem);">
-                                    <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
-                                        class="absolute h-full w-full" width="100%" height="100%">
-                                        <rect fill="none" width="100%" height="100%" rx="30%" ry="30%"></rect>
-                                    </svg>
-                                    <div
-                                        style="position: absolute; top: 0px; left: 0px; display: inline-block; transform: translateX(100.834px) translateY(182.518px) translateX(-50%) translateY(-50%);">
-                                        <div
-                                            class="h-20 w-20 opacity-[0.8] bg-[radial-gradient(#00ff99_40%,transparent_60%)]">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="relative bg-slate-900/[0.] border backdrop-blur-xl flex items-center justify-center w-full h-full text-sm antialiased flex-1 text-white border-slate-800"
-                                    style="border-radius: calc(1.68rem);">
-                                    <div
-                                        class="flex lg:flex-row flex-col lg:items-center p-3 py-6 md:p-5 lg:p-10 gap-2">
-                                        <img alt="/exp3.svg" loading="lazy" width="128" height="128" decoding="async"
-                                            data-nimg="1" class="lg:w-32 md:w-20 w-16" src="./exp3.svg"
-                                            style="color: transparent;">
-                                        <div class="lg:ms-5">
-                                            <h1 class="text-start text-xl md:text-2xl font-bold">Teammate</h1>
-                                            <p class="text-start text-white-100 mt-3 font-semibold">Worked with
-                                                stakeholders to develop Mining Commodity Exchange System. Led
-                                                development team, and deployed projects successfully</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button><button
-                                class="bg-transparent relative text-xl p-[1px] overflow-hidden md:col-span-2 md:row-span-1 hover:-translate-y-4 hover:shadow-[0_0_40px_rgba(0,255,153,0.6)] transition-all duration-150 rounded-[1.68rem]"
-                                style="background: rgb(20, 20, 32); border-radius: calc(1.68rem);">
-                                <div class="absolute inset-0 rounde-[1.75rem]" style="border-radius: calc(1.68rem);">
-                                    <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
-                                        class="absolute h-full w-full" width="100%" height="100%">
-                                        <rect fill="none" width="100%" height="100%" rx="30%" ry="30%"></rect>
-                                    </svg>
-                                    <div
-                                        style="position: absolute; top: 0px; left: 0px; display: inline-block; transform: translateX(199.739px) translateY(187.6px) translateX(-50%) translateY(-50%);">
-                                        <div
-                                            class="h-20 w-20 opacity-[0.8] bg-[radial-gradient(#00ff99_40%,transparent_60%)]">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="relative bg-slate-900/[0.] border backdrop-blur-xl flex items-center justify-center w-full h-full text-sm antialiased flex-1 text-white border-slate-800"
-                                    style="border-radius: calc(1.68rem);">
-                                    <div
-                                        class="flex lg:flex-row flex-col lg:items-center p-3 py-6 md:p-5 lg:p-10 gap-2">
-                                        <img alt="/exp4.svg" loading="lazy" width="128" height="128" decoding="async"
-                                            data-nimg="1" class="lg:w-32 md:w-20 w-16" src="./exp4.svg"
-                                            style="color: transparent;">
-                                        <div class="lg:ms-5">
-                                            <h1 class="text-start text-xl md:text-2xl font-bold">Aspiring DevOps</h1>
-                                            <p class="text-start text-white-100 mt-3 font-semibold">Maintained multiple
-                                                systems in production and currently preparing for Red Hat and AWS
-                                                Solutions Architect certifications.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="relative w-full" style="opacity: 1;">
                         <div class="w-full bg-primary font-sans md:px-10">
                             <div class="max-w-5xl mx-auto py-20 px-4 ml-2 md:ml-10 lg:ml-20 xl:ml-32 md:px-8 lg:px-10">
                                 <h2 class="text-lg md:text-4xl mb-4 text-white max-w-4xl">My journey report</h2>
-                                <p class="text-neutral-300 text-sm md:text-base max-w-sm">I've had the opportunity to
-                                    develop software across a variety of settings — from small side-jobs to large
-                                    corporation, mostly building financial systems. Here's my timeline of my journey</p>
+                                <p class="text-neutral-300 text-sm md:text-base max-w-sm">I enjoy building software that solves meaningful problems,
+                                     from AI-powered applications to enterprise systems.
+                                    Here's a timeline of the projects that have shaped my journey.</p>
                             </div>
                             <div class="relative max-w-5xl mx-auto pb-20">
                                 <div class="flex justify-start pt-10 md:pt-40 md:gap-10">
@@ -1978,19 +1912,19 @@
                                             <div class="mb-8">
                                                 <div
                                                     class="flex gap-2 items-center text-neutral-300 text-xs md:text-sm">
-                                                    ✅ Dashboard Development - developing dashboard that help keep track
+                                                    âœ… Dashboard Development - developing dashboard that help keep track
                                                     of financial data.</div>
                                                 <div
                                                     class="flex gap-2 items-center text-neutral-300 text-xs md:text-sm">
-                                                    ✅ Automations - for putting taxes in every stocks transaction with
+                                                    âœ… Automations - for putting taxes in every stocks transaction with
                                                     NodeJS app</div>
                                                 <div
                                                     class="flex gap-2 items-center text-neutral-300 text-xs md:text-sm">
-                                                    ✅ API Integration - Used datas from two different exchanges to
+                                                    âœ… API Integration - Used datas from two different exchanges to
                                                     display real-time stocks data</div>
                                                 <div
                                                     class="flex gap-2 items-center text-neutral-300 text-xs md:text-sm">
-                                                    ✅ Personal Projects - Learned new technologies in my free time.
+                                                    âœ… Personal Projects - Learned new technologies in my free time.
                                                     Built a social media app using PostgreSQL for the backend, and
                                                     TypeScript with Next.js for the frontend</div>
                                             </div>

@@ -642,14 +642,14 @@
                                                             class="w-full h-full relative rounded-full overflow-hidden">
                                                             <div class="w-full h-full"
                                                                 style="opacity: 1; filter: blur(0px); transform: none;">
-                                                                <img alt="Me" decoding="async" data-nimg="fill"
+                                                                <img id="hero-photo-img" alt="Me" decoding="async" data-nimg="fill"
                                                                     class="object-cover rounded-full" sizes="100vw"
                                                                     src="./images/omoriyon.jpg"
-                                                                    style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                                                                    style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent; cursor: pointer;">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div><button type="button"
+                                                </div><button type="button" id="hero-photo-btn"
                                                     class="group relative cursor-pointer rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
                                                     aria-label="Switch photo mood. Current mood: calm" tabindex="0"><svg
                                                         class="hero-svg-box circle-spin-animation" style=""
@@ -661,9 +661,9 @@
                                                             stroke-dasharray="15.99983 25.01624 91.98854 71.99196"
                                                             style="transform: rotate(283.155deg); transform-origin: 50% 50%; transform-box: fill-box;">
                                                         </circle>
-                                                    </svg><span
-                                                        class="pointer-events-none absolute left-1/2 top-[84%] -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-[10px] uppercase tracking-[0.15em] text-white/85 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 stagger-animate"
-                                                        style="">click me ðŸ‘€</span></button>
+                                                    </svg><span id="hero-click-label"
+                                                        class="pointer-events-none absolute left-1/2 top-[84%] -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-[10px] uppercase tracking-[0.15em] text-white/85 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+                                                        style="">click me 👀</span></button>
                                             </div>
                                         </div>
                                     </div>
@@ -1795,6 +1795,59 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="bg-transparent relative text-xl p-[1px] overflow-hidden col-span-1 lg:col-span-4 md:col-span-4 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(0,255,153,0.5)] transition-all duration-300 rounded-[1.68rem]"
+                                style="background: rgb(20, 20, 32); border-radius: calc(1.68rem);">
+                                <div class="absolute inset-0" style="border-radius: calc(1.68rem);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+                                        class="absolute h-full w-full" width="100%" height="100%">
+                                        <rect fill="none" width="100%" height="100%" rx="30" ry="30"></rect>
+                                    </svg>
+                                    <div
+                                        style="position: absolute; top: 0px; left: 0px; display: inline-block; transform: translateX(10%) translateY(50%) translateX(-50%) translateY(-50%);">
+                                        <div
+                                            class="h-40 w-40 opacity-[0.6] bg-[radial-gradient(#00ff99_40%,transparent_60%)]">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="relative bg-slate-900/[0.8] border backdrop-blur-xl flex items-center justify-center w-full h-full text-sm antialiased flex-1 text-white border-slate-800"
+                                    style="border-radius: calc(1.68rem);">
+                                    <div
+                                        class="flex lg:flex-row flex-col lg:items-center p-6 py-8 md:p-8 lg:p-12 gap-6 w-full">
+                                        <img alt="/exp2.svg" loading="lazy" width="128" height="128" decoding="async"
+                                            class="lg:w-32 md:w-24 w-20 self-center lg:self-auto" src="./exp2.svg"
+                                            style="color: transparent;">
+                                        <div class="lg:ms-5 flex-1 flex flex-col gap-4">
+                                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                                                <h1 class="text-start text-2xl md:text-3xl font-bold">CAD Design Intern</h1>
+                                                <span class="text-accent text-sm md:text-base font-semibold bg-accent/10 px-3 py-1 rounded-full border border-accent/20 w-fit">VR Wood Industries · 2 Months</span>
+                                            </div>
+                                            <p class="text-start text-white/80 text-base md:text-lg leading-relaxed font-light">
+                                                Interned at VR Wood Industries, one of South India’s largest wooden chair and chair-base manufacturers. Designed 3D CAD models and engineering drawings for chair-base components, prepared CNC-ready precision designs, and worked across the CAD-to-CNC workflow ensuring dimensional accuracy and production-oriented design.
+                                            </p>
+                                            <div class="flex items-center gap-3 mt-4">
+                                                <div class="flex items-center mr-4">
+                                                    <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                                                        style="transform: translateX(-2px);" title="3D CAD"><img alt="3D CAD"
+                                                            class="p-2" src="./cad.svg"></div>
+                                                    <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                                                        style="transform: translateX(-7px);" title="AutoCAD"><img alt="AutoCAD"
+                                                            class="p-2" src="./autocad.svg"></div>
+                                                    <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                                                        style="transform: translateX(-12px);" title="CNC Machining"><img alt="CNC Machining"
+                                                            class="p-2" src="./cnc.svg"></div>
+                                                    <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                                                        style="transform: translateX(-17px);" title="CAM Precision Tooling"><img alt="CAM"
+                                                            class="p-2" src="./cam.svg"></div>
+                                                    <div class="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                                                        style="transform: translateX(-22px);" title="Industrial Manufacturing"><img alt="Manufacturing"
+                                                            class="p-2" src="./manufacturing.svg"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="relative w-full" style="opacity: 1;">
@@ -2716,6 +2769,90 @@
             }
         }
     });
+</script>
+
+<script>
+(function () {
+  var photos = [
+    './images/omoriyon.jpg',
+    './images/mypic.png',
+    './images/meonsteroids.png'
+  ];
+  var current = 0;
+  var spinning = false;
+
+  var style = document.createElement('style');
+  style.textContent = `
+    #hero-photo-img {
+      transition: opacity 0.25s ease, transform 0.35s ease;
+      transform-origin: center center;
+    }
+    #hero-photo-img.hero-fade-out {
+      opacity: 0;
+      transform: scale(0.88) rotateY(90deg);
+    }
+    #hero-photo-img.hero-fade-in {
+      opacity: 0;
+      transform: scale(0.88) rotateY(-90deg);
+      transition: none;
+    }
+    #hero-photo-img.hero-visible {
+      opacity: 1;
+      transform: scale(1) rotateY(0deg);
+      transition: opacity 0.3s ease, transform 0.35s ease;
+    }
+  `;
+  document.head.appendChild(style);
+
+  function switchPhoto() {
+    var img = document.getElementById('hero-photo-img');
+    var label = document.getElementById('hero-click-label');
+    if (!img || spinning) return;
+    spinning = true;
+
+    img.classList.add('hero-fade-out');
+
+    setTimeout(function () {
+      current = (current + 1) % photos.length;
+      img.src = photos[current];
+      img.classList.remove('hero-fade-out');
+      img.classList.add('hero-fade-in');
+
+      void img.offsetWidth;
+
+      img.classList.remove('hero-fade-in');
+      img.classList.add('hero-visible');
+
+      if (label) {
+        var hints = ['click me \uD83D\uDC40', 'click me \uD83D\uDE0E', 'click me \u26A1'];
+        label.textContent = hints[current];
+      }
+
+      setTimeout(function () {
+        img.classList.remove('hero-visible');
+        spinning = false;
+      }, 380);
+
+    }, 280);
+  }
+
+  function bindEvents() {
+    var btn = document.getElementById('hero-photo-btn');
+    var img = document.getElementById('hero-photo-img');
+    if (btn) {
+      btn.onclick = switchPhoto;
+    }
+    if (img) {
+      img.onclick = switchPhoto;
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindEvents);
+  } else {
+    bindEvents();
+  }
+})();
 </script>
 
 </body>

@@ -1,0 +1,387 @@
+/* ==========================================
+   ROYAL CINEMATIC 3D VOXEL LOADER STYLESHEET
+   Aesthetics: Deep Obsidian Black, Warm Gold & Cinematic Amber Flares
+   ========================================== */
+
+#three-loading-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999999;
+  background: #060608;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s ease;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+}
+
+#three-loading-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Royal Warm Gold Ambient Aura */
+#three-loading-screen::before {
+  content: '';
+  position: absolute;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, rgba(180, 130, 20, 0.06) 45%, transparent 70%);
+  filter: blur(80px);
+  animation: royal-aura-pulse 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes royal-aura-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+/* WebGL Canvas */
+#three-loader-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Stage 1 Branding Overlay */
+.three-loader-branding {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.three-loader-branding.hidden {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+.three-loader-logo {
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  color: #fceecb;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+  display: flex;
+  align-items: baseline;
+}
+
+.three-loader-logo .dot {
+  color: #d4af37;
+  text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+  animation: dot-gold-pulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes dot-gold-pulse {
+  from { opacity: 0.4; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.2); }
+}
+
+/* Progress Bar */
+.three-progress-bar-wrapper {
+  width: min(240px, 75vw);
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.three-progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, transparent, #d4af37);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+  border-radius: 10px;
+  transition: width 0.2s ease-out;
+}
+
+.three-loader-info {
+  position: absolute;
+  left: 5vw;
+  bottom: 5vh;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 3;
+  transition: opacity 0.5s ease;
+}
+
+.three-loader-info.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.three-loader-subtitle {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(243, 229, 171, 0.4);
+}
+
+.three-loader-status-text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #d4af37;
+  animation: text-blink-gold 1.5s infinite ease-in-out;
+}
+
+@keyframes text-blink-gold {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Minimalist Small Scroll Instruction Cue */
+#scroll-instruction-cue {
+  position: absolute;
+  bottom: 6vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: rgba(10, 10, 14, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(243, 229, 171, 0.7);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+
+#scroll-instruction-cue.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+#scroll-instruction-cue.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(15px);
+}
+
+.scroll-mouse-icon {
+  width: 10px;
+  height: 16px;
+  border: 1.5px solid #d4af37;
+  border-radius: 8px;
+  position: relative;
+}
+
+.scroll-mouse-icon::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 4px;
+  background: #d4af37;
+  border-radius: 2px;
+  animation: scroll-gold-dot 1.5s infinite ease-in-out;
+}
+
+@keyframes scroll-gold-dot {
+  0% { transform: translate(-50%, 0); opacity: 1; }
+  100% { transform: translate(-50%, 5px); opacity: 0; }
+}
+
+/* Royal HD Photo Overlay Container */
+.real-image-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 5;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 0 45px rgba(212, 175, 55, 0.25), 0 25px 65px rgba(0, 0, 0, 0.85);
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.real-image-wrapper.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.real-portrait-img {
+  display: block;
+  width: auto;
+  height: min(60vh, 520px);
+  object-fit: cover;
+  border-radius: 30px;
+}
+
+/* Drop Impact Animation */
+.real-image-wrapper.drop-impact {
+  animation: drop-royal-bounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes drop-royal-bounce {
+  0% { transform: translate(-50%, -62%) scale(1.06); }
+  50% { transform: translate(-50%, -47%) scale(0.97); }
+  75% { transform: translate(-50%, -51%) scale(1.01); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Shockwave Ripple Ring (Royal Amber Gold) */
+.ripple-wave-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.6) 0%, rgba(212, 175, 55, 0.2) 45%, transparent 70%);
+  border: 1.5px solid rgba(212, 175, 55, 0.7);
+  box-shadow: 0 0 35px rgba(212, 175, 55, 0.6);
+  z-index: 6;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ripple-wave-effect.expand {
+  animation: shockwave-royal-ripple 1.1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes shockwave-royal-ripple {
+  0% { transform: scale(0.1); opacity: 1; }
+  70% { opacity: 0.7; }
+  100% { transform: scale(35); opacity: 0; }
+}
+
+/* Stage 4 Aesthetic "View Profile" CTA Button Container */
+#view-profile-container {
+  position: absolute;
+  bottom: 7vh;
+  left: 50%;
+  transform: translateX(-50%) translateY(30px);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#view-profile-container.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Royal Aesthetic Pill Button */
+.cute-profile-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 36px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f3e5ab;
+  background: rgba(12, 12, 18, 0.85);
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  border-radius: 50px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.2), 0 10px 30px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.cute-profile-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 235, 170, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.cute-profile-btn:hover::before {
+  left: 100%;
+}
+
+.cute-profile-btn:hover {
+  transform: scale(1.05) translateY(-2px);
+  background: rgba(212, 175, 55, 0.16);
+  border-color: #d4af37;
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.45), 0 12px 35px rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+}
+
+.cute-profile-btn:active {
+  transform: scale(0.98) translateY(1px);
+}
+
+.cute-profile-btn .btn-pulse {
+  width: 7px;
+  height: 7px;
+  background-color: #d4af37;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #d4af37;
+  animation: btn-gold-pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes btn-gold-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 1; }
+}
+
+.cute-profile-btn .btn-arrow {
+  display: inline-block;
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.cute-profile-btn:hover .btn-arrow {
+  transform: translateX(5px);
+}

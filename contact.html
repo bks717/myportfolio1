@@ -205,6 +205,7 @@
   50% { opacity: 1; }
 }
 </style>
+<link rel="stylesheet" href="./css/three-loader.css">
 <script>
   if (sessionStorage.getItem('hasLoadedBefore') === 'true') {
     document.documentElement.classList.add('fast-load');
@@ -212,9 +213,11 @@
 </script>
 </head><body class="__variable_c5dbd7">
 
-<!-- Loading Screen overlay -->
+<!-- =========================================================
+     OLD LOADER — PRESERVED FOR FUTURE RESTORATION
+     ========================================================= -->
+<!--
 <div id="loading-screen" style="z-index: 9999999;">
-  <!-- Logo and Progress bar in the center -->
   <div class="loader-container">
     <div class="loader-logo">
       Krupakara<span class="dot">.</span>
@@ -224,7 +227,6 @@
     </div>
   </div>
   
-  <!-- Subtitle and loading label on the far left bottom -->
   <div class="loader-info-wrapper">
     <div class="loader-subtitle">Loading Portfolio</div>
     <div class="loader-status-text">Initializing...</div>
@@ -242,12 +244,10 @@
       return;
     }
 
-    // Mark as loaded immediately so subsequent fast-loads can trigger on refresh/navigation
     sessionStorage.setItem('hasLoadedBefore', 'true');
 
     const hideLoader = () => {
       if (loader) {
-        // Keep the loader active for at least 4.5 seconds
         const elapsed = Date.now() - startTime;
         const delay = Math.max(0, 4500 - elapsed);
         setTimeout(() => {
@@ -265,6 +265,38 @@
     }
   })();
 </script>
+-->
+
+<!-- =========================================================
+     NEW THREE.JS WEBGL INTERACTIVE LOADER
+     ========================================================= -->
+<div id="three-loading-screen">
+  <canvas id="three-loader-canvas"></canvas>
+
+  <!-- Scroll Cue Helper -->
+  <div id="scroll-instruction-cue">
+    <div class="scroll-mouse-icon"></div>
+    <span>Scroll</span>
+  </div>
+
+  <!-- Real HD Photo Overlay & Shockwave Ripple -->
+  <div class="real-image-wrapper" id="real-image-container">
+    <img src="./images/saves-for-portfolio/me/ME.jpg" class="real-portrait-img" id="real-portrait-img" alt="Bhavani Krupakara S">
+    <div class="ripple-wave-effect" id="ripple-wave-effect"></div>
+  </div>
+
+  <!-- Stage 4 Aesthetic "View Profile" CTA Button -->
+  <div id="view-profile-container">
+    <button id="view-profile-btn" class="cute-profile-btn">
+      <span class="btn-pulse"></span>
+      <span>View Profile</span>
+      <span class="btn-arrow">→</span>
+    </button>
+  </div>
+</div>
+
+<script src="./js/three.min.js"></script>
+<script src="./js/three-loader.js"></script>
 
 
 

@@ -427,15 +427,32 @@
   if (sessionStorage.getItem('hasLoadedBefore') === 'true') {
     document.documentElement.classList.add('fast-load');
   }
-</script>
+</script>    <link rel="manifest" href="./site.webmanifest">
+    <link rel="stylesheet" href="./css/three-loader.css">
+    <meta name="theme-color" content="#00ff99">
+    <meta name="msapplication-TileColor" content="#000000">
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body class="__variable_c5dbd7"
     style="--gradient-background-start: rgb(108, 0, 162); --gradient-background-end: rgb(0, 17, 82); --first-color: 18, 113, 255; --second-color: 221, 74, 255; --third-color: 100, 220, 255; --fourth-color: 200, 50, 50; --fifth-color: 180, 180, 50; --pointer-color: 140, 100, 255; --size: 80%; --blending-value: hard-light;">
 
-<!-- Loading Screen overlay -->
+<!-- =========================================================
+     OLD LOADER — PRESERVED FOR FUTURE RESTORATION
+     ========================================================= -->
+<!--
 <div id="loading-screen" style="z-index: 9999999;">
-  <!-- Logo and Progress bar in the center -->
   <div class="loader-container">
     <div class="loader-logo">
       Krupakara<span class="dot">.</span>
@@ -445,7 +462,6 @@
     </div>
   </div>
   
-  <!-- Subtitle and loading label on the far left bottom -->
   <div class="loader-info-wrapper">
     <div class="loader-subtitle">Loading Portfolio</div>
     <div class="loader-status-text">Initializing...</div>
@@ -486,6 +502,38 @@
     }
   })();
 </script>
+-->
+
+<!-- =========================================================
+     NEW THREE.JS WEBGL INTERACTIVE LOADER
+     ========================================================= -->
+<div id="three-loading-screen">
+  <canvas id="three-loader-canvas"></canvas>
+
+  <!-- Scroll Cue Helper -->
+  <div id="scroll-instruction-cue">
+    <div class="scroll-mouse-icon"></div>
+    <span>Scroll</span>
+  </div>
+
+  <!-- Real HD Photo Overlay & Shockwave Ripple -->
+  <div class="real-image-wrapper" id="real-image-container">
+    <img src="./images/saves-for-portfolio/me/ME.jpg" class="real-portrait-img" id="real-portrait-img" alt="Bhavani Krupakara S">
+    <div class="ripple-wave-effect" id="ripple-wave-effect"></div>
+  </div>
+
+  <!-- Stage 4 Aesthetic "View Profile" CTA Button -->
+  <div id="view-profile-container">
+    <button id="view-profile-btn" class="cute-profile-btn">
+      <span class="btn-pulse"></span>
+      <span>View Profile</span>
+      <span class="btn-arrow">→</span>
+    </button>
+  </div>
+</div>
+
+<script src="./js/three.min.js"></script>
+<script src="./js/three-loader.js"></script>
 
 
 

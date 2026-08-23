@@ -155,7 +155,92 @@
   50% { opacity: 1; }
 }
 
-/* Minimalist Small Scroll Instruction Cue */
+/* ============================================================
+   MINIMAL CINEMATIC SCI-FI INTERFACE CONTROLS
+   Aesthetics: Deep Obsidian Glass, Ultra-Thin Muted Gold Trim,
+   Refined Spaced Typography, Subtle Ambient Breathing
+   ============================================================ */
+
+/* Minimalist Sci-Fi Tap Instruction Cue */
+#tap-instruction-cue {
+  position: absolute;
+  bottom: 8vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  background: rgba(6, 6, 10, 0.45);
+  border: 1px solid rgba(245, 245, 240, 0.18);
+  border-radius: 6px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: rgba(245, 235, 215, 0.85);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s ease, 
+              background 0.3s ease,
+              box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 10px rgba(245, 245, 240, 0.05);
+}
+
+#tap-instruction-cue.visible {
+  opacity: 1;
+  visibility: visible;
+  animation: scifi-ambient-breathe 4s ease-in-out infinite;
+}
+
+#tap-instruction-cue.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(12px);
+  pointer-events: none;
+}
+
+#tap-instruction-cue:hover {
+  background: rgba(12, 12, 18, 0.65);
+  border-color: rgba(245, 245, 240, 0.45);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(212, 175, 55, 0.18);
+  color: #ffffff;
+  transform: translateX(-50%) scale(1.03);
+}
+
+.tap-cue-pulse {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(245, 245, 240, 0.9);
+  box-shadow: 0 0 6px rgba(245, 245, 240, 0.6);
+  animation: scifi-dot-breathe 2s ease-in-out infinite alternate;
+}
+
+@keyframes scifi-dot-breathe {
+  0% { opacity: 0.4; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1.15); }
+}
+
+@keyframes scifi-ambient-breathe {
+  0%, 100% { 
+    transform: translateX(-50%) translateY(0); 
+    border-color: rgba(245, 245, 240, 0.16); 
+  }
+  50% { 
+    transform: translateX(-50%) translateY(-2px); 
+    border-color: rgba(245, 245, 240, 0.28); 
+  }
+}
+
+/* Minimalist Sci-Fi Scroll Instruction Cue */
 #scroll-instruction-cue {
   position: absolute;
   bottom: 6vh;
@@ -164,59 +249,65 @@
   z-index: 10;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 16px;
-  background: rgba(10, 10, 14, 0.6);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: rgba(243, 229, 171, 0.7);
-  font-size: 0.68rem;
+  gap: 7px;
+  padding: 5px 16px;
+  background: rgba(6, 6, 10, 0.45);
+  border: 1px solid rgba(245, 245, 240, 0.18);
+  border-radius: 6px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: rgba(245, 235, 215, 0.85);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.64rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
   pointer-events: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 10px rgba(245, 245, 240, 0.05);
 }
 
 #scroll-instruction-cue.visible {
   opacity: 1;
   visibility: visible;
+  animation: scifi-ambient-breathe 4s ease-in-out infinite;
 }
 
 #scroll-instruction-cue.hidden {
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-50%) translateY(15px);
+  transform: translateX(-50%) translateY(12px);
 }
 
 .scroll-mouse-icon {
-  width: 10px;
-  height: 16px;
-  border: 1.5px solid #d4af37;
-  border-radius: 8px;
+  width: 9px;
+  height: 14px;
+  border: 1px solid rgba(245, 245, 240, 0.5);
+  border-radius: 5px;
   position: relative;
 }
 
 .scroll-mouse-icon::after {
   content: '';
   position: absolute;
-  top: 3px;
+  top: 2.5px;
   left: 50%;
   transform: translateX(-50%);
-  width: 2px;
-  height: 4px;
-  background: #d4af37;
-  border-radius: 2px;
-  animation: scroll-gold-dot 1.5s infinite ease-in-out;
+  width: 1.5px;
+  height: 3px;
+  background: rgba(245, 245, 240, 0.9);
+  border-radius: 1px;
+  animation: scroll-scifi-dot 1.6s infinite ease-in-out;
 }
 
-@keyframes scroll-gold-dot {
-  0% { transform: translate(-50%, 0); opacity: 1; }
-  100% { transform: translate(-50%, 5px); opacity: 0; }
+@keyframes scroll-scifi-dot {
+  0% { transform: translate(-50%, 0); opacity: 0.9; }
+  100% { transform: translate(-50%, 4px); opacity: 0.1; }
 }
 
 /* Royal HD Photo Overlay Container */
@@ -264,7 +355,7 @@
   100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-/* Shockwave Ripple Ring (Royal Amber Gold) */
+/* Shockwave Ripple Ring */
 .ripple-wave-effect {
   position: absolute;
   top: 50%;
@@ -292,12 +383,12 @@
   100% { transform: scale(35); opacity: 0; }
 }
 
-/* Stage 4 Aesthetic "View Profile" CTA Button Container */
+/* Stage 4 "View Profile" CTA Button Container */
 #view-profile-container {
   position: absolute;
-  bottom: 7vh;
+  bottom: 6.5vh;
   left: 50%;
-  transform: translateX(-50%) translateY(30px);
+  transform: translateX(-50%) translateY(20px);
   z-index: 10;
   opacity: 0;
   visibility: hidden;
@@ -312,26 +403,26 @@
   transform: translateX(-50%) translateY(0);
 }
 
-/* Royal Aesthetic Pill Button */
+/* Minimal Cinematic Sci-Fi "View Profile" Button */
 .cute-profile-btn {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 13px 36px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 0.92rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  gap: 10px;
+  padding: 8px 24px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #f3e5ab;
-  background: rgba(12, 12, 18, 0.85);
-  border: 1.5px solid rgba(212, 175, 55, 0.45);
-  border-radius: 50px;
+  color: rgba(248, 240, 224, 0.9);
+  background: rgba(8, 8, 14, 0.55);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 6px;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.2), 0 10px 30px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6), 0 0 10px rgba(212, 175, 55, 0.08);
   cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   outline: none;
   position: relative;
   overflow: hidden;
@@ -342,8 +433,8 @@
   position: absolute;
   top: 0; left: -100%;
   width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 235, 170, 0.2), transparent);
-  transition: left 0.6s ease;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.12), transparent);
+  transition: left 0.7s ease;
 }
 
 .cute-profile-btn:hover::before {
@@ -351,37 +442,35 @@
 }
 
 .cute-profile-btn:hover {
-  transform: scale(1.05) translateY(-2px);
-  background: rgba(212, 175, 55, 0.16);
-  border-color: #d4af37;
-  box-shadow: 0 0 40px rgba(212, 175, 55, 0.45), 0 12px 35px rgba(0, 0, 0, 0.7);
+  transform: scale(1.025) translateY(-1px);
+  background: rgba(14, 14, 22, 0.75);
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.7), 0 0 18px rgba(212, 175, 55, 0.2);
   color: #ffffff;
 }
 
 .cute-profile-btn:active {
-  transform: scale(0.98) translateY(1px);
+  transform: scale(0.99) translateY(0);
 }
 
 .cute-profile-btn .btn-pulse {
-  width: 7px;
-  height: 7px;
-  background-color: #d4af37;
+  width: 4.5px;
+  height: 4.5px;
+  background-color: rgba(212, 175, 55, 0.9);
   border-radius: 50%;
-  box-shadow: 0 0 8px #d4af37;
-  animation: btn-gold-pulse 1.2s infinite ease-in-out;
-}
-
-@keyframes btn-gold-pulse {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.4); opacity: 1; }
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.6);
+  animation: scifi-dot-breathe 1.8s infinite ease-in-out alternate;
 }
 
 .cute-profile-btn .btn-arrow {
   display: inline-block;
-  font-size: 1.1rem;
-  transition: transform 0.3s ease;
+  font-size: 0.85rem;
+  font-weight: 300;
+  opacity: 0.75;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
 
 .cute-profile-btn:hover .btn-arrow {
-  transform: translateX(5px);
+  transform: translateX(4px);
+  opacity: 1;
 }

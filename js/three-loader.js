@@ -17,6 +17,8 @@
     document.documentElement.classList.add('fast-load');
     const existingLoader = document.getElementById('three-loading-screen');
     if (existingLoader) existingLoader.remove();
+    // Fire revealed immediately so hero animations & music button still work
+    document.dispatchEvent(new CustomEvent('portfolio:revealed'));
     return;
   }
 
@@ -26,8 +28,32 @@
   // Prevent scrolling during intro
   document.body.style.overflow = 'hidden';
 
+  // ── Auto-trigger background audio at frame 0 ──
+  function _tryAudio() {
+    var bg = document.getElementById('portfolio-bg-audio');
+    if (bg && bg.paused) {
+      var p = bg.play();
+      if (p && p.catch) p.catch(function() {});
+    }
+  }
+  _tryAudio();
+
+  // ── Fire loader:firstinteract on first real user gesture ──
+  var _loaderInteracted = false;
+  function _fireFirstInteract() {
+    _tryAudio();
+    if (_loaderInteracted) return;
+    _loaderInteracted = true;
+    document.dispatchEvent(new CustomEvent('loader:firstinteract'));
+  }
+  window.addEventListener('pointerdown', _fireFirstInteract, { once: true, passive: true });
+  window.addEventListener('pointermove', _fireFirstInteract, { once: true, passive: true });
+  window.addEventListener('wheel', _fireFirstInteract, { once: true, passive: true });
+  window.addEventListener('touchstart', _fireFirstInteract, { once: true, passive: true });
+
   const container = document.getElementById('three-loading-screen');
   const canvas = document.getElementById('three-loader-canvas');
+  const tapCue = document.getElementById('tap-instruction-cue');
   const scrollCue = document.getElementById('scroll-instruction-cue');
   const realImageContainer = document.getElementById('real-image-container');
   const rippleWave = document.getElementById('ripple-wave-effect');
@@ -35,6 +61,42 @@
   const viewProfileBtn = document.getElementById('view-profile-btn');
 
   if (!container || !canvas) return;
+
+  // ── Tap to Begin Transition (Shader -> Voxel & Audio Play) ──
+  function transitionFromShaderToVoxel() {
+    if (currentPhase !== 'SHADER_STAGE' || shaderFadingOut) return;
+    shaderFadingOut = true;
+    currentPhase = 'FADE_SHADER';
+
+    // Start background audio immediately on user tap
+    _tryAudio();
+    document.dispatchEvent(new CustomEvent('loader:firstinteract'));
+
+    // Fade out tap cue
+    if (tapCue) {
+      tapCue.classList.remove('visible');
+      tapCue.classList.add('hidden');
+    }
+
+    // Fade out shader canvas
+    canvas.style.opacity = '0';
+
+    setTimeout(() => {
+      if (!instancedMesh && loadedImgElement) {
+        setupVoxelMesh();
+      }
+      currentPhase = 'VOXEL_ASSEMBLY';
+      canvas.style.opacity = '1';
+      if (scrollCue) scrollCue.classList.add('visible');
+    }, 550);
+  }
+
+  // Bind tap / click handlers on initial loading screen
+  container.addEventListener('pointerdown', function() {
+    if (currentPhase === 'SHADER_STAGE') {
+      transitionFromShaderToVoxel();
+    }
+  });
 
   // Settings
   const isMobile = window.innerWidth < 768;
@@ -294,7 +356,11 @@
   }
 
   window.addEventListener('wheel', (e) => {
-    handleScrollInput(e.deltaY);
+    if (currentPhase === 'SHADER_STAGE') {
+      transitionFromShaderToVoxel();
+    } else {
+      handleScrollInput(e.deltaY);
+    }
   }, { passive: true });
 
   let touchStartY = 0;
@@ -344,32 +410,22 @@
     animationFrameId = requestAnimationFrame(render);
 
     if (currentPhase === 'SHADER_STAGE') {
-      // Set start time on first frame for accurate elapsed tracking
+      // Set start time on first frame
       if (!shaderStartTime) {
         shaderStartTime = timestamp;
-        canvas.style.opacity = '1'; // Fade canvas in once
+        canvas.style.opacity = '1'; // Fade canvas in
+        if (tapCue) {
+          setTimeout(() => {
+            if (currentPhase === 'SHADER_STAGE' && !shaderFadingOut) {
+              tapCue.classList.add('visible');
+            }
+          }, 350);
+        }
       }
 
-      // Animate GLSL chromatic wave
+      // Animate GLSL chromatic liquid wave
       shaderUniforms.time.value += 0.015;
       renderer.render(shaderScene, shaderCamera);
-
-      // Transition to Voxel Assembly after ~3.2 seconds of cinematic shader
-      const elapsedShader = timestamp - shaderStartTime;
-      if (elapsedShader > 3200 && !shaderFadingOut) {
-        shaderFadingOut = true;
-        currentPhase = 'FADE_SHADER';
-        canvas.style.opacity = '0';
-
-        setTimeout(() => {
-          if (!instancedMesh && loadedImgElement) {
-            setupVoxelMesh();
-          }
-          currentPhase = 'VOXEL_ASSEMBLY';
-          canvas.style.opacity = '1';
-          if (scrollCue) scrollCue.classList.add('visible');
-        }, 600);
-      }
     } else if (currentPhase === 'VOXEL_ASSEMBLY' && instancedMesh) {
       // Gentle auto-progress if idle
       if (!isFullyAssembled) {
@@ -456,6 +512,9 @@
       if (container && container.parentNode) {
         container.parentNode.removeChild(container);
       }
+
+      // Signal to the rest of the page that the portfolio is now visible
+      document.dispatchEvent(new CustomEvent('portfolio:revealed'));
     }, 800);
   }
 

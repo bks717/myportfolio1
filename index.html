@@ -448,6 +448,29 @@
 <body class="__variable_c5dbd7"
     style="--gradient-background-start: rgb(108, 0, 162); --gradient-background-end: rgb(0, 17, 82); --first-color: 18, 113, 255; --second-color: 221, 74, 255; --third-color: 100, 220, 255; --fourth-color: 200, 50, 50; --fifth-color: 180, 180, 50; --pointer-color: 140, 100, 255; --size: 80%; --blending-value: hard-light;">
 
+<!-- Ambient Background Audio (Instant Start at Millisecond 0) -->
+<audio id="portfolio-bg-audio" src="./mp3_portfolio/cosmic-final.mp3" loop preload="auto" autoplay></audio>
+<script>
+(function() {
+  'use strict';
+  var a = document.getElementById('portfolio-bg-audio');
+  if (!a) return;
+  a.volume = 0.6;
+  function trigger() {
+    if (a && a.paused) {
+      var p = a.play();
+      if (p && p.catch) p.catch(function() {});
+    }
+  }
+  trigger();
+  var evts = ['pointerdown', 'pointermove', 'mousemove', 'mousedown', 'wheel', 'touchstart', 'scroll', 'keydown', 'focus', 'mouseenter'];
+  evts.forEach(function(e) {
+    window.addEventListener(e, trigger, { once: true, passive: true, capture: true });
+    document.addEventListener(e, trigger, { once: true, passive: true, capture: true });
+  });
+})();
+</script>
+
 <!-- =========================================================
      OLD LOADER — PRESERVED FOR FUTURE RESTORATION
      ========================================================= -->
@@ -510,7 +533,13 @@
 <div id="three-loading-screen">
   <canvas id="three-loader-canvas"></canvas>
 
-  <!-- Scroll Cue Helper -->
+  <!-- Tap to Begin Cue (Shader Stage) -->
+  <div id="tap-instruction-cue">
+    <div class="tap-cue-pulse"></div>
+    <span>Tap</span>
+  </div>
+
+  <!-- Scroll Cue Helper (Voxel Stage) -->
   <div id="scroll-instruction-cue">
     <div class="scroll-mouse-icon"></div>
     <span>Scroll</span>
@@ -1769,7 +1798,13 @@
                             });
                         })();
                         </script>
-                        <div class="flex justify-center items-center mt-10 2xl:mt-20 3xl:mt-30"><button
+                        <div class="flex justify-center items-center gap-5 mt-10 2xl:mt-20 3xl:mt-30 flex-wrap">
+                            <!-- Project Theater Button -->
+                            <button onclick="openProjectTheater()" id="project-theater-main-btn" class="project-theater-btn" aria-label="Open Project Theater">
+                                <span class="theater-btn-icon">&#9672;</span>
+                                PROJECT THEATER
+                            </button>
+                            <button
                                 onclick="alert('umm will be updated soon.')"
                                 class="group bg-primary relative w-auto cursor-pointer overflow-hidden rounded-full border border-white/[.2] p-2 px-6 text-center font-semibold">
                                 <div class="flex items-center justify-center gap-2">
@@ -2770,6 +2805,13 @@
             <div class="cyberpunk-btn-container">
                 <a href="./cyberpunk.html" class="sidebar-cyber-btn">CYBERPUNK</a>
             </div>
+            <!-- Project Theater Button in sidebar -->
+            <div style="margin-top:8px;padding:0 2px;">
+                <button onclick="openProjectTheater()" class="project-theater-btn sidebar-theater-btn" aria-label="Open Project Theater">
+                    <span class="theater-btn-icon">&#9672;</span>
+                    PROJECT THEATER
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -2864,36 +2906,35 @@
 
 <script>
 (function () {
-  // Photos: start and end on ME.jpg, cycle through monkey and meonsteroids in between
   var photos = [
     './images/saves-for-portfolio/me/ME.jpg',
     './images/saves-for-portfolio/cutemonkey.jpg',
     './images/meonsteroids.png'
   ];
-  var current = 0; // starts at ME.jpg
+  var current = 0;
   var spinning = false;
 
+  // Inject transition styles
   var style = document.createElement('style');
   style.textContent = `
     #hero-photo-img {
-      transition: opacity 0.06s ease, transform 0.09s cubic-bezier(0.55,0,0.45,1);
+      transition: opacity 0.02s ease, transform 0.03s cubic-bezier(0.55,0,0.45,1);
       transform-origin: center center;
     }
     #hero-photo-img.hero-fade-out {
       opacity: 0;
-      transform: scaleX(0.04) scaleY(0.96);
+      transform: scaleX(0.02) scaleY(0.98);
     }
     #hero-photo-img.hero-fade-in {
       opacity: 0;
-      transform: scaleX(0.04) scaleY(0.96);
+      transform: scaleX(0.02) scaleY(0.98);
       transition: none;
     }
     #hero-photo-img.hero-visible {
       opacity: 1;
       transform: scaleX(1) scaleY(1);
-      transition: opacity 0.08s ease, transform 0.12s cubic-bezier(0.34,1.3,0.64,1);
+      transition: opacity 0.03s ease, transform 0.04s cubic-bezier(0.34,1.3,0.64,1);
     }
-    /* One-shot name bar intro animation */
     @keyframes nameBarIntro {
       0%   { transform: scaleX(0); opacity: 1; }
       45%  { transform: scaleX(1); opacity: 1; }
@@ -2904,14 +2945,14 @@
       transform-origin: left center;
       animation: nameBarIntro 1.35s cubic-bezier(0.76,0,0.24,1) forwards;
     }
-    #hero-name-text.name-text-intro {
-      animation: nameTextFlash 1.35s cubic-bezier(0.76,0,0.24,1) forwards;
-    }
     @keyframes nameTextFlash {
       0%   { color: inherit; }
       45%  { color: var(--primary-color, #0f0f0f); }
       55%  { color: var(--primary-color, #0f0f0f); }
       100% { color: inherit; }
+    }
+    #hero-name-text.name-text-intro {
+      animation: nameTextFlash 1.35s cubic-bezier(0.76,0,0.24,1) forwards;
     }
   `;
   document.head.appendChild(style);
@@ -2921,9 +2962,7 @@
     var label = document.getElementById('hero-click-label');
     if (!img || spinning) return;
     spinning = true;
-
     img.classList.add('hero-fade-out');
-
     setTimeout(function () {
       if (typeof forceTo === 'number') {
         current = forceTo;
@@ -2931,368 +2970,196 @@
         current = (current + 1) % photos.length;
       }
       img.src = photos[current];
+      // fix object-position for ME.jpg
+      img.style.objectPosition = current === 0 ? 'center 15%' : 'center center';
       img.classList.remove('hero-fade-out');
       img.classList.add('hero-fade-in');
-
       void img.offsetWidth;
-
       img.classList.remove('hero-fade-in');
       img.classList.add('hero-visible');
-
       if (label) {
         var hints = ['click me \uD83D\uDC40', 'click me \uD83D\uDE0E', 'click me \u26A1'];
         label.textContent = hints[current % hints.length];
       }
-
-      // Fix ME.jpg object-position so head is visible
-      if (current === 0) {
-        img.style.objectPosition = 'center 15%';
-      } else {
-        img.style.objectPosition = 'center center';
-      }
-
       setTimeout(function () {
         img.classList.remove('hero-visible');
         spinning = false;
-      }, 150);
-
-    }, 80);
+      }, 40);
+    }, 20);
   }
 
   function runIntroSlideshow() {
+    // ME -> monkey -> meonsteroids -> ME (fast coin-flip style)
     var sequence = [1, 2, 0];
-    var delay = 320;
     var i = 0;
-
     function nextSlide() {
       if (i >= sequence.length) return;
-      var idx = sequence[i];
+      switchPhoto(sequence[i]);
       i++;
-      switchPhoto(idx);
-      if (i < sequence.length) {
-        setTimeout(nextSlide, delay + 220);
-      }
+      if (i < sequence.length) setTimeout(nextSlide, 180);
     }
-    setTimeout(nextSlide, 1400);
+    setTimeout(nextSlide, 600);
   }
 
   function triggerNameBarIntro() {
     var bar = document.getElementById('hero-name-bar');
     var txt = document.getElementById('hero-name-text');
     if (!bar || !txt) return;
-    setTimeout(function() {
+    setTimeout(function () {
       bar.classList.add('name-bar-intro');
       txt.classList.add('name-text-intro');
-      setTimeout(function() {
+      setTimeout(function () {
         bar.classList.remove('name-bar-intro');
         txt.classList.remove('name-text-intro');
       }, 1500);
-    }, 600);
+    }, 300);
   }
 
-  function bindEvents() {
+  function bindClickEvents() {
     var btn = document.getElementById('hero-photo-btn');
     var img = document.getElementById('hero-photo-img');
-    if (btn) btn.onclick = function() { switchPhoto(); };
-    if (img) img.onclick = function() { switchPhoto(); };
+    if (btn) btn.onclick = function () { switchPhoto(); };
+    if (img) img.onclick = function () { switchPhoto(); };
+  }
 
+  // Fire hero animations only AFTER the loading screen has been dismissed
+  document.addEventListener('portfolio:revealed', function () {
+    bindClickEvents();
     triggerNameBarIntro();
     runIntroSlideshow();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bindEvents);
-  } else {
-    bindEvents();
-  }
+  });
 })();
 </script>
 
 <!-- ============================================================
-     AMBIENT MUSIC SYSTEM
-     - cosmic-final.mp3    → plays during loader (GLSL + voxel)
-     - cyberfinal.mp3      → plays on cyberpunk page
-     - cyber2-photosfinal  → plays on personal.html
-     - Small floating sound button appears after loader exits
+     FAST STREAMING AMBIENT MUSIC SYSTEM
+     - cosmic-final.mp3       plays constantly (loader + professional page)
+     - Sound button matches current active theme color
      ============================================================ -->
 <script>
 (function() {
   'use strict';
+  var audio = document.getElementById('portfolio-bg-audio');
+  if (!audio) return;
+  audio.volume = 0.6;
 
-  var TRACKS = {
-    cosmic:   './mp3_portfolio/cosmic-final.mp3',
-    cyber:    './mp3_portfolio/cyberfinal.mp3',
-    personal: './mp3_portfolio/cyber2-photosfinal.mp3'
-  };
-
-  var audioCtx = null;
-  var gainNode = null;
-  var currentSource = null;
-  var currentBuffer = null;
-  var isMuted = false;
-  var isPlaying = false;
-  var bufferCache = {};
-  var FADE_DURATION = 1.2; // seconds
-
-  // ── Detect which page we are on ──
-  var path = window.location.pathname;
-  var isPersonalPage = path.includes('personal');
-  var isCyberpunkPage = path.includes('cyberpunk');
-
-  // ── Determine initial track ──
-  var initialTrack = isPersonalPage ? TRACKS.personal
-                   : isCyberpunkPage ? TRACKS.cyber
-                   : TRACKS.cosmic;
-
-  // ── Lazily create AudioContext on first user interaction
-  //    (browsers block autoplay until the user interacts) ──
-  function ensureAudioCtx() {
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      gainNode = audioCtx.createGain();
-      gainNode.gain.setValueAtTime(0.55, audioCtx.currentTime);
-      gainNode.connect(audioCtx.destination);
-    }
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-  }
-
-  function fetchAndCache(url, cb) {
-    if (bufferCache[url]) { cb(bufferCache[url]); return; }
-    fetch(url)
-      .then(function(r) { return r.arrayBuffer(); })
-      .then(function(ab) { return audioCtx.decodeAudioData(ab); })
-      .then(function(buf) { bufferCache[url] = buf; cb(buf); })
-      .catch(function(e) { console.warn('[music] load failed', url, e); });
-  }
-
-  function playTrack(url, fadeIn) {
-    ensureAudioCtx();
-    fetchAndCache(url, function(buf) {
-      // Fade out old source
-      if (currentSource && isPlaying) {
-        var old = currentSource;
-        gainNode.gain.cancelScheduledValues(audioCtx.currentTime);
-        gainNode.gain.setValueAtTime(gainNode.gain.value, audioCtx.currentTime);
-        gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + FADE_DURATION);
-        setTimeout(function() { try { old.stop(); } catch(e){} }, FADE_DURATION * 1000 + 100);
-      }
-
-      var src = audioCtx.createBufferSource();
-      src.buffer = buf;
-      src.loop = true;
-      src.connect(gainNode);
-
-      var targetVol = isMuted ? 0 : 0.55;
-      if (fadeIn) {
-        gainNode.gain.cancelScheduledValues(audioCtx.currentTime);
-        gainNode.gain.setValueAtTime(0, audioCtx.currentTime + FADE_DURATION);
-        gainNode.gain.linearRampToValueAtTime(targetVol, audioCtx.currentTime + FADE_DURATION + 1.5);
-      } else {
-        gainNode.gain.cancelScheduledValues(audioCtx.currentTime);
-        gainNode.gain.setValueAtTime(targetVol, audioCtx.currentTime + FADE_DURATION);
-      }
-
-      setTimeout(function() {
-        src.start();
-        currentSource = src;
-        currentBuffer = buf;
-        isPlaying = true;
-      }, currentSource ? FADE_DURATION * 1000 : 0);
-    });
-  }
-
-  function stopMusic(fade) {
-    if (!currentSource || !isPlaying) return;
-    if (fade) {
-      gainNode.gain.cancelScheduledValues(audioCtx.currentTime);
-      gainNode.gain.setValueAtTime(gainNode.gain.value, audioCtx.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + FADE_DURATION);
-      setTimeout(function() { try { currentSource.stop(); } catch(e){} isPlaying = false; }, FADE_DURATION * 1000 + 100);
-    } else {
-      try { currentSource.stop(); } catch(e){}
-      isPlaying = false;
-    }
-  }
-
-  // ── Sound button (shown after loader exits) ──
-  function createSoundButton() {
+  function createSoundBtn() {
+    if (document.getElementById('ambient-sound-btn')) return;
     var btn = document.createElement('button');
     btn.id = 'ambient-sound-btn';
-    btn.setAttribute('aria-label', 'Toggle Music');
+    btn.setAttribute('aria-label', 'Toggle music');
     btn.innerHTML = `
-      <svg id="sound-icon-on" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-        <path d="M3 9v6h4l5 5V4L7 9H3z" fill="currentColor"/>
-        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" fill="currentColor"/>
-        <path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" fill="currentColor"/>
+      <svg class="snd-on" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+        <path d="M3 9v6h4l5 5V4L7 9H3z"/>
+        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+        <path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
       </svg>
-      <svg id="sound-icon-off" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" style="display:none;">
-        <path d="M3 9v6h4l5 5V4L7 9H3z" fill="currentColor"/>
-        <path d="M17 9l-6 6M11 9l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <svg class="snd-off" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="display:none;">
+        <path d="M3 9v6h4l5 5V4L7 9H3z"/>
+        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" opacity=".3"/>
+        <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2"/>
       </svg>
     `;
 
-    var style = document.createElement('style');
-    style.textContent = `
+    var s = document.createElement('style');
+    s.textContent = `
+      :root {
+        --theme-accent: #00ff99;
+        --theme-accent-rgb: 0, 255, 153;
+      }
       #ambient-sound-btn {
         position: fixed;
         bottom: 24px;
         right: 24px;
-        z-index: 9000;
-        width: 42px;
-        height: 42px;
+        z-index: 9999;
+        width: 38px;
+        height: 38px;
         border-radius: 50%;
-        border: 1px solid rgba(0,255,153,0.35);
-        background: rgba(0,0,0,0.55);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        color: #00ff99;
+        border: 1px solid var(--theme-accent, #00ff99);
+        background: rgba(8, 8, 14, 0.55);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        color: var(--theme-accent, #00ff99);
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, background 0.3s;
-        box-shadow: 0 2px 16px rgba(0,255,153,0.12);
-      }
-      #ambient-sound-btn.visible {
-        opacity: 1;
+        opacity: 0.9;
         transform: translateY(0);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 10px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.15);
       }
       #ambient-sound-btn:hover {
-        border-color: rgba(0,255,153,0.7);
-        background: rgba(0,255,153,0.12);
-        box-shadow: 0 0 20px rgba(0,255,153,0.25);
+        transform: scale(1.04);
+        background: rgba(14, 14, 22, 0.75);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7), 0 0 16px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.3);
       }
-      #ambient-sound-btn.muted {
-        color: rgba(255,255,255,0.35);
-        border-color: rgba(255,255,255,0.15);
+      #ambient-sound-btn.off {
+        color: rgba(255, 255, 255, 0.35);
+        border-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
       }
     `;
-    document.head.appendChild(style);
+    document.head.appendChild(s);
     document.body.appendChild(btn);
 
     btn.addEventListener('click', function() {
-      isMuted = !isMuted;
-      if (gainNode) {
-        gainNode.gain.cancelScheduledValues(audioCtx.currentTime);
-        gainNode.gain.setValueAtTime(gainNode.gain.value, audioCtx.currentTime);
-        gainNode.gain.linearRampToValueAtTime(isMuted ? 0 : 0.55, audioCtx.currentTime + 0.4);
+      if (audio.paused) {
+        audio.play();
+        btn.classList.remove('off');
+        btn.querySelector('.snd-on').style.display = '';
+        btn.querySelector('.snd-off').style.display = 'none';
+      } else {
+        audio.pause();
+        btn.classList.add('off');
+        btn.querySelector('.snd-on').style.display = 'none';
+        btn.querySelector('.snd-off').style.display = '';
       }
-      btn.classList.toggle('muted', isMuted);
-      document.getElementById('sound-icon-on').style.display = isMuted ? 'none' : 'block';
-      document.getElementById('sound-icon-off').style.display = isMuted ? 'block' : 'none';
     });
 
     return btn;
   }
 
-  // ── Main init ──
-  function init() {
-    var btn = createSoundButton();
-
-    // On professional page: start cosmic during loader, switch after
-    if (!isPersonalPage && !isCyberpunkPage) {
-      // Try to start cosmic on first user interaction with the loader
-      var loaderEl = document.getElementById('three-loading-screen');
-      var started = false;
-
-      function startCosmic() {
-        if (started) return;
-        started = true;
-        playTrack(TRACKS.cosmic, false);
-      }
-
-      // Start on scroll (first scroll interaction with the loader)
-      window.addEventListener('wheel', startCosmic, { once: true, passive: true });
-      window.addEventListener('touchstart', startCosmic, { once: true, passive: true });
-      // Also try after 3 seconds as fallback if user hasn't interacted
-      // (will be blocked by browser but worth trying)
-      setTimeout(function() {
-        if (!started) {
-          // Try autoplay — some browsers allow it
-          try {
-            ensureAudioCtx();
-            if (audioCtx.state !== 'suspended') startCosmic();
-          } catch(e) {}
-        }
-      }, 3000);
-
-      // When "View Profile" is clicked → crossfade to nothing (portfolio page is silent
-      // by default until cyberpunk mode is triggered)
-      var viewProfileBtn = document.getElementById('view-profile-btn');
-      if (viewProfileBtn) {
-        viewProfileBtn.addEventListener('click', function() {
-          // Fade out cosmic, show sound button
-          stopMusic(true);
-          setTimeout(function() {
-            btn.classList.add('visible');
-          }, 1000);
-        });
-      }
-
-      // Cyberpunk sidebar link → switch to cyberfinal before navigating
-      var cyberLink = document.querySelector('.sidebar-cyber-btn');
-      if (cyberLink) {
-        cyberLink.addEventListener('click', function(e) {
-          e.preventDefault();
-          var href = cyberLink.href;
-          playTrack(TRACKS.cyber, true);
-          // Store intent in sessionStorage so cyberpunk.html can pick up
-          sessionStorage.setItem('music-track', 'cyber');
-          setTimeout(function() { window.location.href = href; }, 600);
-        });
-      }
-
-      // Personal page link — store intent
-      document.querySelectorAll('a[href*="personal.html"]').forEach(function(a) {
-        a.addEventListener('click', function() {
-          sessionStorage.setItem('music-track', 'personal');
-        });
-      });
-
-    } else if (isPersonalPage) {
-      // On personal.html: start cyber2-photosfinal
-      var startedPersonal = false;
-      function startPersonal() {
-        if (startedPersonal) return;
-        startedPersonal = true;
-        playTrack(TRACKS.personal, true);
-        btn.classList.add('visible');
-      }
-      window.addEventListener('scroll', startPersonal, { once: true, passive: true });
-      window.addEventListener('click', startPersonal, { once: true });
-      setTimeout(function() {
-        try { ensureAudioCtx(); if (audioCtx.state !== 'suspended') startPersonal(); } catch(e) {}
-      }, 1500);
-
-    } else if (isCyberpunkPage) {
-      // On cyberpunk.html
-      var startedCyber = false;
-      function startCyberPage() {
-        if (startedCyber) return;
-        startedCyber = true;
-        playTrack(TRACKS.cyber, true);
-        btn.classList.add('visible');
-      }
-      window.addEventListener('scroll', startCyberPage, { once: true, passive: true });
-      window.addEventListener('click', startCyberPage, { once: true });
-      setTimeout(function() {
-        try { ensureAudioCtx(); if (audioCtx.state !== 'suspended') startCyberPage(); } catch(e) {}
-      }, 1500);
-    }
+  function startAudio() {
+    audio.play().catch(function() {});
   }
 
-  // Boot after DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+  createSoundBtn();
+
+  // Try immediate playback without user touch
+  startAudio();
+
+  // Universal instant trigger on any early gesture
+  var events = ['pointerdown', 'mousemove', 'wheel', 'touchstart', 'scroll', 'keydown', 'loader:firstinteract', 'portfolio:revealed'];
+  function onGesture() {
+    startAudio();
+    events.forEach(function(e) { window.removeEventListener(e, onGesture, true); });
   }
+  events.forEach(function(e) { window.addEventListener(e, onGesture, { once: true, passive: true, capture: true }); });
+
+  // Note: Audio continues playing seamlessly when entering professional dashboard (portfolio:revealed).
+
+  // Navigation handlers
+  var cyberLink = document.querySelector('.sidebar-cyber-btn');
+  if (cyberLink) {
+    cyberLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      var href = cyberLink.getAttribute('href');
+      audio.pause();
+      window.location.href = href;
+    });
+  }
+
+  document.querySelectorAll('a[href*="personal.html"]').forEach(function(a) {
+    a.addEventListener('click', function() {
+      audio.pause();
+    });
+  });
 })();
 </script>
+
+<!-- Project Theater -->
+<script src="./js/project-theater.js"></script>
 
 </body>
 

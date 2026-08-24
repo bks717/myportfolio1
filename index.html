@@ -2866,6 +2866,18 @@
                     <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
                 </svg>
             </a>
+            <!-- Ambient Audio Mute Button (Below LinkedIn) -->
+            <button id="sidebar-ambient-mute-btn" onclick="toggleAmbientAudio()" class="sidebar-icon-btn" aria-label="Toggle Ambient Audio" title="Toggle Ambient Audio">
+                <svg class="snd-on-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="1.1em" width="1.1em">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"></polygon>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <svg class="snd-off-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" height="1.1em" width="1.1em" style="display:none;">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"></polygon>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+            </button>
             <!-- Down arrow -->
             <button onclick="toggleSidebar()" class="sidebar-arrow-btn" aria-label="Toggle settings panel">
                 <svg stroke="currentColor" fill="none" stroke-width="3" viewBox="0 0 24 24" height="1.1em" width="1.1em">
@@ -3145,124 +3157,68 @@
   if (!audio) return;
   audio.volume = 0.6;
 
-  function createSoundBtn() {
-    if (document.getElementById('ambient-sound-btn')) return;
-    var btn = document.createElement('button');
-    btn.id = 'ambient-sound-btn';
-    btn.setAttribute('aria-label', 'Toggle music');
-    btn.innerHTML = `
-      <svg class="snd-on" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-        <path d="M3 9v6h4l5 5V4L7 9H3z"/>
-        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-        <path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-      </svg>
-      <svg class="snd-off" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="display:none;">
-        <path d="M3 9v6h4l5 5V4L7 9H3z"/>
-        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" opacity=".3"/>
-        <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2"/>
-      </svg>
-    `;
-
-    var s = document.createElement('style');
-    s.textContent = `
-      :root {
-        --theme-accent: #00ff99;
-        --theme-accent-rgb: 0, 255, 153;
-      }
-      #ambient-sound-btn {
-        position: fixed;
-        bottom: 24px;
-        right: 24px;
-        z-index: 9999;
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        border: 1px solid var(--theme-accent, #00ff99);
-        background: rgba(8, 8, 14, 0.55);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        color: var(--theme-accent, #00ff99);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        opacity: 0.9;
-        transform: translateY(0);
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 10px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.15);
-      }
-      #ambient-sound-btn:hover {
-        transform: scale(1.04);
-        background: rgba(14, 14, 22, 0.75);
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7), 0 0 16px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.3);
-      }
-      #ambient-sound-btn.off {
-        color: rgba(255, 255, 255, 0.35);
-        border-color: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-      }
-    `;
-    document.head.appendChild(s);
-    document.body.appendChild(btn);
-
-    btn.addEventListener('click', function() {
-      if (audio.paused) {
-        audio.play();
+  function updateAmbientButtons(isPlaying) {
+    var btns = document.querySelectorAll('#sidebar-ambient-mute-btn, #ambient-sound-btn');
+    btns.forEach(function(btn) {
+      if (isPlaying) {
         btn.classList.remove('off');
-        btn.querySelector('.snd-on').style.display = '';
-        btn.querySelector('.snd-off').style.display = 'none';
+        var on = btn.querySelector('.snd-on, .snd-on-icon');
+        var off = btn.querySelector('.snd-off, .snd-off-icon');
+        if (on) on.style.display = '';
+        if (off) off.style.display = 'none';
       } else {
-        audio.pause();
         btn.classList.add('off');
-        btn.querySelector('.snd-on').style.display = 'none';
-        btn.querySelector('.snd-off').style.display = '';
+        var on = btn.querySelector('.snd-on, .snd-on-icon');
+        var off = btn.querySelector('.snd-off, .snd-off-icon');
+        if (on) on.style.display = 'none';
+        if (off) off.style.display = '';
       }
     });
-
-    return btn;
   }
+
+  function toggleAmbientAudio() {
+    if (!audio) return;
+    if (audio.paused) {
+      // If personal global music is currently playing, pause it first
+      if (window.KrupsMusic && window.KrupsMusic.getState().isPlaying) {
+        window.KrupsMusic.pause();
+      }
+      audio.play().then(function() {
+        updateAmbientButtons(true);
+      }).catch(function(){});
+    } else {
+      audio.pause();
+      updateAmbientButtons(false);
+    }
+  }
+
+  window.toggleAmbientAudio = toggleAmbientAudio;
+  window.updateAmbientButtons = updateAmbientButtons;
 
   function startAudio() {
-    audio.play().catch(function() {});
+    // Only auto-play ambient if personal music is not already playing
+    if (window.KrupsMusic && window.KrupsMusic.getState().isPlaying) return;
+    audio.play().then(function() {
+      updateAmbientButtons(true);
+    }).catch(function() {});
   }
 
-  createSoundBtn();
-
-  // Try immediate playback without user touch
+  // Try immediate playback
   startAudio();
 
-  // Universal instant trigger on any early gesture
   var events = ['pointerdown', 'mousemove', 'wheel', 'touchstart', 'scroll', 'keydown', 'loader:firstinteract', 'portfolio:revealed'];
   function onGesture() {
     startAudio();
     events.forEach(function(e) { window.removeEventListener(e, onGesture, true); });
   }
   events.forEach(function(e) { window.addEventListener(e, onGesture, { once: true, passive: true, capture: true }); });
-
-  // Note: Audio continues playing seamlessly when entering professional dashboard (portfolio:revealed).
-
-  // Navigation handlers
-  var cyberLink = document.querySelector('.sidebar-cyber-btn');
-  if (cyberLink) {
-    cyberLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      var href = cyberLink.getAttribute('href');
-      audio.pause();
-      window.location.href = href;
-    });
-  }
-
-  document.querySelectorAll('a[href*="personal.html"]').forEach(function(a) {
-    a.addEventListener('click', function() {
-      audio.pause();
-    });
-  });
 })();
 </script>
 
 <!-- Project Theater -->
 <script src="./js/project-theater.js"></script>
 
+<script src="./js/global-music-player.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 /**
  * GLOBAL PERSONAL MUSIC PLAYER & AUDIO CONTROLLER
  *
- * 1. Manages playback of the 3 tracks from mp3_pernonnel_section
+ * 1. Manages playback of the 3 tracks from mp3_pernonnel_section:
  *    (Him & I, Piano Melody, Yen Ayto) with omoriyon.jpg cover art.
  * 2. Renders a sleek floating widget in the bottom-left corner across all pages.
  * 3. Enforces single-source audio rule: automatically pauses/mutes all other
@@ -24,8 +24,7 @@
   var state = {
     trackIndex: 0,
     isPlaying: false,
-    currentTime: 0,
-    widgetDismissed: false
+    currentTime: 0
   };
 
   /* Restore state from sessionStorage */
@@ -41,6 +40,24 @@
 
   var audioEl = null;
   var widgetEl = null;
+  var listeners = [];
+
+  function saveState() {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
+        trackIndex: state.trackIndex,
+        isPlaying: state.isPlaying,
+        currentTime: state.currentTime
+      }));
+    } catch (e) {}
+  }
+
+  function formatTime(sec) {
+    if (isNaN(sec) || sec < 0) return "0:00";
+    var m = Math.floor(sec / 60);
+    var s = Math.floor(sec % 60);
+    return m + ":" + (s < 10 ? "0" : "") + s;
+  }
 
   /* ─────────────────────────────────────────────────────────────
    * INITIALIZE AUDIO ELEMENT
@@ -62,7 +79,7 @@
       saveState();
       updateWidgetProgress();
 
-      /* Sync with personal.html in-page elements if present */
+      /* Sync in-page personal.html progress bar & time */
       var pageBar = document.getElementById('pm-progress-bar');
       var pageCur = document.getElementById('pm-current-time');
       var pageDur = document.getElementById('pm-duration');
@@ -77,17 +94,16 @@
       nextTrack();
     });
 
-    /* If was playing before page navigation, attempt resume on first user interaction or immediately */
+    /* Auto-resume if was previously playing */
     if (state.isPlaying) {
-      var playPromise = audioEl.play();
-      if (playPromise !== undefined) {
-        playPromise.then(function () {
+      var p = audioEl.play();
+      if (p !== undefined) {
+        p.then(function () {
           muteAllOtherAudios();
           updateUI();
         }).catch(function () {
-          /* Autoplay policy fallback: resume on first user gesture */
           function resumeOnGesture() {
-            if (state.isPlaying) {
+            if (state.isPlaying && audioEl) {
               audioEl.play().then(function() {
                 muteAllOtherAudios();
                 updateUI();
@@ -103,23 +119,6 @@
         });
       }
     }
-  }
-
-  function saveState() {
-    try {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
-        trackIndex: state.trackIndex,
-        isPlaying: state.isPlaying,
-        currentTime: state.currentTime
-      }));
-    } catch (e) {}
-  }
-
-  function formatTime(sec) {
-    if (isNaN(sec) || sec < 0) return "0:00";
-    var m = Math.floor(sec / 60);
-    var s = Math.floor(sec % 60);
-    return m + ":" + (s < 10 ? "0" : "") + s;
   }
 
   /* ─────────────────────────────────────────────────────────────
@@ -155,7 +154,7 @@
     audioEl.play().then(function () {
       updateUI();
     }).catch(function (e) {
-      console.log('Playback error:', e);
+      console.warn('Playback error:', e);
     });
   }
 
@@ -199,81 +198,29 @@
     }
   }
 
-  /* ─────────────────────────────────────────────────────────────
-   * RENDER FLOATING BOTTOM-LEFT MINI WIDGET
-   * ───────────────────────────────────────────────────────────── */
-  function renderWidget() {
-    if (document.getElementById('gm-floating-widget')) return;
-    injectCSS();
-
-    widgetEl = document.createElement('div');
-    widgetEl.id = 'gm-floating-widget';
-    widgetEl.innerHTML = `
-      <div class="gm-widget-inner">
-        <!-- Album Art Thumbnail -->
-        <div class="gm-art-wrap">
-          <img src="${COVER_ART}" alt="Album Art" class="gm-art"/>
-          <div class="gm-art-overlay"></div>
-        </div>
-
-        <!-- Track Information -->
-        <div class="gm-info">
-          <div class="gm-title-row">
-            <span class="gm-title" id="gm-title">${PLAYLIST[state.trackIndex].title}</span>
-            <!-- Bouncing Equalizer -->
-            <div class="gm-eq ${state.isPlaying ? 'active' : ''}" id="gm-eq">
-              <span></span><span></span><span></span>
-            </div>
-          </div>
-          <span class="gm-artist" id="gm-artist">${PLAYLIST[state.trackIndex].artist}</span>
-        </div>
-
-        <!-- Mini Controls -->
-        <div class="gm-controls">
-          <button id="gm-prev" aria-label="Previous Track" class="gm-ctrl-btn">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
-          <button id="gm-play" aria-label="Play or Pause" class="gm-play-btn">
-            <svg id="gm-icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <svg id="gm-icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-          </button>
-          <button id="gm-next" aria-label="Next Track" class="gm-ctrl-btn">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
-        </div>
-
-        <!-- Progress Scrubber -->
-        <div class="gm-progress-bar-bg" id="gm-progress-bar-bg">
-          <div class="gm-progress-bar-fill" id="gm-progress-bar-fill"></div>
-        </div>
-      </div>
-    `;
-
-    document.body.appendChild(widgetEl);
-
-    /* Attach events to floating widget */
-    document.getElementById('gm-play').addEventListener('click', togglePlay);
-    document.getElementById('gm-prev').addEventListener('click', prevTrack);
-    document.getElementById('gm-next').addEventListener('click', nextTrack);
-
-    var progBg = document.getElementById('gm-progress-bar-bg');
-    if (progBg) {
-      progBg.addEventListener('click', function (e) {
-        if (!audioEl || !audioEl.duration) return;
-        var rect = progBg.getBoundingClientRect();
-        var pct = (e.clientX - rect.left) / rect.width;
-        audioEl.currentTime = pct * audioEl.duration;
-      });
+  function seekTo(ratio) {
+    if (audioEl && audioEl.duration) {
+      audioEl.currentTime = Math.max(0, Math.min(1, ratio)) * audioEl.duration;
     }
-
-    updateUI();
   }
 
-  function updateWidgetProgress() {
-    var fill = document.getElementById('gm-progress-bar-fill');
-    if (fill && audioEl && audioEl.duration) {
-      fill.style.width = ((audioEl.currentTime / audioEl.duration) * 100) + '%';
-    }
+  /* ─────────────────────────────────────────────────────────────
+   * NOTIFY LISTENERS
+   * ───────────────────────────────────────────────────────────── */
+  function onStateChange(fn) {
+    if (typeof fn === 'function') listeners.push(fn);
+  }
+
+  function notifyListeners() {
+    var s = {
+      isPlaying: state.isPlaying,
+      trackIndex: state.trackIndex,
+      track: PLAYLIST[state.trackIndex],
+      currentTime: state.currentTime
+    };
+    listeners.forEach(function (fn) {
+      try { fn(s); } catch (e) {}
+    });
   }
 
   /* ─────────────────────────────────────────────────────────────
@@ -317,16 +264,100 @@
     if (pageArtist) pageArtist.textContent = track.artist;
 
     if (state.isPlaying) {
-      if (pagePlayIcon) pagePlayIcon.classList.add('hidden');
-      if (pagePauseIcon) pagePauseIcon.classList.remove('hidden');
+      if (pagePlayIcon) pagePlayIcon.style.display = 'none';
+      if (pagePauseIcon) pagePauseIcon.style.display = 'block';
       if (pageCard) pageCard.classList.add('pm-playing');
       if (vinylGlow) vinylGlow.style.opacity = '1';
     } else {
-      if (pagePlayIcon) pagePlayIcon.classList.remove('hidden');
-      if (pagePauseIcon) pagePauseIcon.classList.add('hidden');
+      if (pagePlayIcon) pagePlayIcon.style.display = 'block';
+      if (pagePauseIcon) pagePauseIcon.style.display = 'none';
       if (pageCard) pageCard.classList.remove('pm-playing');
       if (vinylGlow) vinylGlow.style.opacity = '0';
     }
+
+    notifyListeners();
+  }
+
+  function updateWidgetProgress() {
+    var fill = document.getElementById('gm-progress-bar-fill');
+    if (fill && audioEl && audioEl.duration) {
+      fill.style.width = ((audioEl.currentTime / audioEl.duration) * 100) + '%';
+    }
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * RENDER FLOATING BOTTOM-LEFT MINI WIDGET
+   * ───────────────────────────────────────────────────────────── */
+  function renderWidget() {
+    if (document.getElementById('gm-floating-widget')) return;
+    injectCSS();
+
+    widgetEl = document.createElement('div');
+    widgetEl.id = 'gm-floating-widget';
+    widgetEl.innerHTML = `
+      <div class="gm-widget-inner">
+        <!-- Album Art Thumbnail -->
+        <div class="gm-art-wrap">
+          <img src="${COVER_ART}" alt="Album Art" class="gm-art"/>
+          <div class="gm-art-overlay"></div>
+        </div>
+
+        <!-- Track Information -->
+        <div class="gm-info">
+          <div class="gm-title-row">
+            <span class="gm-title" id="gm-title">${PLAYLIST[state.trackIndex].title}</span>
+            <div class="gm-eq" id="gm-eq">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+          <span class="gm-artist" id="gm-artist">${PLAYLIST[state.trackIndex].artist}</span>
+        </div>
+
+        <!-- Mini Controls -->
+        <div class="gm-controls">
+          <button id="gm-prev" aria-label="Previous Track" class="gm-ctrl-btn">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+          
+          <button id="gm-play" aria-label="Toggle Play" class="gm-play-btn">
+            <svg id="gm-icon-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <svg id="gm-icon-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+          </button>
+
+          <button id="gm-next" aria-label="Next Track" class="gm-ctrl-btn">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+        </div>
+
+        <!-- Progress Scrubber -->
+        <div class="gm-progress-bar-bg" id="gm-progress-bar-bg">
+          <div class="gm-progress-bar-fill" id="gm-progress-bar-fill"></div>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(widgetEl);
+
+    /* Attach events to floating widget */
+    var btnPlay = document.getElementById('gm-play');
+    var btnPrev = document.getElementById('gm-prev');
+    var btnNext = document.getElementById('gm-next');
+    var progBg  = document.getElementById('gm-progress-bar-bg');
+
+    if (btnPlay) btnPlay.addEventListener('click', function(e) { e.preventDefault(); togglePlay(); });
+    if (btnPrev) btnPrev.addEventListener('click', function(e) { e.preventDefault(); prevTrack(); });
+    if (btnNext) btnNext.addEventListener('click', function(e) { e.preventDefault(); nextTrack(); });
+
+    if (progBg) {
+      progBg.addEventListener('click', function (e) {
+        if (!audioEl || !audioEl.duration) return;
+        var rect = progBg.getBoundingClientRect();
+        var pct = (e.clientX - rect.left) / rect.width;
+        seekTo(pct);
+      });
+    }
+
+    updateUI();
   }
 
   /* ─────────────────────────────────────────────────────────────
@@ -490,36 +521,51 @@
   }
 
   /* ─────────────────────────────────────────────────────────────
-   * BOOTSTRAP
+   * BOOTSTRAP & IN-PAGE EVENT WIRING
    * ───────────────────────────────────────────────────────────── */
-  function init() {
-    initAudio();
-    renderWidget();
-
-    /* Wire up in-page personal player controls if present */
+  function wireInPageControls() {
     var pagePlayBtn = document.getElementById('pm-play-btn');
     var pagePrevBtn = document.getElementById('pm-prev-btn');
     var pageNextBtn = document.getElementById('pm-next-btn');
     var pageProgContainer = document.getElementById('pm-progress-container');
 
     if (pagePlayBtn) {
-      pagePlayBtn.addEventListener('click', togglePlay);
+      pagePlayBtn.onclick = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        togglePlay();
+      };
     }
     if (pagePrevBtn) {
-      pagePrevBtn.addEventListener('click', prevTrack);
+      pagePrevBtn.onclick = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        prevTrack();
+      };
     }
     if (pageNextBtn) {
-      pageNextBtn.addEventListener('click', nextTrack);
+      pageNextBtn.onclick = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        nextTrack();
+      };
     }
     if (pageProgContainer) {
-      pageProgContainer.addEventListener('click', function (e) {
+      pageProgContainer.onclick = function (e) {
         if (!audioEl || !audioEl.duration) return;
         var rect = pageProgContainer.getBoundingClientRect();
         var clickX = e.clientX - rect.left;
         var pct = clickX / rect.width;
-        audioEl.currentTime = pct * audioEl.duration;
-      });
+        seekTo(pct);
+      };
     }
+  }
+
+  function init() {
+    initAudio();
+    renderWidget();
+    wireInPageControls();
+    updateUI();
   }
 
   if (document.readyState === 'loading') {
@@ -534,9 +580,20 @@
     pause: pause,
     toggle: togglePlay,
     next: nextTrack,
+    nextTrack: nextTrack,
     prev: prevTrack,
+    prevTrack: prevTrack,
+    seekTo: seekTo,
     setTrack: setTrack,
-    getState: function () { return state; }
+    onStateChange: onStateChange,
+    getState: function () {
+      return {
+        isPlaying: state.isPlaying,
+        trackIndex: state.trackIndex,
+        track: PLAYLIST[state.trackIndex],
+        currentTime: state.currentTime
+      };
+    }
   };
 
 })();

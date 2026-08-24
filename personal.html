@@ -423,140 +423,50 @@
   }
 </script>
 
-<style id="college-cinema-star-styles">
-.college-cinema-hero-btn {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 42px 18px 42px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, rgba(14, 14, 22, 0.96) 0%, rgba(6, 6, 10, 0.98) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    box-shadow: 0 14px 45px rgba(0, 0, 0, 0.9), 0 0 35px rgba(56, 189, 248, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    overflow: hidden;
-}
-.college-cinema-hero-btn:hover {
-    transform: translateY(-3px) scale(1.03);
-    border-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 255, 153, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    background: linear-gradient(135deg, rgba(22, 22, 34, 0.98) 0%, rgba(10, 10, 16, 0.99) 100%);
-}
-.cinema-star-badge {
-    font-family: monospace;
-    font-size: 0.62rem;
-    font-weight: 800;
-    letter-spacing: 0.28em;
-    color: #38bdf8;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
-}
-.cinema-hero-main-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-.cinema-hero-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: #ffffff;
-    transition: transform 0.3s ease, background 0.3s, border-color 0.3s, box-shadow 0.3s;
-}
-.college-cinema-hero-btn:hover .cinema-hero-icon {
-    transform: rotate(15deg) scale(1.1);
-    background: rgba(0, 255, 153, 0.2);
-    border-color: #00ff99;
-    box-shadow: 0 0 20px rgba(0, 255, 153, 0.6);
-    color: #00ff99;
-}
-.cinema-hero-title {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 1.35rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #ffffff;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-}
-.cinema-hero-arrow {
-    font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.6);
-    transition: transform 0.3s ease, color 0.3s;
-}
-.college-cinema-hero-btn:hover .cinema-hero-arrow {
-    transform: translateX(6px);
-    color: #00ff99;
-    text-shadow: 0 0 10px #00ff99;
-}
-.cinema-hero-sub {
-    font-family: monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
-    color: rgba(255, 255, 255, 0.55);
-    text-transform: uppercase;
-    margin-top: 8px;
-    text-align: center;
-}
-.college-cinema-hero-btn:hover .cinema-hero-sub {
-    color: rgba(255, 255, 255, 0.9);
-}
-</style>
+
 
 
 <style id="hobby-hud-styles">
   .hobby-card-container {
     position: relative;
-    border-radius: 24px;
-    height: 20rem;
-    width: 14rem;
+    border-radius: 16px;
+    height: 15rem;
+    width: 10.5rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     background-color: #0c0c10;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
     cursor: pointer;
     text-align: left;
   }
   @media (min-width: 768px) {
     .hobby-card-container {
-      height: 38rem;
-      width: 23rem;
-      border-radius: 28px;
+      height: 23.5rem;
+      width: 14.5rem;
+      border-radius: 20px;
     }
   }
   .hobby-card-container:hover {
     transform: translateY(-4px);
     border-color: rgba(255, 255, 255, 0.22);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
   }
   .hobby-hud-badge {
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px 14px;
-    border-radius: 9px;
+    padding: 8px 12px;
+    border-radius: 8px;
     background: rgba(10, 10, 14, 0.76);
     border: 1px solid rgba(255, 255, 255, 0.14);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
-    max-width: 90%;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    max-width: 92%;
     transition: border-color 0.3s ease, background 0.3s ease;
   }
   .hobby-card-container:hover .hobby-hud-badge {
@@ -565,26 +475,26 @@
   }
   .hobby-hud-category {
     font-family: -apple-system, BlinkMacSystemFont, "SF Mono", "Roboto Mono", monospace;
-    font-size: 0.62rem;
+    font-size: 0.58rem;
     font-weight: 600;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.52);
     line-height: 1;
   }
   .hobby-hud-title {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 1.15rem;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: -0.015em;
     color: #ffffff;
     line-height: 1.25;
-    margin-top: 4px;
+    margin-top: 3px;
   }
   @media (min-width: 768px) {
-    .hobby-hud-badge { padding: 12px 18px; border-radius: 10px; }
-    .hobby-hud-category { font-size: 0.68rem; letter-spacing: 0.24em; }
-    .hobby-hud-title { font-size: 1.45rem; margin-top: 5px; }
+    .hobby-hud-badge { padding: 10px 14px; border-radius: 9px; }
+    .hobby-hud-category { font-size: 0.62rem; letter-spacing: 0.22em; }
+    .hobby-hud-title { font-size: 1.25rem; margin-top: 4px; }
   }
 </style>
 
@@ -801,10 +711,10 @@
 
 <div class="pt-24 pb-20 flex flex-col items-center justify-center">
     <!-- Original Clean Write a Letter Button -->
-    <button class="px-4 py-2 rounded-md text-center relative overflow-hidden bg-white/95 text-black flex justify-center group/modal-btn shadow-md hover:bg-white transition cursor-pointer">
-        <span class="group-hover/modal-btn:translate-x-40 text-center transition duration-500 font-medium">Write a Letter</span>
-        <div class="-translate-x-40 group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition duration-500 text-white z-20">✉️</div>
-    </button>
+    <a href="./contact.html" class="px-5 py-2.5 rounded-md text-center relative overflow-hidden bg-white/95 text-black flex justify-center group/modal-btn shadow-md hover:bg-white transition cursor-pointer text-decoration-none">
+        <span class="group-hover/modal-btn:translate-x-40 text-center transition duration-500 font-medium text-sm">Write a Letter</span>
+        <div class="-translate-x-40 group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition duration-500 text-white z-20 text-base">✉️</div>
+    </a>
     <br><br>
 
     <!-- Star of the Show: College Cinema with Generous Spacing -->
@@ -969,9 +879,9 @@
     }
 })();
 </script>
-<div class="flex relative mt-20 flex-col gap-4 p-4" style="opacity: 1;"><div class="w-full absolute left-0 top-0 min-h-full pointer-events-none"><img src="./footer-grid.svg" alt="grid" class="w-full h-full opacity-50"></div><div class="flex justify-center relative z-10"><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"><div class="col-span-1"><div class="w-full lg:w-72  rounded-3xl border-accent bg-accent/15  p-4 "><div class="flex items-center justify-between"><p class="text-md font-bold text-foreground">Daily routine</p><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alarm-clock mt-1 text-muted-foreground"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M5 3 2 6"></path><path d="m22 6-3-3"></path><path d="M6.38 18.7 4 21"></path><path d="M17.64 18.67 20 21"></path></svg></div><div class="mt-3 flex flex-col gap-2"><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">6:00 AM</p><p class="text-xs font-medium text-muted-foreground">Wake up</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">8:00 AM</p><p class="text-xs font-medium text-muted-foreground">School/Work</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">5:00 PM</p><p class="text-xs font-medium text-muted-foreground">Gym</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">6:00 PM</p><p class="text-xs font-medium text-muted-foreground">Nap</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">7:00 PM</p><p class="text-xs font-medium text-muted-foreground">Music / Study / Friends</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">9:00 PM</p><p class="text-xs font-medium text-muted-foreground">Sleep</p></div></div></div></div></div><div class="col-span-1"><div class="h-auto w-full lg:w-72 rounded-3xl bg-zinc-900 p-4"><div class="text-md flex items-center justify-between gap-2 font-bold text-blue-400"><div class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell-dot"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M13.916 2.314A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.74 7.327A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673 9 9 0 0 1-.585-.665"></path><circle cx="18" cy="8" r="3"></circle></svg><p class="text-xl">Future plan</p></div><div class="flex h-4 w-4 items-center justify-center rounded-full bg-zinc-700 text-xs text-blue-400">10</div></div><div class="mt-1 overflow-hidden"><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Graduation</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Travel to abroad</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Master Piano</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Master Guitar</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Go Gym</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Read Books</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Learn Languages</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Learn Trading</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Make family happy</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Make friends happy</p></div></div></div></div><div class="flex flex-col gap-4"><div class="col-span-1">
+<div class="flex relative mt-20 flex-col gap-4 p-4" style="opacity: 1;"><div class="w-full absolute left-0 top-0 min-h-full pointer-events-none"><img src="./footer-grid.svg" alt="grid" class="w-full h-full opacity-50"></div><div class="flex justify-center relative z-10"><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"><div class="col-span-1"><div class="w-full lg:w-72  rounded-3xl border-accent bg-accent/15  p-4 "><div class="flex items-center justify-between"><p class="text-md font-bold text-foreground">Daily routine</p><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alarm-clock mt-1 text-muted-foreground"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M5 3 2 6"></path><path d="m22 6-3-3"></path><path d="M6.38 18.7 4 21"></path><path d="M17.64 18.67 20 21"></path></svg></div><div class="mt-3 flex flex-col gap-2"><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">6:00 AM</p><p class="text-xs font-medium text-muted-foreground">Wake up</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">8:00 AM</p><p class="text-xs font-medium text-muted-foreground">College/Work</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">5:00 PM</p><p class="text-xs font-medium text-muted-foreground">Gym</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">6:00 PM</p><p class="text-xs font-medium text-muted-foreground">Nap</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">7:00 PM</p><p class="text-xs font-medium text-muted-foreground">Music / Study / Friends</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">9:00 PM</p><p class="text-xs font-medium text-muted-foreground">Sleep</p></div></div></div></div></div><div class="col-span-1"><div class="h-auto w-full lg:w-72 rounded-3xl bg-zinc-900 p-4"><div class="text-md flex items-center justify-between gap-2 font-bold text-blue-400"><div class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell-dot"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M13.916 2.314A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.74 7.327A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673 9 9 0 0 1-.585-.665"></path><circle cx="18" cy="8" r="3"></circle></svg><p class="text-xl">Future plan</p></div><div class="flex h-4 w-4 items-center justify-center rounded-full bg-zinc-700 text-xs text-blue-400">10</div></div><div class="mt-1 overflow-hidden"><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Graduation</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Travel Travel Travel</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Master Piano</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Master Flute</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Go Gym</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Read Books</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Learn Languages</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Learn Trading</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Make family happy</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Make friends happy</p></div></div></div></div><div class="flex flex-col gap-4"><div class="col-span-1">
 <!-- Interactive Personnel Music Player -->
-<div class="h-[268px] w-full lg:w-72 flex flex-col justify-between rounded-3xl bg-gradient-to-bl from-indigo-950 via-slate-900 to-black border border-indigo-500/30 p-4 text-white shadow-[0_10px_35px_rgba(0,0,0,0.8)] relative overflow-hidden group">
+<div class="h-[275px] w-full lg:w-72 flex flex-col justify-between rounded-3xl bg-gradient-to-bl from-indigo-950/90 via-slate-900/95 to-black border border-indigo-500/30 p-4 text-white shadow-[0_12px_40px_rgba(0,0,0,0.85)] relative overflow-hidden group">
     
     <!-- Top Header: Album Art & Equalizer -->
     <div class="flex items-start justify-between">
@@ -981,7 +891,7 @@
         </div>
 
         <!-- Animated Music Equalizer Bars -->
-        <div class="flex items-end gap-1 h-8 px-2 py-1 rounded-lg bg-black/40 border border-white/10">
+        <div id="pm-equalizer" class="flex items-end gap-1 h-8 px-2.5 py-1.5 rounded-xl bg-black/50 border border-white/10">
             <span class="pm-bar pm-bar-1"></span>
             <span class="pm-bar pm-bar-2"></span>
             <span class="pm-bar pm-bar-3"></span>
@@ -990,15 +900,15 @@
     </div>
 
     <!-- Track Info -->
-    <div class="mt-2">
+    <div class="mt-1">
         <p id="pm-title" title="Him & I" class="line-clamp-1 w-full text-base font-bold leading-tight text-white font-sans">Him & I</p>
         <p id="pm-artist" title="G-Eazy & Halsey" class="line-clamp-1 text-xs font-semibold text-indigo-300/90 mt-0.5 font-mono">G-Eazy &amp; Halsey</p>
     </div>
 
     <!-- Interactive Progress Scrubber -->
     <div class="mt-1">
-        <div id="pm-progress-container" class="w-full h-1.5 bg-white/15 rounded-full cursor-pointer overflow-hidden relative group/prog">
-            <div id="pm-progress-bar" class="h-full bg-gradient-to-r from-indigo-400 to-sky-400 w-0 rounded-full transition-all duration-100"></div>
+        <div id="pm-progress-container" class="w-full h-2 bg-white/15 hover:h-2.5 rounded-full cursor-pointer overflow-hidden relative group/prog transition-all duration-200">
+            <div id="pm-progress-bar" class="h-full bg-gradient-to-r from-indigo-400 via-sky-400 to-cyan-300 w-0 rounded-full transition-all duration-75"></div>
         </div>
         <div class="flex justify-between items-center text-[0.65rem] font-mono text-white/50 mt-1">
             <span id="pm-current-time">0:00</span>
@@ -1006,40 +916,83 @@
         </div>
     </div>
 
-    <!-- Player Controls -->
-    <div class="flex items-center justify-center gap-6 mt-1">
-        <!-- Previous Track -->
-        <button id="pm-prev-btn" aria-label="Previous Track" class="text-white/70 hover:text-white transition transform hover:scale-110 active:scale-95 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fill-current">
+    <!-- Visible, High-Contrast Premium Player Controls -->
+    <div class="flex items-center justify-center gap-5 mt-1">
+        <!-- Previous Track Button -->
+        <button id="pm-prev-btn" type="button" aria-label="Previous Track" class="pm-btn-circle">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
                 <polygon points="19 20 9 12 19 4 19 20"></polygon>
-                <line x1="5" x2="5" y1="19" y2="5"></line>
+                <line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></line>
             </svg>
         </button>
 
-        <!-- Play / Pause Toggle -->
-        <button id="pm-play-btn" aria-label="Play / Pause" class="w-11 h-11 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition cursor-pointer">
-            <svg id="pm-play-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="translate-x-0.5">
+        <!-- Play / Pause Button (Pure White Pill with Crisp Black Icon) -->
+        <button id="pm-play-btn" type="button" aria-label="Play / Pause" class="pm-play-main-btn">
+            <svg id="pm-play-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="display: block; margin-left: 2px;">
                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
             </svg>
-            <svg id="pm-pause-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
-                <rect x="6" y="4" width="4" height="16"></rect>
-                <rect x="14" y="4" width="4" height="16"></rect>
+            <svg id="pm-pause-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="display: none;">
+                <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                <rect x="14" y="4" width="4" height="16" rx="1"></rect>
             </svg>
         </button>
 
-        <!-- Next Track -->
-        <button id="pm-next-btn" aria-label="Next Track" class="text-white/70 hover:text-white transition transform hover:scale-110 active:scale-95 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fill-current">
+        <!-- Next Track Button -->
+        <button id="pm-next-btn" type="button" aria-label="Next Track" class="pm-btn-circle">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
                 <polygon points="5 4 15 12 5 20 5 4"></polygon>
-                <line x1="19" x2="19" y1="5" y2="19"></line>
+                <line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></line>
             </svg>
         </button>
     </div>
-
-    <audio id="pm-audio-element" preload="metadata"></audio>
 </div>
 
 <style>
+.pm-btn-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+.pm-btn-circle:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.25);
+}
+.pm-btn-circle:active {
+    transform: scale(0.95);
+}
+.pm-play-main-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 22px rgba(255, 255, 255, 0.5), 0 4px 14px rgba(0, 0, 0, 0.6);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+.pm-play-main-btn:hover {
+    transform: scale(1.12);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.75), 0 6px 18px rgba(0, 0, 0, 0.7);
+}
+.pm-play-main-btn:active {
+    transform: scale(0.94);
+}
+.pm-play-main-btn svg {
+    fill: #000000 !important;
+    color: #000000 !important;
+}
 .pm-bar {
     width: 3px;
     height: 4px;
@@ -1057,141 +1010,6 @@
     100% { height: 20px; background: #38bdf8; }
 }
 </style>
-
-<script>
-(function() {
-    'use strict';
-    
-    var PLAYLIST = [
-        { title: "Him & I", artist: "G-Eazy & Halsey", src: "./mp3_pernonnel_section/him_and_i.mp3" },
-        { title: "Piano Melody", artist: "Classical Solo", src: "./mp3_pernonnel_section/piano1.mp3" },
-        { title: "Yen Ayto", artist: "Kannada Track", src: "./mp3_pernonnel_section/yen-ayto.mp3" }
-    ];
-
-    var currentTrack = 0;
-    var audio = document.getElementById('pm-audio-element');
-    var playBtn = document.getElementById('pm-play-btn');
-    var playIcon = document.getElementById('pm-play-icon');
-    var pauseIcon = document.getElementById('pm-pause-icon');
-    var prevBtn = document.getElementById('pm-prev-btn');
-    var nextBtn = document.getElementById('pm-next-btn');
-    var titleEl = document.getElementById('pm-title');
-    var artistEl = document.getElementById('pm-artist');
-    var progressBar = document.getElementById('pm-progress-bar');
-    var progressContainer = document.getElementById('pm-progress-container');
-    var currentTimeEl = document.getElementById('pm-current-time');
-    var durationEl = document.getElementById('pm-duration');
-    var vinylGlow = document.getElementById('pm-vinyl-glow');
-
-    if (!audio || !playBtn) return;
-
-    function formatTime(seconds) {
-        if (isNaN(seconds) || seconds < 0) return "0:00";
-        var mins = Math.floor(seconds / 60);
-        var secs = Math.floor(seconds % 60);
-        return mins + ":" + (secs < 10 ? "0" : "") + secs;
-    }
-
-    function loadTrack(idx) {
-        currentTrack = (idx + PLAYLIST.length) % PLAYLIST.length;
-        var t = PLAYLIST[currentTrack];
-        audio.src = t.src;
-        titleEl.textContent = t.title;
-        titleEl.setAttribute('title', t.title);
-        artistEl.textContent = t.artist;
-        artistEl.setAttribute('title', t.artist);
-        progressBar.style.width = '0%';
-        currentTimeEl.textContent = "0:00";
-    }
-
-    function updatePlayState(isPlaying) {
-        var card = audio.closest('.h-\\[268px\\]') || audio.parentElement;
-        if (isPlaying) {
-            playIcon.classList.add('hidden');
-            pauseIcon.classList.remove('hidden');
-            if (card) card.classList.add('pm-playing');
-            if (vinylGlow) vinylGlow.style.opacity = '1';
-        } else {
-            playIcon.classList.remove('hidden');
-            pauseIcon.classList.add('hidden');
-            if (card) card.classList.remove('pm-playing');
-            if (vinylGlow) vinylGlow.style.opacity = '0';
-        }
-    }
-
-    function togglePlay() {
-        if (audio.paused) {
-            // Pause any global background ambient sound to avoid overlap
-            var bgAudio = document.getElementById('personal-bg-audio');
-            if (bgAudio && !bgAudio.paused) {
-                bgAudio.pause();
-                var sndBtn = document.getElementById('ambient-sound-btn');
-                if (sndBtn) {
-                    sndBtn.classList.add('off');
-                    var on = sndBtn.querySelector('.snd-on');
-                    var off = sndBtn.querySelector('.snd-off');
-                    if (on) on.style.display = 'none';
-                    if (off) off.style.display = '';
-                }
-            }
-
-            audio.play().then(function() {
-                updatePlayState(true);
-            }).catch(function(err) {
-                console.log('Play error:', err);
-            });
-        } else {
-            audio.pause();
-            updatePlayState(false);
-        }
-    }
-
-    playBtn.addEventListener('click', togglePlay);
-
-    nextBtn.addEventListener('click', function() {
-        loadTrack(currentTrack + 1);
-        audio.play().then(function() { updatePlayState(true); }).catch(function(){});
-    });
-
-    prevBtn.addEventListener('click', function() {
-        if (audio.currentTime > 3) {
-            audio.currentTime = 0;
-        } else {
-            loadTrack(currentTrack - 1);
-        }
-        audio.play().then(function() { updatePlayState(true); }).catch(function(){});
-    });
-
-    audio.addEventListener('timeupdate', function() {
-        if (!audio.duration) return;
-        var pct = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = pct + '%';
-        currentTimeEl.textContent = formatTime(audio.currentTime);
-        durationEl.textContent = formatTime(audio.duration);
-    });
-
-    audio.addEventListener('loadedmetadata', function() {
-        durationEl.textContent = formatTime(audio.duration);
-    });
-
-    audio.addEventListener('ended', function() {
-        loadTrack(currentTrack + 1);
-        audio.play().then(function() { updatePlayState(true); }).catch(function(){});
-    });
-
-    progressContainer.addEventListener('click', function(e) {
-        if (!audio.duration) return;
-        var rect = progressContainer.getBoundingClientRect();
-        var clickX = e.clientX - rect.left;
-        var width = rect.width;
-        var seekTime = (clickX / width) * audio.duration;
-        audio.currentTime = seekTime;
-    });
-
-    // Initialize first track
-    loadTrack(0);
-})();
-</script>
 <div class="col-span-1"><div class="group flex h-96 w-32 flex-col gap-1.5 rounded-md p-1">
     <div class="relative w-full rounded-md transition-all bg-blue-500/90 shadow-md" style="height:25%">
         <div class="absolute left-full top-1/2 size-4 -translate-y-1/2 translate-x-1 rotate-45 bg-blue-500"></div>

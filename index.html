@@ -531,97 +531,7 @@
         }
     </style>
 
-<style id="college-cinema-star-styles">
-.college-cinema-hero-btn {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 42px 18px 42px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, rgba(14, 14, 22, 0.96) 0%, rgba(6, 6, 10, 0.98) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    box-shadow: 0 14px 45px rgba(0, 0, 0, 0.9), 0 0 35px rgba(56, 189, 248, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    overflow: hidden;
-}
-.college-cinema-hero-btn:hover {
-    transform: translateY(-3px) scale(1.03);
-    border-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 255, 153, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    background: linear-gradient(135deg, rgba(22, 22, 34, 0.98) 0%, rgba(10, 10, 16, 0.99) 100%);
-}
-.cinema-star-badge {
-    font-family: monospace;
-    font-size: 0.62rem;
-    font-weight: 800;
-    letter-spacing: 0.28em;
-    color: #38bdf8;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
-}
-.cinema-hero-main-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-.cinema-hero-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: #ffffff;
-    transition: transform 0.3s ease, background 0.3s, border-color 0.3s, box-shadow 0.3s;
-}
-.college-cinema-hero-btn:hover .cinema-hero-icon {
-    transform: rotate(15deg) scale(1.1);
-    background: rgba(0, 255, 153, 0.2);
-    border-color: #00ff99;
-    box-shadow: 0 0 20px rgba(0, 255, 153, 0.6);
-    color: #00ff99;
-}
-.cinema-hero-title {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 1.35rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #ffffff;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-}
-.cinema-hero-arrow {
-    font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.6);
-    transition: transform 0.3s ease, color 0.3s;
-}
-.college-cinema-hero-btn:hover .cinema-hero-arrow {
-    transform: translateX(6px);
-    color: #00ff99;
-    text-shadow: 0 0 10px #00ff99;
-}
-.cinema-hero-sub {
-    font-family: monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
-    color: rgba(255, 255, 255, 0.55);
-    text-transform: uppercase;
-    margin-top: 8px;
-    text-align: center;
-}
-.college-cinema-hero-btn:hover .cinema-hero-sub {
-    color: rgba(255, 255, 255, 0.9);
-}
-</style>
+
 
 
 <style id="theater-star-theme-styles">
@@ -970,7 +880,7 @@
                                                 Developer | Pragmatic, delivery-oriented | Fintech &amp; Cloud |
                                                 India</div>
                                             <div class="flex flex-col xl:flex-row items-center gap-8"><a
-                                                    href="https://drive.google.com/file/d/1viAiuVqk0_Rj-5orO4ZnpaPVaTKhllIH/view?usp=sharing" target="_blank"
+                                                    href="https://drive.google.com/file/d/1FzR0fUxzvYWumlBLKyQTykdqe37YSbkV/view?usp=sharing" target="_blank"
                                                     class="group h-[56px] px-8 border border-accent rounded-full flex items-center justify-center gap-2 text-accent text-sm font-semibold uppercase tracking-[2px] hover:bg-accent hover:text-primary transition-all duration-200 focus:outline-none focus-visible:outline-none focus-visible:ring-0 relative z-10"
                                                     ><span>View CV</span><svg
                                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -3209,6 +3119,9 @@
 </script>
 
 <script>
+/* ============================================================
+   HERO PHOTO MOOD SWITCHER (Seamless Multi-Photo Toggle)
+   ============================================================ */
 (function () {
   var photos = [
     './images/saves-for-portfolio/me/ME.jpg',
@@ -3216,47 +3129,18 @@
     './images/meonsteroids.png'
   ];
   var current = 0;
-  var spinning = false;
+  var isFlipping = false;
 
-  // Inject transition styles
+  // Transition styles
   var style = document.createElement('style');
   style.textContent = `
     #hero-photo-img {
-      transition: opacity 0.02s ease, transform 0.03s cubic-bezier(0.55,0,0.45,1);
+      transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.34, 1.3, 0.64, 1);
       transform-origin: center center;
     }
-    #hero-photo-img.hero-fade-out {
+    #hero-photo-img.hero-photo-swapping {
       opacity: 0;
-      transform: scaleX(0.02) scaleY(0.98);
-    }
-    #hero-photo-img.hero-fade-in {
-      opacity: 0;
-      transform: scaleX(0.02) scaleY(0.98);
-      transition: none;
-    }
-    #hero-photo-img.hero-visible {
-      opacity: 1;
-      transform: scaleX(1) scaleY(1);
-      transition: opacity 0.03s ease, transform 0.04s cubic-bezier(0.34,1.3,0.64,1);
-    }
-    @keyframes nameBarIntro {
-      0%   { transform: scaleX(0); opacity: 1; }
-      45%  { transform: scaleX(1); opacity: 1; }
-      55%  { transform: scaleX(1); opacity: 1; }
-      100% { transform: scaleX(0); opacity: 0; }
-    }
-    #hero-name-bar.name-bar-intro {
-      transform-origin: left center;
-      animation: nameBarIntro 1.35s cubic-bezier(0.76,0,0.24,1) forwards;
-    }
-    @keyframes nameTextFlash {
-      0%   { color: inherit; }
-      45%  { color: var(--primary-color, #0f0f0f); }
-      55%  { color: var(--primary-color, #0f0f0f); }
-      100% { color: inherit; }
-    }
-    #hero-name-text.name-text-intro {
-      animation: nameTextFlash 1.35s cubic-bezier(0.76,0,0.24,1) forwards;
+      transform: scale(0.85) rotate(-6deg);
     }
   `;
   document.head.appendChild(style);
@@ -3264,9 +3148,11 @@
   function switchPhoto(forceTo) {
     var img = document.getElementById('hero-photo-img');
     var label = document.getElementById('hero-click-label');
-    if (!img || spinning) return;
-    spinning = true;
-    img.classList.add('hero-fade-out');
+    if (!img || isFlipping) return;
+    isFlipping = true;
+
+    img.classList.add('hero-photo-swapping');
+
     setTimeout(function () {
       if (typeof forceTo === 'number') {
         current = forceTo;
@@ -3274,53 +3160,49 @@
         current = (current + 1) % photos.length;
       }
       img.src = photos[current];
-      // fix object-position for ME.jpg
       img.style.objectPosition = current === 0 ? 'center 15%' : 'center center';
-      img.classList.remove('hero-fade-out');
-      img.classList.add('hero-fade-in');
-      void img.offsetWidth;
-      img.classList.remove('hero-fade-in');
-      img.classList.add('hero-visible');
+
       if (label) {
-        var hints = ['click me \uD83D\uDC40', 'click me \uD83D\uDE0E', 'click me \u26A1'];
+        var hints = ['click me 👀', 'click me 😎', 'click me ⚡'];
         label.textContent = hints[current % hints.length];
       }
+
       setTimeout(function () {
-        img.classList.remove('hero-visible');
-        spinning = false;
-      }, 40);
-    }, 20);
+        img.classList.remove('hero-photo-swapping');
+        isFlipping = false;
+      }, 50);
+    }, 180);
   }
 
-  function runIntroSlideshow() {
-    // Intro slideshow disabled: hero portrait stays still
-  }
-
-  function triggerNameBarIntro() {
-    var bar = document.getElementById('hero-name-bar');
-    var txt = document.getElementById('hero-name-text');
-    if (!bar || !txt) return;
-    setTimeout(function () {
-      bar.classList.add('name-bar-intro');
-      txt.classList.add('name-text-intro');
-      setTimeout(function () {
-        bar.classList.remove('name-bar-intro');
-        txt.classList.remove('name-text-intro');
-      }, 1500);
-    }, 300);
-  }
+  window.switchHeroPhoto = switchPhoto;
 
   function bindClickEvents() {
     var btn = document.getElementById('hero-photo-btn');
     var img = document.getElementById('hero-photo-img');
-    if (btn) btn.onclick = function () { switchPhoto(); };
-    if (img) img.onclick = function () { switchPhoto(); };
+    if (btn) {
+      btn.onclick = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        switchPhoto();
+      };
+    }
+    if (img) {
+      img.onclick = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        switchPhoto();
+      };
+    }
   }
 
-  // Fire hero animations only AFTER the loading screen has been dismissed
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindClickEvents);
+  } else {
+    bindClickEvents();
+  }
+
   document.addEventListener('portfolio:revealed', function () {
     bindClickEvents();
-    triggerNameBarIntro();
   });
 })();
 </script>

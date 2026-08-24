@@ -261,7 +261,7 @@
     var savedTheme = localStorage.getItem('preferred-theme') || 'default';
     if (savedTheme !== 'default' && savedTheme !== 'gray' && savedTheme !== 'darkgray' && savedTheme !== 'black') {
       if (document.body) {
-        document.body.setAttribute('data-theme', savedTheme);
+        if (document.body) { document.body.setAttribute('data-theme', savedTheme); } else { document.documentElement.setAttribute('data-theme', savedTheme); }
       } else {
         document.addEventListener('DOMContentLoaded', function() {
           if (document.body) document.body.setAttribute('data-theme', savedTheme);
@@ -422,6 +422,265 @@
     document.documentElement.classList.add('fast-load');
   }
 </script>
+
+<style id="college-cinema-star-styles">
+.college-cinema-hero-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 42px 18px 42px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(14, 14, 22, 0.96) 0%, rgba(6, 6, 10, 0.98) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 14px 45px rgba(0, 0, 0, 0.9), 0 0 35px rgba(56, 189, 248, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+.college-cinema-hero-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 255, 153, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    background: linear-gradient(135deg, rgba(22, 22, 34, 0.98) 0%, rgba(10, 10, 16, 0.99) 100%);
+}
+.cinema-star-badge {
+    font-family: monospace;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.28em;
+    color: #38bdf8;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+.cinema-hero-main-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.cinema-hero-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    transition: transform 0.3s ease, background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.college-cinema-hero-btn:hover .cinema-hero-icon {
+    transform: rotate(15deg) scale(1.1);
+    background: rgba(0, 255, 153, 0.2);
+    border-color: #00ff99;
+    box-shadow: 0 0 20px rgba(0, 255, 153, 0.6);
+    color: #00ff99;
+}
+.cinema-hero-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+.cinema-hero-arrow {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.6);
+    transition: transform 0.3s ease, color 0.3s;
+}
+.college-cinema-hero-btn:hover .cinema-hero-arrow {
+    transform: translateX(6px);
+    color: #00ff99;
+    text-shadow: 0 0 10px #00ff99;
+}
+.cinema-hero-sub {
+    font-family: monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    margin-top: 8px;
+    text-align: center;
+}
+.college-cinema-hero-btn:hover .cinema-hero-sub {
+    color: rgba(255, 255, 255, 0.9);
+}
+</style>
+
+
+<style id="hobby-hud-styles">
+  .hobby-card-container {
+    position: relative;
+    border-radius: 24px;
+    height: 20rem;
+    width: 14rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: #0c0c10;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+    cursor: pointer;
+    text-align: left;
+  }
+  @media (min-width: 768px) {
+    .hobby-card-container {
+      height: 38rem;
+      width: 23rem;
+      border-radius: 28px;
+    }
+  }
+  .hobby-card-container:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+  }
+  .hobby-hud-badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 14px;
+    border-radius: 9px;
+    background: rgba(10, 10, 14, 0.76);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+    max-width: 90%;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  .hobby-card-container:hover .hobby-hud-badge {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(12, 12, 18, 0.85);
+  }
+  .hobby-hud-category {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Mono", "Roboto Mono", monospace;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.52);
+    line-height: 1;
+  }
+  .hobby-hud-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-top: 4px;
+  }
+  @media (min-width: 768px) {
+    .hobby-hud-badge { padding: 12px 18px; border-radius: 10px; }
+    .hobby-hud-category { font-size: 0.68rem; letter-spacing: 0.24em; }
+    .hobby-hud-title { font-size: 1.45rem; margin-top: 5px; }
+  }
+</style>
+
+
+<style id="theater-star-theme-styles">
+  .theater-star-hero-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 36px 16px 36px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(14, 14, 20, 0.95) 0%, rgba(6, 6, 9, 0.98) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 14px 45px rgba(0, 0, 0, 0.9), 0 0 25px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+  }
+  .theater-star-hero-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    border-color: var(--theme-accent, #00ff99) !important;
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.95), 0 0 40px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, rgba(20, 20, 28, 0.98) 0%, rgba(10, 10, 15, 0.99) 100%);
+  }
+  .theater-star-badge {
+    font-family: monospace;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.26em;
+    color: var(--theme-accent, #00ff99);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    text-shadow: 0 0 10px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.6);
+  }
+  .theater-hero-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .theater-hero-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+    transition: transform 0.3s ease, background 0.3s, border-color 0.3s, color 0.3s;
+  }
+  .theater-star-hero-btn:hover .theater-hero-icon {
+    transform: rotate(12deg) scale(1.08);
+    background: rgba(var(--theme-accent-rgb, 0, 255, 153), 0.2);
+    border-color: var(--theme-accent, #00ff99);
+    color: var(--theme-accent, #00ff99);
+    box-shadow: 0 0 18px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.5);
+  }
+  .theater-hero-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
+  }
+  .theater-hero-arrow {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.55);
+    transition: transform 0.3s ease, color 0.3s;
+  }
+  .theater-star-hero-btn:hover .theater-hero-arrow {
+    transform: translateX(5px);
+    color: var(--theme-accent, #00ff99);
+    text-shadow: 0 0 10px var(--theme-accent, #00ff99);
+  }
+  .theater-hero-sub {
+    font-family: monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+    color: rgba(255, 255, 255, 0.52);
+    text-transform: uppercase;
+    margin-top: 6px;
+    text-align: center;
+  }
+  .theater-star-hero-btn:hover .theater-hero-sub {
+    color: rgba(255, 255, 255, 0.88);
+  }
+</style>
+
 </head><body class="__variable_c5dbd7" style="overflow: auto;">
 
 <!-- =========================================================
@@ -538,123 +797,145 @@
     </a>
         
         </div>
-</div></div><div></div><div class="overflow-hidden"><div class="  max-w-full overflow-hidden pointer-events-none absolute inset-0 h-full w-full" style="opacity: 1;"><div class="absolute top-0 left-0 w-screen h-screen z-40 pointer-events-none personal-beam-left" style=""><div style="transform:translateY(-350px) rotate(-45deg);background:radial-gradient(68.54% 68.72% at 55.02% 31.46%, hsla(210, 100%, 85%, .08) 0, hsla(210, 100%, 55%, .02) 50%, hsla(210, 100%, 45%, 0) 80%);width:560px;height:1380px" class="absolute top-0 left-0"></div><div style="transform:rotate(-45deg) translate(5%, -50%);background:radial-gradient(50% 50% at 50% 50%, hsla(210, 100%, 85%, .06) 0, hsla(210, 100%, 55%, .02) 80%, transparent 100%);width:240px;height:1380px" class="absolute top-0 left-0 origin-top-left"></div><div style="transform:rotate(-45deg) translate(-180%, -70%);background:radial-gradient(50% 50% at 50% 50%, hsla(210, 100%, 85%, .04) 0, hsla(210, 100%, 45%, .02) 80%, transparent 100%);width:240px;height:1380px" class="absolute top-0 left-0 origin-top-left"></div></div><div class="absolute top-0 right-0 w-screen h-screen z-40 pointer-events-none personal-beam-right" style=""><div style="transform:translateY(-350px) rotate(45deg);background:radial-gradient(68.54% 68.72% at 55.02% 31.46%, hsla(210, 100%, 85%, .08) 0, hsla(210, 100%, 55%, .02) 50%, hsla(210, 100%, 45%, 0) 80%);width:560px;height:1380px" class="absolute top-0 right-0"></div><div style="transform:rotate(45deg) translate(-5%, -50%);background:radial-gradient(50% 50% at 50% 50%, hsla(210, 100%, 85%, .06) 0, hsla(210, 100%, 55%, .02) 80%, transparent 100%);width:240px;height:1380px" class="absolute top-0 right-0 origin-top-right"></div><div style="transform:rotate(45deg) translate(180%, -70%);background:radial-gradient(50% 50% at 50% 50%, hsla(210, 100%, 85%, .04) 0, hsla(210, 100%, 45%, .02) 80%, transparent 100%);width:240px;height:1380px" class="absolute top-0 right-0 origin-top-right"></div></div></div><div class="bg-black-100 flex justify-center items-center flex-col w-full"><div class="w-full max-w-7xl mx-auto"><div style="opacity: 1;"><div class="h-auto place-content-center personal-section-enter pt-12 pb-2"><h2 class="personal-intro-hero font-medium max-w-7xl mx-auto text-center relative z-20 py-2 bg-clip-text text-transparent bg-gradient-to-b from-neutral-400 via-white to-white/80">Hello again &bull; My nickname is Krups</h2></div><div class="h-auto flex justify-center items-center px-4 pt-4 pb-10"><div class="personal-intro-stack personal-section-enter"><div class="personal-intro-krups">Krups is</div><div class="personal-intro-words-wrapper"><span>Curious</span><span>Disciplined</span><span>Peaceful</span><span>Creative</span></div></div></div><div class="py-40 flex items-center justify-center gap-5 flex-wrap">
-    <button class="px-4 py-2 rounded-md text-center relative overflow-hidden bg-white/95 text-black flex justify-center group/modal-btn">
-        <span class="group-hover/modal-btn:translate-x-40 text-center transition duration-500">Write a Letter</span>
+</div></div><div></div><div class="overflow-hidden"><div class="  max-w-full overflow-hidden pointer-events-none absolute inset-0 h-full w-full" style="opacity: 1;"><div class="absolute top-0 left-0 w-screen h-screen z-40 pointer-events-none personal-beam-left" style=""><div style="transform:translateY(-350px) rotate(-45deg);background:radial-gradient(68.54% 68.72% at 55.02% 31.46%, hsla(210, 100%, 85%, .08) 0, hsla(210, 100%, 55%, .02) 50%, hsla(210, 100%, 45%, 0) 80%);width:560px;height:1380px" class="absolute top-0 left-0"></div><div style="transform:rotate(-45deg) translate(5%, -50%);background:radial-gradient(50% 50% at 50% 50%, hsla(210, 100%, 85%, .06) 0, hsla(210, 100%, 55%, .02) 80%, transparent 100%);width:240px;height:1380px" class="absolute top-0 left-0 origin-top-left"></div><div style="transform:rotate(-45deg) translate(-180%, -70%);background:radial-gradient(50% 50% at 50% 50%, hsla(210, 100%, 85%, .04) 0, hsla(210, 100%, 45%, .02) 80%, transparent 100%);width:240px;height:1380px" class="absolute top-0 left-0 origin-top-left"></div></div><div class="absolute top-0 right-0 w-screen h-screen z-40 pointer-events-none personal-beam-right" style=""><div style="transform:translateY(-350px) rotate(45deg);background:radial-gradient(68.54% 68.72% at 55.02% 31.46%, hsla(210, 100%, 85%, .08) 0, hsla(210, 100%, 55%, .02) 50%, hsla(210, 100%, 45%, 0) 80%);width:560px;height:1380px" class="absolute top-0 right-0"></div><div style="transform:rotate(45deg) translate(-5%, -50%);background:radial-gradient(50% 50% at 50% 50%, hsla(210, 100%, 85%, .06) 0, hsla(210, 100%, 55%, .02) 80%, transparent 100%);width:240px;height:1380px" class="absolute top-0 right-0 origin-top-right"></div><div style="transform:rotate(45deg) translate(180%, -70%);background:radial-gradient(50% 50% at 50% 50%, hsla(210, 100%, 85%, .04) 0, hsla(210, 100%, 45%, .02) 80%, transparent 100%);width:240px;height:1380px" class="absolute top-0 right-0 origin-top-right"></div></div></div><div class="bg-black-100 flex justify-center items-center flex-col w-full"><div class="w-full max-w-7xl mx-auto"><div style="opacity: 1;"><div class="h-auto place-content-center personal-section-enter pt-12 pb-2"><h2 class="personal-intro-hero font-medium max-w-7xl mx-auto text-center relative z-20 py-2 bg-clip-text text-transparent bg-gradient-to-b from-neutral-400 via-white to-white/80">Hello again &bull; My nickname is Krups</h2></div><div class="h-auto flex justify-center items-center px-4 pt-4 pb-10"><div class="personal-intro-stack personal-section-enter"><div class="personal-intro-krups">Krups is</div><div class="personal-intro-words-wrapper"><span>Curious</span><span>Disciplined</span><span>Peaceful</span><span>Creative</span></div></div></div>
+
+<div class="pt-24 pb-20 flex flex-col items-center justify-center">
+    <!-- Original Clean Write a Letter Button -->
+    <button class="px-4 py-2 rounded-md text-center relative overflow-hidden bg-white/95 text-black flex justify-center group/modal-btn shadow-md hover:bg-white transition cursor-pointer">
+        <span class="group-hover/modal-btn:translate-x-40 text-center transition duration-500 font-medium">Write a Letter</span>
         <div class="-translate-x-40 group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition duration-500 text-white z-20">✉️</div>
     </button>
-    <button onclick="openCollegeCinema()" id="college-cinema-btn" class="college-cinema-btn" aria-label="Enter College Cinema 3D Sphere">
-        <span class="cinema-glow-effect"></span>
-        <span class="cinema-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                <path d="M2 12h20"></path>
-            </svg>
-        </span>
-        <span class="cinema-text-group">
-            <span class="cinema-main-title">COLLEGE CINEMA</span>
-            <span class="cinema-sub-badge">360° MEMORY SPHERE</span>
-        </span>
-        <span class="cinema-arrow">&#10140;</span>
-    </button>
-</div><div class=" flex  justify-center items-center px-4"></div></div>
+    <br><br>
+
+    <!-- Star of the Show: College Cinema with Generous Spacing -->
+    <div class="relative group/cinemastar mt-14 mb-16">
+        <div class="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 via-emerald-500 to-indigo-500 rounded-3xl blur-xl opacity-50 group-hover/cinemastar:opacity-100 transition duration-700 pointer-events-none"></div>
+        <button onclick="openCollegeCinema()" id="college-cinema-btn" class="theater-star-hero-btn" aria-label="Enter College Cinema 360 Memory Sphere">
+            <span class="theater-star-badge">★ STAR EXHIBIT &bull; 360&deg; MEMORY SPHERE ★</span>
+            <div class="theater-hero-row">
+                <span class="theater-hero-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        <path d="M2 12h20"></path>
+                    </svg>
+                </span>
+                <span class="theater-hero-title">COLLEGE CINEMA</span>
+                <span class="theater-hero-arrow">&#10140;</span>
+            </div>
+            <span class="theater-hero-sub">Step inside an infinite 3D spherical constellation of campus memories</span>
+        </button>
+    </div>
+</div>
+<div class=" flex  justify-center items-center px-4"></div></div>
 <!-- ============================================================
-     KRUPS' HOBBIES (Carousel with Gym + 5 Hobbies)
+     KRUPS' HOBBIES (Cinematic HUD Overlays + Smooth Scrolling)
      ============================================================ -->
-<div class="w-screen max-w-full py-16" style="opacity: 1;">
+<div class="w-screen max-w-full pt-6 pb-20" style="opacity: 1;">
     <div class="max-w-7xl mx-auto px-4 sm:px-8">
         <h2 class="text-3xl md:text-5xl font-bold text-neutral-200 font-sans tracking-tight">Krups' Hobbies</h2>
         <p class="text-sm md:text-base text-neutral-400 font-mono mt-2">Curious, active, and creative outside of code.</p>
     </div>
 
-    <div class="relative w-full">
-        <div id="hobbies-carousel" class="flex w-full overflow-x-scroll overscroll-x-auto py-10 md:py-20 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            <div class="absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l"></div>
-            <div class="flex flex-row justify-start gap-5 pl-4 sm:pl-8 max-w-7xl mx-auto pr-8">
+    <div class="relative w-full mt-6">
+        <div id="hobbies-carousel" class="flex w-full overflow-x-scroll overscroll-x-auto py-8 md:py-16 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <div class="absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l pointer-events-none"></div>
+            <div class="flex flex-row justify-start gap-6 md:gap-8 pl-4 sm:pl-8 max-w-7xl mx-auto pr-12">
                 
                 <!-- HOBBY 1: WATCHING CLOUDS -->
-                <div class="rounded-3xl personal-card-reveal shrink-0">
-                    <button class="rounded-3xl h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 text-left cursor-pointer group" style="background-color: rgb(18, 18, 24); opacity: 1;">
-                        <div class="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 z-30 pointer-events-none"></div>
-                        <div class="relative z-40 p-8">
-                            <span class="text-sky-400 text-xs md:text-sm font-semibold font-mono tracking-widest uppercase px-2.5 py-1 rounded-full bg-sky-400/10 border border-sky-400/20">NATURE</span>
-                            <p class="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-3">Watching Clouds</p>
+                <div class="personal-card-reveal shrink-0">
+                    <button class="hobby-card-container group" aria-label="Watching Clouds">
+                        <img alt="Watching Clouds" loading="lazy" decoding="async" class="transition duration-500 object-cover absolute z-10 inset-0 h-full w-full group-hover:scale-105" src="./images/cloud.jpg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none z-20"></div>
+                        <div class="relative z-30 w-full p-4 sm:p-6 flex flex-col justify-end">
+                            <div class="hobby-hud-badge">
+                                <span class="hobby-hud-category">NATURE</span>
+                                <h3 class="hobby-hud-title">Watching Clouds</h3>
+                            </div>
                         </div>
-                        <img alt="Watching Clouds" loading="lazy" decoding="async" class="transition duration-500 blur-[1px] group-hover:blur-none group-hover:scale-105 object-cover absolute z-10 inset-0 h-full w-full" src="./images/cloud.jpg">
                     </button>
                 </div>
 
                 <!-- HOBBY 2: KARATE -->
-                <div class="rounded-3xl personal-card-reveal shrink-0">
-                    <button class="rounded-3xl h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 text-left cursor-pointer group" style="background-color: rgb(18, 18, 24); opacity: 1;">
-                        <div class="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 z-30 pointer-events-none"></div>
-                        <div class="relative z-40 p-8">
-                            <span class="text-red-400 text-xs md:text-sm font-semibold font-mono tracking-widest uppercase px-2.5 py-1 rounded-full bg-red-400/10 border border-red-400/20">MARTIAL ARTS</span>
-                            <p class="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-3">Karate</p>
+                <div class="personal-card-reveal shrink-0">
+                    <button class="hobby-card-container group" aria-label="Karate">
+                        <img alt="Karate" loading="lazy" decoding="async" class="transition duration-500 object-cover absolute z-10 inset-0 h-full w-full group-hover:scale-105" src="./images/karate.jpg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none z-20"></div>
+                        <div class="relative z-30 w-full p-4 sm:p-6 flex flex-col justify-end">
+                            <div class="hobby-hud-badge">
+                                <span class="hobby-hud-category">MARTIAL ARTS</span>
+                                <h3 class="hobby-hud-title">Karate</h3>
+                            </div>
                         </div>
-                        <img alt="Karate" loading="lazy" decoding="async" class="transition duration-500 blur-[1px] group-hover:blur-none group-hover:scale-105 object-cover absolute z-10 inset-0 h-full w-full" src="./images/karate.jpg">
                     </button>
                 </div>
 
                 <!-- HOBBY 3: GAMING -->
-                <div class="rounded-3xl personal-card-reveal shrink-0">
-                    <button class="rounded-3xl h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 text-left cursor-pointer group" style="background-color: rgb(18, 18, 24); opacity: 1;">
-                        <div class="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 z-30 pointer-events-none"></div>
-                        <div class="relative z-40 p-8">
-                            <span class="text-purple-400 text-xs md:text-sm font-semibold font-mono tracking-widest uppercase px-2.5 py-1 rounded-full bg-purple-400/10 border border-purple-400/20">GAMING</span>
-                            <p class="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-3">Gaming</p>
+                <div class="personal-card-reveal shrink-0">
+                    <button class="hobby-card-container group" aria-label="Gaming">
+                        <img alt="Gaming" loading="lazy" decoding="async" class="transition duration-500 object-cover absolute z-10 inset-0 h-full w-full group-hover:scale-105" src="./images/gamezone.jpg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none z-20"></div>
+                        <div class="relative z-30 w-full p-4 sm:p-6 flex flex-col justify-end">
+                            <div class="hobby-hud-badge">
+                                <span class="hobby-hud-category">GAMING</span>
+                                <h3 class="hobby-hud-title">Gaming</h3>
+                            </div>
                         </div>
-                        <img alt="Gaming" loading="lazy" decoding="async" class="transition duration-500 blur-[1px] group-hover:blur-none group-hover:scale-105 object-cover absolute z-10 inset-0 h-full w-full" src="./images/gamezone.jpg">
                     </button>
                 </div>
 
                 <!-- HOBBY 4: FLUTE -->
-                <div class="rounded-3xl personal-card-reveal shrink-0">
-                    <button class="rounded-3xl h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 text-left cursor-pointer group" style="background-color: rgb(18, 18, 24); opacity: 1;">
-                        <div class="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 z-30 pointer-events-none"></div>
-                        <div class="relative z-40 p-8">
-                            <span class="text-emerald-400 text-xs md:text-sm font-semibold font-mono tracking-widest uppercase px-2.5 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/20">MUSIC</span>
-                            <p class="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-3">Flute &amp; Music</p>
+                <div class="personal-card-reveal shrink-0">
+                    <button class="hobby-card-container group" aria-label="Flute & Music">
+                        <img alt="Flute & Music" loading="lazy" decoding="async" class="transition duration-500 object-cover absolute z-10 inset-0 h-full w-full group-hover:scale-105" src="./images/flute.jpg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none z-20"></div>
+                        <div class="relative z-30 w-full p-4 sm:p-6 flex flex-col justify-end">
+                            <div class="hobby-hud-badge">
+                                <span class="hobby-hud-category">MUSIC</span>
+                                <h3 class="hobby-hud-title">Flute &amp; Music</h3>
+                            </div>
                         </div>
-                        <img alt="Flute & Music" loading="lazy" decoding="async" class="transition duration-500 blur-[1px] group-hover:blur-none group-hover:scale-105 object-cover absolute z-10 inset-0 h-full w-full" src="./images/flute.jpg">
                     </button>
                 </div>
 
                 <!-- HOBBY 5: TRAVEL -->
-                <div class="rounded-3xl personal-card-reveal shrink-0">
-                    <button class="rounded-3xl h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 text-left cursor-pointer group" style="background-color: rgb(18, 18, 24); opacity: 1;">
-                        <div class="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 z-30 pointer-events-none"></div>
-                        <div class="relative z-40 p-8">
-                            <span class="text-amber-400 text-xs md:text-sm font-semibold font-mono tracking-widest uppercase px-2.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/20">TRAVEL</span>
-                            <p class="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-3">Travel &amp; Exploring</p>
+                <div class="personal-card-reveal shrink-0">
+                    <button class="hobby-card-container group" aria-label="Travel & Exploring">
+                        <img alt="Travel & Exploring" loading="lazy" decoding="async" class="transition duration-500 object-cover absolute z-10 inset-0 h-full w-full group-hover:scale-105" src="./images/travel2.jpg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none z-20"></div>
+                        <div class="relative z-30 w-full p-4 sm:p-6 flex flex-col justify-end">
+                            <div class="hobby-hud-badge">
+                                <span class="hobby-hud-category">TRAVEL</span>
+                                <h3 class="hobby-hud-title">Travel &amp; Exploring</h3>
+                            </div>
                         </div>
-                        <img alt="Travel & Exploring" loading="lazy" decoding="async" class="transition duration-500 blur-[1px] group-hover:blur-none group-hover:scale-105 object-cover absolute z-10 inset-0 h-full w-full" src="./images/travel2.jpg">
                     </button>
                 </div>
 
-                <!-- HOBBY 6: FITNESS & GYM (KEPT) -->
-                <div class="last:pr-[5%] md:last:pr-[33%] rounded-3xl personal-card-reveal shrink-0">
-                    <button class="rounded-3xl h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 text-left cursor-pointer group" style="background-color: rgb(18, 18, 24); opacity: 1;">
-                        <div class="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 z-30 pointer-events-none"></div>
-                        <div class="relative z-40 p-8">
-                            <span class="text-indigo-400 text-xs md:text-sm font-semibold font-mono tracking-widest uppercase px-2.5 py-1 rounded-full bg-indigo-400/10 border border-indigo-400/20">FITNESS</span>
-                            <p class="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-3">Sports, Gym &amp; Running</p>
+                <!-- HOBBY 6: FITNESS & GYM -->
+                <div class="last:pr-[5%] md:last:pr-[25%] personal-card-reveal shrink-0">
+                    <button class="hobby-card-container group" aria-label="Sports, Gym & Running">
+                        <img alt="Sports, Gym & Running" loading="lazy" decoding="async" class="transition duration-500 object-cover absolute z-10 inset-0 h-full w-full group-hover:scale-105" src="./images/img_b591234a.jpg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none z-20"></div>
+                        <div class="relative z-30 w-full p-4 sm:p-6 flex flex-col justify-end">
+                            <div class="hobby-hud-badge">
+                                <span class="hobby-hud-category">FITNESS</span>
+                                <h3 class="hobby-hud-title">Sports, Gym &amp; Running</h3>
+                            </div>
                         </div>
-                        <img alt="Sports, Gym & Running" loading="lazy" decoding="async" class="transition duration-500 blur-[1px] group-hover:blur-none group-hover:scale-105 object-cover absolute z-10 inset-0 h-full w-full" src="./images/img_b591234a.jpg">
                     </button>
                 </div>
 
             </div>
         </div>
 
-        <!-- Scroll Buttons -->
-        <div class="flex justify-end gap-2 mr-10">
-            <button id="carousel-left-btn" aria-label="Scroll left" class="relative z-40 h-10 w-10 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center hover:bg-neutral-800 hover:border-neutral-700 transition cursor-pointer text-white">
-                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-gray-300" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path></svg>
+        <!-- Sleek Responsive Carousel Scroll Controls -->
+        <div class="flex justify-end gap-3 mr-6 sm:mr-12 mt-2">
+            <button id="carousel-left-btn" type="button" aria-label="Scroll left" class="relative z-40 h-10 w-10 md:h-12 md:w-12 rounded-xl bg-neutral-900/90 border border-white/15 flex items-center justify-center hover:bg-neutral-800 hover:border-white/35 active:scale-95 transition cursor-pointer text-white shadow-xl">
+                <svg stroke="currentColor" fill="none" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 text-gray-200" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
             </button>
-            <button id="carousel-right-btn" aria-label="Scroll right" class="relative z-40 h-10 w-10 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center hover:bg-neutral-800 hover:border-neutral-700 transition cursor-pointer text-white">
-                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 text-gray-300" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            <button id="carousel-right-btn" type="button" aria-label="Scroll right" class="relative z-40 h-10 w-10 md:h-12 md:w-12 rounded-xl bg-neutral-900/90 border border-white/15 flex items-center justify-center hover:bg-neutral-800 hover:border-white/35 active:scale-95 transition cursor-pointer text-white shadow-xl">
+                <svg stroke="currentColor" fill="none" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 text-gray-200" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
             </button>
         </div>
     </div>
@@ -662,20 +943,33 @@
 
 <script>
 (function() {
-    var carousel = document.getElementById('hobbies-carousel');
-    var btnL = document.getElementById('carousel-left-btn');
-    var btnR = document.getElementById('carousel-right-btn');
-    if (carousel && btnL && btnR) {
-        btnL.addEventListener('click', function() {
-            carousel.scrollBy({ left: -360, behavior: 'smooth' });
-        });
-        btnR.addEventListener('click', function() {
-            carousel.scrollBy({ left: 360, behavior: 'smooth' });
-        });
+    function initHobbiesCarousel() {
+        var carousel = document.getElementById('hobbies-carousel');
+        var btnL = document.getElementById('carousel-left-btn');
+        var btnR = document.getElementById('carousel-right-btn');
+        if (!carousel) return;
+        
+        if (btnL) {
+            btnL.onclick = function(e) {
+                e.preventDefault();
+                carousel.scrollBy({ left: -380, behavior: 'smooth' });
+            };
+        }
+        if (btnR) {
+            btnR.onclick = function(e) {
+                e.preventDefault();
+                carousel.scrollBy({ left: 380, behavior: 'smooth' });
+            };
+        }
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHobbiesCarousel);
+    } else {
+        initHobbiesCarousel();
     }
 })();
 </script>
-<div class="flex relative mt-20 flex-col gap-4 p-4" style="opacity: 1;"><div class="w-full absolute left-0 top-0 min-h-full pointer-events-none"><img src="./footer-grid.svg" alt="grid" class="w-full h-full opacity-50"></div><div class="flex justify-center relative z-10"><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"><div class="col-span-1"><div class="w-full lg:w-72  rounded-3xl border-accent bg-accent/15  p-4 "><div class="flex items-center justify-between"><p class="text-md font-bold text-foreground">Daily routine</p><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alarm-clock mt-1 text-muted-foreground"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M5 3 2 6"></path><path d="m22 6-3-3"></path><path d="M6.38 18.7 4 21"></path><path d="M17.64 18.67 20 21"></path></svg></div><div class="mt-3 flex flex-col gap-2"><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">6:00 AM</p><p class="text-xs font-medium text-muted-foreground">Wake up</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">8:00 AM</p><p class="text-xs font-medium text-muted-foreground">School/Work</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">5:00 PM</p><p class="text-xs font-medium text-muted-foreground">Gym</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">6:00 PM</p><p class="text-xs font-medium text-muted-foreground">Read books</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">7:00 PM</p><p class="text-xs font-medium text-muted-foreground">Piano &amp; Music</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">9:00 PM</p><p class="text-xs font-medium text-muted-foreground">Sleep</p></div></div></div></div></div><div class="col-span-1"><div class="h-auto w-full lg:w-72 rounded-3xl bg-zinc-900 p-4"><div class="text-md flex items-center justify-between gap-2 font-bold text-blue-400"><div class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell-dot"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M13.916 2.314A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.74 7.327A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673 9 9 0 0 1-.585-.665"></path><circle cx="18" cy="8" r="3"></circle></svg><p class="text-xl">Future plan</p></div><div class="flex h-4 w-4 items-center justify-center rounded-full bg-zinc-700 text-xs text-blue-400">10</div></div><div class="mt-1 overflow-hidden"><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Graduation</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Travel to abroad</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Master Piano</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Master Guitar</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Go Gym</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Read Books</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Learn Languages</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Learn Trading</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Make family happy</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Make friends happy</p></div></div></div></div><div class="flex flex-col gap-4"><div class="col-span-1">
+<div class="flex relative mt-20 flex-col gap-4 p-4" style="opacity: 1;"><div class="w-full absolute left-0 top-0 min-h-full pointer-events-none"><img src="./footer-grid.svg" alt="grid" class="w-full h-full opacity-50"></div><div class="flex justify-center relative z-10"><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"><div class="col-span-1"><div class="w-full lg:w-72  rounded-3xl border-accent bg-accent/15  p-4 "><div class="flex items-center justify-between"><p class="text-md font-bold text-foreground">Daily routine</p><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alarm-clock mt-1 text-muted-foreground"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M5 3 2 6"></path><path d="m22 6-3-3"></path><path d="M6.38 18.7 4 21"></path><path d="M17.64 18.67 20 21"></path></svg></div><div class="mt-3 flex flex-col gap-2"><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">6:00 AM</p><p class="text-xs font-medium text-muted-foreground">Wake up</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">8:00 AM</p><p class="text-xs font-medium text-muted-foreground">School/Work</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">5:00 PM</p><p class="text-xs font-medium text-muted-foreground">Gym</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">6:00 PM</p><p class="text-xs font-medium text-muted-foreground">Nap</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">7:00 PM</p><p class="text-xs font-medium text-muted-foreground">Music / Study / Friends</p></div></div><div class="flex items-center justify-between"><div class="flex-col justify-start tabular-nums"><p class="text-md font-bold text-foreground">9:00 PM</p><p class="text-xs font-medium text-muted-foreground">Sleep</p></div></div></div></div></div><div class="col-span-1"><div class="h-auto w-full lg:w-72 rounded-3xl bg-zinc-900 p-4"><div class="text-md flex items-center justify-between gap-2 font-bold text-blue-400"><div class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell-dot"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M13.916 2.314A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.74 7.327A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673 9 9 0 0 1-.585-.665"></path><circle cx="18" cy="8" r="3"></circle></svg><p class="text-xl">Future plan</p></div><div class="flex h-4 w-4 items-center justify-center rounded-full bg-zinc-700 text-xs text-blue-400">10</div></div><div class="mt-1 overflow-hidden"><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Graduation</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Travel to abroad</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Master Piano</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Master Guitar</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Go Gym</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Read Books</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Learn Languages</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Learn Trading</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Make family happy</p></div><div class="flex cursor-pointer items-center gap-3 border-b border-gray-700 py-1"><input type="checkbox" class="h-3 w-3 appearance-none rounded-full border-2 border-gray-700 checked:bg-blue-500"><p class="bg-transparent text-xs font-semibold capitalize text-white">Make friends happy</p></div></div></div></div><div class="flex flex-col gap-4"><div class="col-span-1">
 <!-- Interactive Personnel Music Player -->
 <div class="h-[268px] w-full lg:w-72 flex flex-col justify-between rounded-3xl bg-gradient-to-bl from-indigo-950 via-slate-900 to-black border border-indigo-500/30 p-4 text-white shadow-[0_10px_35px_rgba(0,0,0,0.8)] relative overflow-hidden group">
     
@@ -898,23 +1192,46 @@
     loadTrack(0);
 })();
 </script>
-<div class="col-span-1"><div class="group flex h-96 w-32 flex-col gap-1 rounded-md p-1"><div class="relative w-full rounded-md transition-all bg-blue-500" style="height:20%"><div class="absolute left-full top-1/2 size-4 -translate-y-1/2 translate-x-1 rotate-45 bg-blue-500"></div><div class="absolute left-full top-1/2 flex w-20 -translate-y-1/2 translate-x-3 justify-center rounded-md bg-blue-500"><div class="relative px-3 py-2 font-bold">+<!-- -->50</div></div><div class="flex h-full w-full items-center justify-center text-center text-lg font-bold">Books read</div></div><div class="relative w-full rounded-md transition-all bg-purple-500" style="height:20%"><div class="absolute left-full top-1/2 size-4 -translate-y-1/2 translate-x-1 rotate-45 bg-purple-500"></div><div class="absolute left-full top-1/2 flex w-20 -translate-y-1/2 translate-x-3 justify-center rounded-md bg-purple-500"><div class="relative px-3 py-2 font-bold">+<!-- -->300</div></div><div class="flex h-full w-full items-center justify-center text-center text-lg font-bold">Animes watched</div></div><div class="relative w-full rounded-md transition-all bg-red-500" style="height:20%"><div class="absolute left-full top-1/2 size-4 -translate-y-1/2 translate-x-1 rotate-45 bg-red-500"></div><div class="absolute left-full top-1/2 flex w-20 -translate-y-1/2 translate-x-3 justify-center rounded-md bg-red-500"><div class="relative px-3 py-2 font-bold">+<!-- -->200</div></div><div class="flex h-full w-full items-center justify-center text-center text-lg font-bold">Movies watched</div></div><div class="relative w-full rounded-md transition-all bg-green-500" style="height:20%"><div class="absolute left-full top-1/2 size-4 -translate-y-1/2 translate-x-1 rotate-45 bg-green-500"></div><div class="absolute left-full top-1/2 flex w-20 -translate-y-1/2 translate-x-3 justify-center rounded-md bg-green-500"><div class="relative px-3 py-2 font-bold">+<!-- -->20</div></div><div class="flex h-full w-full items-center justify-center text-center text-lg font-bold">Musics learned</div></div><div class="relative w-full rounded-md transition-all bg-yellow-500" style="height:20%"><div class="absolute left-full top-1/2 size-4 -translate-y-1/2 translate-x-1 rotate-45 bg-yellow-500"></div><div class="absolute left-full top-1/2 flex w-20 -translate-y-1/2 translate-x-3 justify-center rounded-md bg-yellow-500"><div class="relative px-3 py-2 font-bold">+<!-- -->1100</div></div><div class="flex h-full w-full items-center justify-center text-center text-lg font-bold">Kanji learned</div></div></div></div><div class="col-span-1"></div></div></div></div></div><div class="w-full mt-12"><div style="cursor:none;width:100%;display:block" class="relative [&amp;_*]:cursor-none w-full"><button class="bg-transparent relative text-xl p-[1px] overflow-hidden md:col-span-2 md:row-span-1 w-full" style="background:rgb(22, 22, 29);background-color:linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%);border-radius:calc(1.75rem* 0.96)"><div class="absolute inset-0 rounde-[1.75rem]" style="border-radius:calc(1.75rem * 0.96)"><svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" class="absolute h-full w-full" width="100%" height="100%"><rect fill="none" width="100%" height="100%" rx="30%" ry="30%"></rect></svg><div style="position: absolute; top: 0px; left: 0px; display: inline-block; transform: translateX(0px) translateY(393.445px) translateX(-50%) translateY(-50%);"><div class="h-20 w-20 opacity-[0.8] bg-[radial-gradient(#00ff99_40%,transparent_60%)]"></div></div></div><div class="relative bg-slate-900/[0.] border backdrop-blur-xl flex items-center justify-center h-full text-sm antialiased w-full text-white p-2 border-slate-800" style="border-radius:calc(1.75rem * 0.96)"><div class="h-96 md:h-[40rem] relative w-full overflow-hidden flex flex-col gap-4 items-center justify-center" style="background:linear-gradient(to bottom, rgb(15, 14, 26), rgb(20, 20, 32))"><div class="absolute left-0 top-20 m-auto h-14 w-px rounded-full personal-meteor-line" style="background: linear-gradient(to top, rgb(0, 255, 153), rgba(0, 255, 153, 0.5), transparent);"></div><div class="absolute z-50 h-2 w-2" style="left: 10.5px; top: 650px; transform: translate(-50%, -50%);"><div class="absolute -inset-x-10 top-0 m-auto h-2 w-10 rounded-full blur-sm" style="background: linear-gradient(to right, transparent, rgb(0, 255, 153), transparent); opacity: 1;"></div><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span></div><div class="absolute left-0 top-20 m-auto h-14 w-px rounded-full personal-meteor-line" style="background: linear-gradient(to top, rgb(0, 255, 153), rgba(0, 255, 153, 0.5), transparent);"></div><div class="absolute left-0 top-20 m-auto w-px rounded-full h-6 personal-meteor-line" style="background: linear-gradient(to top, rgb(0, 255, 153), rgba(0, 255, 153, 0.5), transparent);"></div><div class="absolute z-50 h-2 w-2" style="left: 100.5px; top: 658.857px; transform: translate(-50%, -50%);"><div class="absolute -inset-x-10 top-0 m-auto h-2 w-10 rounded-full blur-sm" style="background: linear-gradient(to right, transparent, rgb(0, 255, 153), transparent); opacity: 1;"></div><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span></div><div class="absolute left-0 top-20 m-auto h-14 w-px rounded-full personal-meteor-line" style="background: linear-gradient(to top, rgb(0, 255, 153), rgba(0, 255, 153, 0.5), transparent);"></div><div class="absolute left-0 top-20 m-auto w-px rounded-full h-20 personal-meteor-line" style="background: linear-gradient(to top, rgb(0, 255, 153), rgba(0, 255, 153, 0.5), transparent);"></div><div class="absolute z-50 h-2 w-2" style="left: 800.5px; top: 640.909px; transform: translate(-50%, -50%);"><div class="absolute -inset-x-10 top-0 m-auto h-2 w-10 rounded-full blur-sm" style="background: linear-gradient(to right, transparent, rgb(0, 255, 153), transparent); "></div><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span></div><div class="absolute left-0 top-20 m-auto w-px rounded-full h-12 personal-meteor-line" style="background: linear-gradient(to top, rgb(0, 255, 153), rgba(0, 255, 153, 0.5), transparent);"></div><div class="absolute z-50 h-2 w-2" style="left: 1000.5px; top: 650.5px; transform: translate(-50%, -50%);"><div class="absolute -inset-x-10 top-0 m-auto h-2 w-10 rounded-full blur-sm" style="background: linear-gradient(to right, transparent, rgb(0, 255, 153), transparent); "></div><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span><span class="absolute h-1 w-1 rounded-full personal-meteor-dot" style="background: linear-gradient(rgb(0, 255, 153), rgba(0, 255, 153, 0.7));"></span></div><div class="absolute left-0 top-20 m-auto w-px rounded-full h-6 personal-meteor-line" style="background: linear-gradient(to top, rgb(0, 255, 153), rgba(0, 255, 153, 0.5), transparent);"></div><h2 class="text-2xl relative z-20 md:text-4xl lg:text-7xl font-bold text-center text-white font-sans tracking-tight">For visiting my profile<br><div class="relative mx-auto inline-block w-max [filter:drop-shadow(0px_1px_3px_rgba(27,_37,_80,_0.14))]"><div class="absolute left-0 top-[1px] bg-clip-text bg-no-repeat text-transparent bg-gradient-to-r py-4 from-purple-500 via-violet-500 to-pink-500 [text-shadow:0_0_rgba(0,0,0,0.1)]"><span class="">Thank you.</span></div><div class="relative bg-clip-text text-transparent bg-no-repeat bg-gradient-to-r from-purple-500 via-violet-500 to-pink-500 py-4"><span class="">Thank you.</span></div></div></h2><div class="absolute bottom-0 w-full inset-x-0 pointer-events-none" style="background-color:rgb(20, 20, 32);box-shadow:0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"></div></div></div></button></div></div><footer class="relative overflow-hidden w-full pt-20 pb-10" id="contact"><div class="w-full absolute left-0 -bottom-72 min-h-96 pointer-events-none"><img src="./footer-grid.svg" alt="grid" class="w-full h-full opacity-50"></div><div class="flex mb-20 lg:mb-0 gap-y-5 mt-16 md:flex-row flex-col justify-between items-center relative z-10"><p class="md:text-base text-sm md:font-normal font-light">Bhavani Krupakara S</p><div class="flex gap-6"><a target="_blank" rel="noopener noreferrer" class="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500" data-state="closed" href="https://www.instagram.com/krupakarabhavani/"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></a><a target="_blank" rel="noopener noreferrer" class="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500" data-state="closed" href="https://www.youtube.com/@krupaintros3719"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path></svg></a><a target="_blank" rel="noopener noreferrer" class="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500" data-state="closed" href="https://www.linkedin.com/in/bhavanikrupa/"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg></a><a target="_blank" rel="noopener noreferrer" class="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500" data-state="closed" href="https://github.com/bks717"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a></div></div></footer></div></div></div><!--$--><!--/$--></div><div role="region" aria-label="Notifications (F8)" tabindex="-1" style="pointer-events:none"><ol tabindex="-1" class="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]"></ol></div><!--$--><!--/$--><title>Personal | Bhavani Krupakara S</title><meta name="description" content="I like to stay active. New hobbies are added almost every year."><link rel="author" href="https://krupakara.com"><meta name="author" content="Bhavani Krupakara S"><meta name="keywords" content="Bhavani Krupakara S,Software Engineer,Full Stack Developer,Backend Engineer,Frontend Developer,React,Next.js,Node.js,MongoDB,PostgreSQL,TypeScript,JavaScript,Web Developer,Portfolio,India Developer,API Development,Microservices,Stock Exchange System,Mining Auction System,Bond Market"><meta name="creator" content="Bhavani Krupakara S"><meta name="publisher" content="Bhavani Krupakara S"><meta name="robots" content="index, follow"><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"><meta name="category" content="technology"><link rel="canonical" href="https://krupakara.com/en/personal"><link rel="alternate" hreflang="en" href="https://krupakara.com/en/personal"><link rel="alternate" hreflang="mn" href="https://krupakara.com/mn/personal"><link rel="alternate" hreflang="ja" href="https://krupakara.com/jp/personal"><meta name="format-detection" content="telephone=no, address=no, email=no"><meta property="og:title" content="Personal - Bhavani Krupakara S"><meta property="og:description" content="I like to stay active. New hobbies are added almost every year."><meta property="og:url" content="https://krupakara.com/en/personal"><meta property="og:type" content="website"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Personal - Bhavani Krupakara S"><meta name="twitter:description" content="I like to stay active. New hobbies are added almost every year.">
-<next-route-announcer style="position: absolute;"></next-route-announcer><script id="personal-carousel-script">
-(function () {
-  var row = document.querySelector('.overflow-x-scroll .flex.flex-row.justify-start.gap-4');
-  if (!row) return;
-  var scroller = row.closest('.overflow-x-scroll');
-  var buttons = document.querySelectorAll('.flex.justify-end.gap-2.mr-10 button');
-  if (buttons.length < 2 || !scroller) return;
-  buttons[0].disabled = false;
-  buttons[0].addEventListener('click', function () {
-    scroller.scrollBy({ left: -320, behavior: 'smooth' });
-  });
-  buttons[1].addEventListener('click', function () {
-    scroller.scrollBy({ left: 320, behavior: 'smooth' });
-  });
-})();
-</script>
+<div class="col-span-1"><div class="group flex h-96 w-32 flex-col gap-1.5 rounded-md p-1">
+    <div class="relative w-full rounded-md transition-all bg-blue-500/90 shadow-md" style="height:25%">
+        <div class="absolute left-full top-1/2 size-4 -translate-y-1/2 translate-x-1 rotate-45 bg-blue-500"></div>
+        <div class="absolute left-full top-1/2 flex w-20 -translate-y-1/2 translate-x-3 justify-center rounded-md bg-blue-500 shadow-md">
+            <div class="relative px-3 py-2 font-bold">+50</div>
+        </div>
+        <div class="flex h-full w-full items-center justify-center text-center text-sm font-bold">Books read</div>
+    </div>
+    <div class="relative w-full rounded-md transition-all bg-purple-500/90 shadow-md" style="height:25%">
+        <div class="absolute left-full top-1/2 size-4 -translate-y-1/2 translate-x-1 rotate-45 bg-purple-500"></div>
+        <div class="absolute left-full top-1/2 flex w-20 -translate-y-1/2 translate-x-3 justify-center rounded-md bg-purple-500 shadow-md">
+            <div class="relative px-3 py-2 font-bold">+300</div>
+        </div>
+        <div class="flex h-full w-full items-center justify-center text-center text-sm font-bold">Animes watched</div>
+    </div>
+    <div class="relative w-full rounded-md transition-all bg-red-500/90 shadow-md" style="height:25%">
+        <div class="absolute left-full top-1/2 size-4 -translate-y-1/2 translate-x-1 rotate-45 bg-red-500"></div>
+        <div class="absolute left-full top-1/2 flex w-20 -translate-y-1/2 translate-x-3 justify-center rounded-md bg-red-500 shadow-md">
+            <div class="relative px-3 py-2 font-bold">+200</div>
+        </div>
+        <div class="flex h-full w-full items-center justify-center text-center text-sm font-bold">Movies watched</div>
+    </div>
+    <div class="relative w-full rounded-md transition-all bg-emerald-500/90 shadow-md" style="height:25%">
+        <div class="absolute left-full top-1/2 size-4 -translate-y-1/2 translate-x-1 rotate-45 bg-emerald-500"></div>
+        <div class="absolute left-full top-1/2 flex w-20 -translate-y-1/2 translate-x-3 justify-center rounded-md bg-emerald-500 shadow-md">
+            <div class="relative px-3 py-2 font-bold text-lg leading-none">&infin;</div>
+        </div>
+        <div class="flex h-full w-full items-center justify-center text-center text-sm font-bold">Music heard</div>
+    </div>
+</div></div></div><div class="col-span-1"></div></div></div></div></div>
+<div class="w-full max-w-4xl mx-auto my-28 px-6 text-center">
+    <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white font-sans tracking-tight">
+        Thank you for visiting my profile.
+    </h2>
+    <p class="text-neutral-400 font-mono text-xs md:text-sm mt-4 tracking-widest uppercase">
+        Bhavani Krupakara S &bull; 2026
+    </p>
+</div>
+<footer class="relative overflow-hidden w-full pt-20 pb-10" id="contact"><div class="w-full absolute left-0 -bottom-72 min-h-96 pointer-events-none"><img src="./footer-grid.svg" alt="grid" class="w-full h-full opacity-50"></div><div class="flex mb-20 lg:mb-0 gap-y-5 mt-16 md:flex-row flex-col justify-between items-center relative z-10"><p class="md:text-base text-sm md:font-normal font-light">Bhavani Krupakara S</p><div class="flex gap-6"><a target="_blank" rel="noopener noreferrer" class="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500" data-state="closed" href="https://www.instagram.com/krupakarabhavani/"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></a><a target="_blank" rel="noopener noreferrer" class="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500" data-state="closed" href="https://www.youtube.com/@krupaintros3719"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path></svg></a><a target="_blank" rel="noopener noreferrer" class="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500" data-state="closed" href="https://www.linkedin.com/in/bhavanikrupa/"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg></a><a target="_blank" rel="noopener noreferrer" class="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500" data-state="closed" href="https://github.com/bks717"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a></div></div></footer></div></div></div><!--$--><!--/$--></div><div role="region" aria-label="Notifications (F8)" tabindex="-1" style="pointer-events:none"><ol tabindex="-1" class="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]"></ol></div><!--$--><!--/$--><title>Personal | Bhavani Krupakara S</title><meta name="description" content="I like to stay active. New hobbies are added almost every year."><link rel="author" href="https://krupakara.com"><meta name="author" content="Bhavani Krupakara S"><meta name="keywords" content="Bhavani Krupakara S,Software Engineer,Full Stack Developer,Backend Engineer,Frontend Developer,React,Next.js,Node.js,MongoDB,PostgreSQL,TypeScript,JavaScript,Web Developer,Portfolio,India Developer,API Development,Microservices,Stock Exchange System,Mining Auction System,Bond Market"><meta name="creator" content="Bhavani Krupakara S"><meta name="publisher" content="Bhavani Krupakara S"><meta name="robots" content="index, follow"><meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"><meta name="category" content="technology"><link rel="canonical" href="https://krupakara.com/en/personal"><link rel="alternate" hreflang="en" href="https://krupakara.com/en/personal"><link rel="alternate" hreflang="mn" href="https://krupakara.com/mn/personal"><link rel="alternate" hreflang="ja" href="https://krupakara.com/jp/personal"><meta name="format-detection" content="telephone=no, address=no, email=no"><meta property="og:title" content="Personal - Bhavani Krupakara S"><meta property="og:description" content="I like to stay active. New hobbies are added almost every year."><meta property="og:url" content="https://krupakara.com/en/personal"><meta property="og:type" content="website"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Personal - Bhavani Krupakara S"><meta name="twitter:description" content="I like to stay active. New hobbies are added almost every year.">
+<next-route-announcer style="position: absolute;"></next-route-announcer>
 
 <!-- Fast Streaming Ambient Music System -->
 <audio id="personal-bg-audio" src="./mp3_portfolio/cyber2-photosfinal.mp3" loop preload="auto"></audio>

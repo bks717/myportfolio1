@@ -536,44 +536,101 @@
 
 
 <style id="theater-star-theme-styles">
+  @keyframes theaterPulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+  @keyframes theaterBorderSheen {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .theater-ambient-glow {
+    background: radial-gradient(circle at 50% 50%, rgba(var(--theme-accent-rgb, 0, 255, 153), 0.35) 0%, rgba(var(--theme-accent-rgb, 0, 255, 153), 0.08) 55%, transparent 75%);
+    filter: blur(22px);
+  }
   .theater-star-hero-btn {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 18px 36px 16px 36px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, rgba(14, 14, 20, 0.95) 0%, rgba(6, 6, 9, 0.98) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 14px 45px rgba(0, 0, 0, 0.9), 0 0 25px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    width: 100%;
+    max-width: 480px;
+    padding: 16px 28px 14px 28px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(17, 20, 30, 0.88) 0%, rgba(9, 11, 18, 0.94) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 14px 40px -10px rgba(0, 0, 0, 0.85), 0 0 20px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     cursor: pointer;
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     overflow: hidden;
   }
+  .theater-star-hero-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(90deg, transparent, rgba(var(--theme-accent-rgb, 0, 255, 153), 0.5), transparent);
+    background-size: 200% 100%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.6;
+    transition: opacity 0.35s ease;
+    animation: theaterBorderSheen 6s ease infinite;
+    pointer-events: none;
+  }
   .theater-star-hero-btn:hover {
-    transform: translateY(-3px) scale(1.02);
-    border-color: var(--theme-accent, #00ff99) !important;
-    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.95), 0 0 40px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    background: linear-gradient(135deg, rgba(20, 20, 28, 0.98) 0%, rgba(10, 10, 15, 0.99) 100%);
+    transform: translateY(-3px) scale(1.015);
+    border-color: rgba(var(--theme-accent-rgb, 0, 255, 153), 0.6) !important;
+    box-shadow: 0 22px 55px -10px rgba(0, 0, 0, 0.95), 0 0 36px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, rgba(22, 26, 38, 0.94) 0%, rgba(12, 14, 24, 0.98) 100%);
+  }
+  .theater-star-hero-btn:hover::before {
+    opacity: 1;
   }
   .theater-star-badge {
-    font-family: monospace;
-    font-size: 0.62rem;
-    font-weight: 800;
-    letter-spacing: 0.26em;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
     color: var(--theme-accent, #00ff99);
     text-transform: uppercase;
-    margin-bottom: 6px;
-    text-shadow: 0 0 10px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.6);
+    padding: 3px 10px;
+    border-radius: 9999px;
+    background: rgba(var(--theme-accent-rgb, 0, 255, 153), 0.1);
+    border: 1px solid rgba(var(--theme-accent-rgb, 0, 255, 153), 0.25);
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+  }
+  .theater-pulse-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--theme-accent, #00ff99);
+    box-shadow: 0 0 8px var(--theme-accent, #00ff99);
+    animation: theaterPulseDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  .theater-star-hero-btn:hover .theater-star-badge {
+    background: rgba(var(--theme-accent-rgb, 0, 255, 153), 0.18);
+    border-color: rgba(var(--theme-accent-rgb, 0, 255, 153), 0.5);
+    box-shadow: 0 0 12px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.3);
   }
   .theater-hero-row {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
+    width: 100%;
   }
   .theater-hero-icon {
     display: flex;
@@ -581,49 +638,97 @@
     justify-content: center;
     width: 38px;
     height: 38px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     color: #ffffff;
-    transition: transform 0.3s ease, background 0.3s, border-color 0.3s, color 0.3s;
+    transition: transform 0.3s ease, background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+    flex-shrink: 0;
   }
   .theater-star-hero-btn:hover .theater-hero-icon {
-    transform: rotate(12deg) scale(1.08);
+    transform: rotate(6deg) scale(1.06);
     background: rgba(var(--theme-accent-rgb, 0, 255, 153), 0.2);
     border-color: var(--theme-accent, #00ff99);
     color: var(--theme-accent, #00ff99);
-    box-shadow: 0 0 18px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.5);
+    box-shadow: 0 0 18px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.45);
   }
   .theater-hero-title {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.22rem;
     font-weight: 800;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: #ffffff;
-    text-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
   }
   .theater-hero-arrow {
-    font-size: 1.15rem;
-    color: rgba(255, 255, 255, 0.55);
-    transition: transform 0.3s ease, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.6);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s, background 0.3s, border-color 0.3s;
+    flex-shrink: 0;
   }
   .theater-star-hero-btn:hover .theater-hero-arrow {
-    transform: translateX(5px);
+    transform: translateX(4px);
     color: var(--theme-accent, #00ff99);
-    text-shadow: 0 0 10px var(--theme-accent, #00ff99);
+    background: rgba(var(--theme-accent-rgb, 0, 255, 153), 0.15);
+    border-color: rgba(var(--theme-accent-rgb, 0, 255, 153), 0.4);
+    box-shadow: 0 0 10px rgba(var(--theme-accent-rgb, 0, 255, 153), 0.35);
   }
   .theater-hero-sub {
-    font-family: monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.16em;
-    color: rgba(255, 255, 255, 0.52);
-    text-transform: uppercase;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    color: rgba(255, 255, 255, 0.6);
     margin-top: 6px;
     text-align: center;
+    line-height: 1.4;
+    transition: color 0.3s ease;
   }
   .theater-star-hero-btn:hover .theater-hero-sub {
-    color: rgba(255, 255, 255, 0.88);
+    color: rgba(255, 255, 255, 0.9);
+  }
+  @media (max-width: 640px) {
+    .theater-star-hero-btn {
+      padding: 14px 18px 12px 18px;
+      border-radius: 16px;
+    }
+    .theater-star-badge {
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      padding: 2.5px 8px;
+    }
+    .theater-hero-title {
+      font-size: 1.02rem;
+      letter-spacing: 0.1em;
+    }
+    .theater-hero-icon {
+      width: 32px;
+      height: 32px;
+    }
+    .theater-hero-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+    .theater-hero-arrow {
+      width: 24px;
+      height: 24px;
+    }
+    .theater-hero-arrow svg {
+      width: 13px;
+      height: 13px;
+    }
+    .theater-hero-sub {
+      font-size: 0.62rem;
+      line-height: 1.35;
+    }
   }
 </style>
 
@@ -1698,23 +1803,28 @@
                         </h1>
 
                         <!-- Cinematic Project Theater Marquee Button -->
-                        
-
-<div class="flex flex-col justify-center items-center mt-8 mb-6">
-    <div class="relative group/theaterstar">
-        <div class="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 via-emerald-500 to-indigo-500 rounded-3xl blur-xl opacity-40 group-hover/theaterstar:opacity-90 transition duration-500 pointer-events-none"></div>
+                        <div class="flex flex-col justify-center items-center mt-8 mb-6 px-4 w-full">
+    <div class="relative group/theaterstar w-full max-w-[480px] flex justify-center">
+        <div class="absolute -inset-1 rounded-2xl opacity-40 group-hover/theaterstar:opacity-80 transition duration-500 pointer-events-none theater-ambient-glow"></div>
         <button onclick="openProjectTheater()" id="project-theater-main-btn" class="theater-star-hero-btn" aria-label="Enter 3D Project Theater">
-            <span class="theater-star-badge">★ STAR EXHIBIT &bull; 360&deg; 3D VOID ★</span>
+            <span class="theater-star-badge">
+                <span class="theater-pulse-dot"></span>
+                <span>3D SPATIAL VOID &bull; INTERACTIVE</span>
+            </span>
             <div class="theater-hero-row">
                 <span class="theater-hero-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
-                        <rect x="2" y="2" width="20" height="20" rx="3" stroke-dasharray="2 2"></rect>
-                        <path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 7h5M17 17h5"></path>
-                        <circle cx="12" cy="12" r="2.5" fill="currentColor"></circle>
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
                     </svg>
                 </span>
                 <span class="theater-hero-title">PROJECT THEATER</span>
-                <span class="theater-hero-arrow">&#10140;</span>
+                <span class="theater-hero-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </span>
             </div>
             <span class="theater-hero-sub">Enter a pitch-black infinite 3D spatial void of floating projects</span>
         </button>

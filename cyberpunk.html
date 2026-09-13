@@ -35,11 +35,14 @@
     </script>
 
     <style>
+        html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
         body {
             background-color: #0a0a0a;
             color: white;
             font-family: 'Rajdhani', sans-serif;
-            overflow-x: hidden;
         }
 
         /* Cyberpunk Glitch Effect */
@@ -124,6 +127,14 @@
             color: #0a0a0a;
         }
 
+        @media (max-width: 640px) {
+            .cyber-button {
+                padding: 0.75rem 1.75rem;
+                font-size: 0.95rem;
+                letter-spacing: 0.05em;
+            }
+        }
+
         /* Decorative accents */
         .accent-bar {
             background: #00ff99;
@@ -161,19 +172,31 @@
 
     <!-- Top Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-cyber-black/80 backdrop-blur-md border-b border-cyber-cyan/30">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-cyber-yellow font-bold text-2xl tracking-widest font-mono">
+        <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
+            <div class="text-cyber-yellow font-bold text-xl sm:text-2xl tracking-widest font-mono">
                 KRUPAKARA<span class="text-cyber-red">_</span>
             </div>
-            <div class="hidden md:flex gap-8 font-semibold uppercase tracking-wider">
-                <a href="#about" class="text-white hover:text-cyber-yellow transition-colors">About</a>
-                <a href="#experience" class="text-white hover:text-cyber-yellow transition-colors">Experience</a>
-                <a href="#projects" class="text-white hover:text-cyber-yellow transition-colors">Projects</a>
-                <a href="./index.html" class="text-cyber-cyan hover:text-white transition-colors">Exit Mode</a>
+            <div class="flex items-center gap-4">
+                <a href="./index.html" id="cyber-mobile-exit-btn" class="md:hidden inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-bold tracking-wider text-cyber-black bg-cyber-cyan hover:bg-cyber-yellow transition-all uppercase rounded-none border border-cyber-cyan shadow-[0_0_12px_rgba(0,255,153,0.4)] active:scale-95">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    EXIT
+                </a>
+                <div class="hidden md:flex gap-8 font-semibold uppercase tracking-wider">
+                    <a href="#about" class="text-white hover:text-cyber-yellow transition-colors">About</a>
+                    <a href="#experience" class="text-white hover:text-cyber-yellow transition-colors">Experience</a>
+                    <a href="#projects" class="text-white hover:text-cyber-yellow transition-colors">Projects</a>
+                    <a href="./index.html" class="text-cyber-cyan hover:text-white transition-colors">Exit Mode</a>
+                </div>
             </div>
         </div>
         <div class="h-[2px] w-full bg-cyber-red/50"></div>
     </nav>
+
+    <!-- Floating Cyberpunk Mobile Quick-Exit Chip (Fixed bottom-left) -->
+    <a href="./index.html" class="md:hidden fixed bottom-6 left-4 z-50 inline-flex items-center gap-2 px-3 py-2 bg-cyber-black/90 text-cyber-cyan border border-cyber-cyan/70 rounded-sm backdrop-blur-md font-mono text-xs font-bold tracking-wider shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_15px_rgba(0,255,153,0.35)] hover:bg-cyber-cyan hover:text-cyber-black transition-all active:scale-95">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>EXIT MODE</span>
+    </a>
 
     <!-- Hero Section -->
     <section class="relative min-h-screen bg-cyber-yellow flex items-center pt-20 overflow-hidden">
@@ -182,30 +205,30 @@
             <div class="w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
         </div>
         
-        <div class="container mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="pt-10">
-                <div class="flex items-center gap-4 mb-6">
-                    <span class="text-cyber-black font-mono font-bold tracking-widest border border-cyber-black px-2 py-1 text-sm">v2.0.77</span>
-                    <span class="text-cyber-red font-mono font-bold tracking-widest">/// UPLINK ESTABLISHED</span>
+        <div class="container mx-auto px-4 sm:px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="pt-6 sm:pt-10">
+                <div class="flex flex-wrap items-center gap-2 sm:gap-4 mb-4 sm:mb-6">
+                    <span class="text-cyber-black font-mono font-bold tracking-widest border border-cyber-black px-2 py-0.5 sm:py-1 text-xs sm:text-sm">v2.0.77</span>
+                    <span class="text-cyber-red font-mono font-bold tracking-widest text-xs sm:text-sm">/// UPLINK ESTABLISHED</span>
                 </div>
                 
-                <h1 class="text-6xl md:text-8xl font-black text-cyber-black leading-none mb-4 uppercase glitch-wrapper">
+                <h1 class="text-4xl sm:text-6xl md:text-8xl font-black text-cyber-black leading-tight sm:leading-none mb-4 uppercase glitch-wrapper break-words">
                     <span class="glitch" data-text="BHAVANI KRUPAKARA">BHAVANI KRUPAKARA</span>
                 </h1>
                 
-                <h2 class="text-2xl md:text-4xl font-bold text-cyber-black uppercase mb-8 tracking-wide">
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-bold text-cyber-black uppercase mb-6 sm:mb-8 tracking-wide">
                     IT Specialist & Full-Stack Developer
                 </h2>
                 
-                <p class="text-lg md:text-xl text-cyber-black/80 font-mono mb-10 max-w-xl">
+                <p class="text-base sm:text-lg md:text-xl text-cyber-black/80 font-mono mb-8 sm:mb-10 max-w-xl">
                     Pragmatic, delivery-oriented developer based in India. Specializing in full stack, Cloud platforms, and high-performance backend systems.
                 </p>
                 
-                <div class="flex flex-wrap gap-6">
-                    <a href="#contact" class="cyber-button text-lg">
+                <div class="flex flex-wrap gap-4 sm:gap-6">
+                    <a href="#contact" class="cyber-button text-base sm:text-lg">
                         INITIATE CONTACT
                     </a>
-                    <a href="#projects" class="cyber-button cyber-button-cyan text-lg !text-cyber-black !border-cyber-black hover:!text-cyber-cyan hover:!bg-cyber-black">
+                    <a href="#projects" class="cyber-button cyber-button-cyan text-base sm:text-lg !text-cyber-black !border-cyber-black hover:!text-cyber-cyan hover:!bg-cyber-black">
                         VIEW PROJECTS
                     </a>
                 </div>
@@ -238,7 +261,7 @@
      <section id="experience" class="py-24 bg-cyber-black bg-grid relative z-10 border-b border-cyber-cyan/20">
     <div class="container mx-auto px-6 max-w-5xl">
 
-        <h3 class="text-4xl font-bold text-cyber-yellow mb-2 uppercase">
+        <h3 class="text-2xl sm:text-4xl font-bold text-cyber-yellow mb-2 uppercase break-words">
             /// EXPERIENCE_LOG
         </h3>
         <div class="w-24 h-1 bg-cyber-red mb-12"></div>
@@ -311,7 +334,7 @@
     <!-- Projects Section -->
     <section id="projects" class="py-24 bg-cyber-dark relative z-10 border-b border-cyber-cyan/20">
         <div class="container mx-auto px-6 max-w-6xl">
-            <h3 class="text-4xl font-bold text-cyber-yellow mb-2 uppercase">/// DATA_ARCHIVES_PROJECTS</h3>
+            <h3 class="text-2xl sm:text-4xl font-bold text-cyber-yellow mb-2 uppercase break-words">/// DATA_ARCHIVES_PROJECTS</h3>
             <div class="w-24 h-1 bg-cyber-cyan mb-12"></div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -383,7 +406,7 @@
     <!-- Contact Section -->
     <section id="contact" class="py-24 bg-cyber-black relative z-10">
         <div class="container mx-auto px-6 max-w-4xl text-center">
-            <h3 class="text-5xl font-bold text-white mb-6 uppercase glitch-wrapper">
+            <h3 class="text-3xl sm:text-5xl font-bold text-white mb-6 uppercase glitch-wrapper break-words">
                 <span class="glitch text-white before:bg-cyber-black after:bg-cyber-black" data-text="TRANSMIT_SIGNAL">TRANSMIT_SIGNAL</span>
             </h3>
             <p class="text-gray-400 font-mono text-lg mb-10">

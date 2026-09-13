@@ -1,0 +1,632 @@
+/* ============================================================
+   MOBILE RESPONSIVE OVERRIDES
+   Portfolio Mobile Optimization
+   
+   This file ONLY adds responsive overrides via @media queries.
+   It does NOT modify or remove any existing desktop styles.
+   Load AFTER all other stylesheets for correct cascade priority.
+   ============================================================ */
+
+/* ──────────────────────────────────────────────────────────────
+   FIX: Header logo overlapping with floating nav on mobile
+   The "Krupakara ." header sits behind the centered nav pill.
+   On mobile, hide the header since nav pill IS the navigation.
+   ────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  header.py-8 {
+    padding-top: 3.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  header.py-8 .text-4xl {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   FIX: Sidebar toggle tab slightly overlapping content on mobile
+   Reduce its footprint on narrow viewports.
+   ────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #custom-theme-sidebar {
+    right: -4px !important;
+  }
+  #custom-theme-sidebar.open {
+    right: 0 !important;
+    width: 280px !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   0. GLOBAL — Prevent horizontal overflow everywhere
+   ────────────────────────────────────────────────────────────── */
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+*, *::before, *::after {
+  max-width: 100vw;
+}
+
+/* Prevent decorative images / SVGs from causing horizontal scroll */
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   1. TABLET & BELOW (≤ 768px)
+   ────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* 1A. Fix base font-size inflation.
+     The site has `html { font-size: 125% }` inline which makes
+     ALL rem-based Tailwind classes ~20% bigger, causing overflow. */
+  html {
+    font-size: 100% !important;
+  }
+
+  /* 1B. Hero section — prevent oversized image */
+  .hero-img-box {
+    width: 260px !important;
+    height: 260px !important;
+  }
+  .hero-svg-box {
+    width: 268px !important;
+    height: 268px !important;
+  }
+
+  /* 1C. Hero image wrapper — remove desktop margins */
+  .hero-image-wrapper {
+    margin-right: 0 !important;
+    transform: none !important;
+  }
+
+  /* 1D. Hero name — scale down the large name text */
+  #hero-name-span {
+    font-size: clamp(2.5rem, 10vw, 3.5rem) !important;
+  }
+
+  /* 1E. Hero subtitle role text */
+  .text-xl[style*="letter-spacing: 0.25em"] {
+    font-size: 0.75rem !important;
+  }
+
+  /* 1F. "Hello I'm" text */
+  h1.h1 span[style*="font-size: 2.5rem"] {
+    font-size: 1.5rem !important;
+  }
+
+  /* 1G. Hero stats bar — 2x2 grid on narrow */
+  .flex-wrap.gap-6 > .flex-1 {
+    flex: 0 0 calc(50% - 12px) !important;
+    min-width: calc(50% - 12px) !important;
+  }
+
+  /* 1H. Stats numbers smaller */
+  .text-4xl.font-extrabold {
+    font-size: 1.75rem !important;
+  }
+
+  /* 1I. Navigation bar — tighter on mobile */
+  .fixed.top-8 {
+    top: 0.5rem !important;
+    padding: 0 0.5rem !important;
+  }
+
+  /* 1J. Nav links — reduce min-width and padding */
+  .fixed.top-8 a.relative {
+    min-width: 64px !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* 1K. Header "Krupakara ." title */
+  header .text-4xl {
+    font-size: 1.5rem !important;
+  }
+
+  /* 1L. Section headings */
+  .heading {
+    font-size: 1.5rem !important;
+    word-break: break-word !important;
+  }
+
+  /* 1M. Education cards — auto height to prevent clipping */
+  .rounded-2xl[class*="h-[320px]"] {
+    height: auto !important;
+    min-height: 200px !important;
+  }
+
+  /* 1N. Bento grid — stack on mobile */
+  .grid.grid-cols-1.md\:grid-cols-6 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  /* 1O. Project cards — fix container overflow */
+  .project-card-3d {
+    width: 85vw !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 360px !important;
+  }
+
+  /* 1P. Project card inner — position fix */
+  .group\/pin > div[style*="perspective"] {
+    position: relative !important;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+  }
+
+  .group\/pin > div[style*="perspective"] > div[style*="translate(-50%"] {
+    position: relative !important;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+  }
+
+  /* 1Q. Project cards wrapper — stack vertically */
+  .flex-wrap.gap-16 {
+    gap: 2rem !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  /* 1R. Project card image containers */
+  .sm\:w-96 {
+    width: 80vw !important;
+    max-width: 380px !important;
+  }
+
+  /* 1S. Experience cards — prevent icon overflow */
+  .flex.items-center.mr-4 {
+    flex-wrap: wrap !important;
+  }
+
+  /* 1T. Experience section padding */
+  .flex.lg\:flex-row.flex-col.lg\:items-center.p-6 {
+    padding: 1rem !important;
+  }
+
+  /* 1U. Timeline "My Journey" — reduce left padding */
+  .relative.pl-20 {
+    padding-left: 3.5rem !important;
+  }
+
+  /* 1V. Timeline images */
+  .grid.grid-cols-2 img {
+    height: auto !important;
+    min-height: 60px !important;
+  }
+
+  /* 1W. Footer — stack on mobile */
+  footer .flex.md\:flex-row.flex-col {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 1rem !important;
+  }
+
+  /* 1X. Footer social icons — ensure tappable */
+  footer .flex.gap-6 a {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  /* 1Y. Footer CTA button */
+  footer button.relative.inline-flex {
+    width: 100% !important;
+  }
+
+  /* 1Z. "Peer through my Personal Life" button */
+  footer .inline-flex.items-center.justify-center.whitespace-nowrap {
+    white-space: normal !important;
+    text-align: center !important;
+    height: auto !important;
+    padding: 0.75rem 1.25rem !important;
+  }
+
+  /* 1AA. Theme sidebar — smaller on mobile */
+  #custom-theme-sidebar {
+    max-height: 70vh !important;
+    transform: translateY(-50%) scale(0.9) !important;
+  }
+
+  #custom-theme-sidebar.closed {
+    width: 48px !important;
+  }
+
+  #custom-theme-sidebar .sidebar-socials {
+    width: 48px !important;
+    min-width: 48px !important;
+    padding: 1rem 0 !important;
+    gap: 0.75rem !important;
+  }
+
+  #custom-theme-sidebar .sidebar-icon-btn {
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+  }
+
+  #sidebar-toggle {
+    width: 22px !important;
+    left: -22px !important;
+    height: 55px !important;
+  }
+
+  /* 1AB. Theater button — fit mobile */
+  .theater-star-hero-btn {
+    padding: 12px 20px 10px 20px !important;
+    border-radius: 14px !important;
+  }
+  .theater-hero-title {
+    font-size: 0.85rem !important;
+    letter-spacing: 0.1em !important;
+  }
+  .theater-star-badge {
+    font-size: 0.5rem !important;
+  }
+  .theater-hero-sub {
+    font-size: 0.48rem !important;
+  }
+
+  /* 1AC. Theater marquee button (nav) */
+  .theater-marquee-btn {
+    padding: 8px 14px 8px 12px !important;
+    gap: 8px !important;
+  }
+  .marquee-main-title {
+    font-size: 0.65rem !important;
+  }
+
+  /* 1AD. "Copy my email" button */
+  button.relative.inline-flex.h-12.z-\[999\] {
+    width: 100% !important;
+  }
+
+  /* 1AE. Bento card text truncation fix */
+  .font-sans.text-lg.lg\:text-3xl {
+    font-size: 1.1rem !important;
+    word-break: break-word !important;
+  }
+
+  /* 1AF. Tech stack pills — fit on mobile */
+  .lg\:py-4.lg\:px-3 {
+    padding: 0.35rem 0.5rem !important;
+    font-size: 0.65rem !important;
+  }
+
+  /* 1AG. Bento tech stack column — prevent right overflow */
+  .flex.gap-1.lg\:gap-5.w-fit.absolute {
+    position: relative !important;
+    right: auto !important;
+    margin-top: 1rem !important;
+  }
+
+  /* 1AH. Journey section left border */
+  .absolute.md\:left-8.left-8 {
+    left: 0.75rem !important;
+  }
+
+  /* 1AI. Journey year dots */
+  .sticky .h-10.absolute.left-3 {
+    left: 0 !important;
+  }
+
+  /* 1AJ. Three.js loader — ensure portrait image fits */
+  .real-portrait-img {
+    height: min(55vh, 380px) !important;
+    max-width: 85vw !important;
+    object-fit: cover !important;
+  }
+
+  /* 1AK. View CV button — full width on mobile */
+  a[href*="drive.google.com"].group {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* 1AL. Main container padding fix */
+  main.relative {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  /* 1AM. Max-width containers */
+  .max-w-6xl, .max-w-7xl, .max-w-5xl {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  /* 1AN. Prevent wide SVGs from overflowing */
+  .w-full.h-full.absolute img[alt="/grid.svg"],
+  .w-full.h-full.absolute img[alt="/b5.svg"] {
+    max-width: 100% !important;
+  }
+
+  /* 1AO. Experience logo images */
+  img[class*="lg:w-32"] {
+    width: 60px !important;
+  }
+
+  /* 1AP. "Explore more projects" button */
+  .flex.justify-center.items-center.mt-10 button {
+    font-size: 0.8rem !important;
+    padding: 0.5rem 1.25rem !important;
+  }
+
+  /* 1AQ. Section top margins — reduce on mobile */
+  #education1 {
+    margin-top: 2rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  /* 1AR. About / Short Profile top padding */
+  #about .heading {
+    padding-top: 2rem !important;
+  }
+
+  /* 1AS. Gradient background blob — contain it */
+  .gradients-container {
+    overflow: hidden !important;
+  }
+
+  /* 1AT. Footer bottom margin fix */
+  footer .mb-20 {
+    margin-bottom: 2rem !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   2. SMALL PHONES (≤ 430px)
+   ────────────────────────────────────────────────────────────── */
+@media (max-width: 430px) {
+
+  /* 2A. Hero image even smaller on small phones */
+  .hero-img-box {
+    width: 220px !important;
+    height: 220px !important;
+  }
+  .hero-svg-box {
+    width: 228px !important;
+    height: 228px !important;
+  }
+
+  /* 2B. Hero name — even tighter */
+  #hero-name-span {
+    font-size: clamp(2rem, 12vw, 3rem) !important;
+  }
+
+  /* 2C. Navigation — even more compact */
+  .fixed.top-8 a.relative {
+    min-width: 54px !important;
+    padding-left: 0.35rem !important;
+    padding-right: 0.35rem !important;
+    font-size: 0.65rem !important;
+  }
+
+  /* 2D. Stats — smaller numbers */
+  .text-4xl.font-extrabold {
+    font-size: 1.5rem !important;
+  }
+
+  /* 2E. Timeline left padding tighter */
+  .relative.pl-20 {
+    padding-left: 2.75rem !important;
+  }
+
+  /* 2F. Experience section */
+  .text-start.text-2xl.md\:text-3xl.font-bold {
+    font-size: 1.15rem !important;
+  }
+
+  /* 2G. Experience badge */
+  .text-accent.text-sm.md\:text-base.font-semibold {
+    font-size: 0.7rem !important;
+    padding: 0.2rem 0.5rem !important;
+  }
+
+  /* 2H. Experience description */
+  .text-start.text-white\/80.text-base.md\:text-lg {
+    font-size: 0.8rem !important;
+  }
+
+  /* 2I. Education heading icon + text */
+  .heading svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+  }
+
+  /* 2J. Education cards inner content */
+  .text-zinc-100.font-bold.tracking-wide.text-xl {
+    font-size: 1rem !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   3. VERY SMALL PHONES (≤ 375px)
+   ────────────────────────────────────────────────────────────── */
+@media (max-width: 375px) {
+
+  /* 3A. Hero image smallest */
+  .hero-img-box {
+    width: 190px !important;
+    height: 190px !important;
+  }
+  .hero-svg-box {
+    width: 198px !important;
+    height: 198px !important;
+  }
+
+  /* 3B. Hero name — most compact */
+  #hero-name-span {
+    font-size: 2rem !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  /* 3C. Navigation — ultra compact */
+  .fixed.top-8 a.relative {
+    min-width: 48px !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+    font-size: 0.6rem !important;
+  }
+
+  /* 3D. Nav container gap */
+  .fixed.top-8 .flex.items-center.justify-center {
+    gap: 0.25rem !important;
+    padding: 0.25rem 0.35rem !important;
+  }
+
+  /* 3E. Stats row — force single column at 320px */
+  .flex-wrap.gap-6 > .flex-1 {
+    flex: 0 0 100% !important;
+    min-width: 100% !important;
+  }
+
+  /* 3F. Very small stat numbers */
+  .text-4xl.font-extrabold {
+    font-size: 1.25rem !important;
+  }
+
+  /* 3G. Project card — more compact */
+  .project-card-3d {
+    width: 90vw !important;
+    min-height: 300px !important;
+  }
+
+  /* 3H. Timeline images — single column */
+  .grid.grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 3I. Footer buttons full width */
+  footer .inline-flex.items-center.justify-center.whitespace-nowrap {
+    font-size: 0.8rem !important;
+  }
+
+  /* 3J. Theme sidebar — minimal */
+  #custom-theme-sidebar.closed {
+    width: 40px !important;
+  }
+  #custom-theme-sidebar .sidebar-socials {
+    width: 40px !important;
+    min-width: 40px !important;
+  }
+  #custom-theme-sidebar .sidebar-icon-btn {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+  #sidebar-toggle {
+    width: 18px !important;
+    left: -18px !important;
+    height: 45px !important;
+    font-size: 0.7rem !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   4. TINIEST SCREENS (≤ 320px)
+   ────────────────────────────────────────────────────────────── */
+@media (max-width: 320px) {
+
+  /* 4A. Hero name ultra-compact */
+  #hero-name-span {
+    font-size: 1.75rem !important;
+  }
+
+  /* 4B. Hero description text */
+  .max-w-\[500px\].mb-9 {
+    font-size: 0.85rem !important;
+  }
+
+  /* 4C. Header title */
+  header .text-4xl {
+    font-size: 1.25rem !important;
+  }
+
+  /* 4D. Section headings */
+  .heading {
+    font-size: 1.25rem !important;
+  }
+
+  /* 4E. Nav — hide min-width */
+  .fixed.top-8 a.relative {
+    min-width: unset !important;
+    padding-left: 0.2rem !important;
+    padding-right: 0.2rem !important;
+    font-size: 0.55rem !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   5. TOUCH USABILITY — Minimum tap target sizes
+   ────────────────────────────────────────────────────────────── */
+@media (pointer: coarse) {
+  /* Ensure all interactive elements meet 44x44px minimum */
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Exception: inline text links and very small UI elements */
+  .text-accent[href],
+  span[onmouseover],
+  .color-dot {
+    min-height: unset;
+    min-width: unset;
+  }
+
+  /* Social icons in footer */
+  footer a[class*="w-9"] {
+    width: 44px !important;
+    height: 44px !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   6. WORD BREAK — Prevent long strings from breaking layout
+   ────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  h1, h2, h3, h4, p, span, a {
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    hyphens: auto !important;
+  }
+
+  /* Prevent overflow from lottie/svg animation containers */
+  div[role="button"][aria-label="animation"] {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   7. LANDSCAPE PHONES — Prevent hero from being too tall
+   ────────────────────────────────────────────────────────────── */
+@media (max-height: 500px) and (max-width: 900px) {
+  .hero-img-box {
+    width: 160px !important;
+    height: 160px !important;
+  }
+  .hero-svg-box {
+    width: 168px !important;
+    height: 168px !important;
+  }
+
+  .h-screen {
+    height: auto !important;
+    min-height: 100vh !important;
+  }
+}
